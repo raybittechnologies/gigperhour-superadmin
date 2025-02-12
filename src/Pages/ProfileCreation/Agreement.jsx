@@ -34,7 +34,7 @@ const Agreement = () => {
       setToken(token);
       try {
         const tokenData = jwtDecode(token);
-        setUser(tokenData);
+        setUser(tokenData.data);
       } catch (error) {
         console.error("Invalid token", error);
       }

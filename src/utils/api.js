@@ -13,4 +13,4 @@ export const createProfile = (data, token = null) =>
     headers: { Authorization: `Bearer ${token}` },
   });
 
-export const updateProfile = (data) => api.post("/user/new-profile", data);
+export const updateProfile = (data) => api.patch("/user/new-profile", data);
