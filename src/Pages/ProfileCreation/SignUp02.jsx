@@ -144,69 +144,126 @@
 
 
 
-
+import { useState } from "react";
 const SignUp = () => {
+
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+    country: "",
+    receiveUpdates: false,
+    agreeTerms: false,
+  });
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setFormData({
+      ...formData,
+      [name]: type === "checkbox" ? checked : value,
+    });
+  };
+
+  const googleLogin = async () => {
+    window.location.href = "http://localhost:5050/api/v1/auth/google/signup/client";
+  };
+
+  const appleLogin = async () => {
+    window.location.href = "http://localhost:5050/api/v1/auth/apple/signup/freelancer";
+  }
   return (
     <div className="flex flex-col md:flex-row justify-center items-center min-h-screen  p-6 gap-6">
       {/* Sign Up Section */}
-      <div className="backdrop-blur-3xl  p-[2rem] rounded-2xl  bg-gradient-to-b from-black/10 to-black/30 p-6 rounded-2xl shadow-lg  w-[576px]  left-[110px]">
-       
-        <form>
-          {/* Email Input */}
-          <label className="block text-gray-700">Email</label>
+      <div className="backdrop-blur-3xl p-[2rem] rounded-2xl bg-gradient-to-b from-black/10 to-black/30 shadow-lg w-[576px]">
+      <form>
+        <label className="block text-gray-700">Email</label>
+        <input
+          type="email"
+          name="email"
+          placeholder="Enter Your Email..."
+          value={formData.email}
+          onChange={handleChange}
+          className="w-full p-2 border border-gray-300 rounded-lg mb-3"
+        />
+
+        <label className="block text-gray-700">Password</label>
+        <div className="relative">
           <input
-            type="email"
-            placeholder="Enter Your Email..."
+            type="password"
+            name="password"
+            placeholder="Enter Your Password..."
+            value={formData.password}
+            onChange={handleChange}
             className="w-full p-2 border border-gray-300 rounded-lg mb-3"
           />
-          {/* Password Input with Eye Icon */}
-          <label className="block text-gray-700">Password</label>
-          <div className="relative">
-            <input
-              type="password"
-              placeholder="Enter Your Password..."
-              className="w-full p-2 border border-gray-300 rounded-lg mb-3"
-            />
-            <span className="absolute right-[70px] top-3 cursor-pointer">👁️</span>
-          </div>
-          {/* Country Selection Dropdown */}
-          <label className="block text-gray-700">Country</label>
-          <select className="w-full p-2 border border-gray-300 rounded-lg mb-3">
-            <option>Select Country</option>
-          </select>
-          {/* Checkbox for Updates */}
-          <div className="flex items-center mb-3">
-            <input type="checkbox" className="mr-2" />
-            <span className="text-sm text-gray-600">
-              Keep me updated with valuable jobs and exciting work opportunities.
-            </span>
-          </div>
-          {/* Checkbox for Terms and Conditions */}
-          <div className="flex items-center mb-4">
-            <input type="checkbox" className="mr-2" />
-            <span className="text-sm text-gray-600">
-              I acknowledge and agree to Product 1’s Terms of Service, including the User Agreement and Privacy Policy.
-            </span>
-          </div>
-          {/* Submit Button */}
-          <button className="w-full bg-orange-500 text-white py-2 rounded-lg hover:bg-orange-600">
-            Continue
-          </button>
-        </form>
-        {/* Social Login Buttons */}
-        <div className="flex justify-center mt-4 space-x-4">
-          <button className="flex items-center bg-white border border-gray-300 px-4 py-2 rounded-lg shadow-sm hover:bg-gray-100">
-            <span className="mr-2">🔴</span> Continue with Google
-          </button>
-          <button className="flex items-center bg-white border border-gray-300 px-4 py-2 rounded-lg shadow-sm hover:bg-gray-100">
-            <span className="mr-2">🍏</span> Continue with Apple
-          </button>
+          <span className="absolute right-[20px] top-3 cursor-pointer">👁️</span>
         </div>
-        {/* Link to Sign In */}
-        <p className="text-center text-sm text-gray-600 mt-4">
-          Already have an account? <a href="#" className="text-blue-500">Sign in</a>
-        </p>
+
+        <label className="block text-gray-700">Country</label>
+        <select
+          name="country"
+          value={formData.country}
+          onChange={handleChange}
+          className="w-full p-2 border border-gray-300 rounded-lg mb-3"
+        >
+          <option value="">Select Country</option>
+          <option value="India">India</option>
+          <option value="USA">USA</option>
+          <option value="Canada">Canada</option>
+        </select>
+
+        <div className="flex items-center mb-3">
+          <input
+            type="checkbox"
+            name="receiveUpdates"
+            checked={formData.receiveUpdates}
+            onChange={handleChange}
+            className="mr-2"
+          />
+          <span className="text-sm text-gray-600">
+            Keep me updated with valuable jobs and exciting work opportunities.
+          </span>
+        </div>
+
+        <div className="flex items-center mb-4">
+          <input
+            type="checkbox"
+            name="agreeTerms"
+            checked={formData.agreeTerms}
+            onChange={handleChange}
+            className="mr-2"
+          />
+          <span className="text-sm text-gray-600">
+            I acknowledge and agree to Product 1’s Terms of Service, including the User Agreement and Privacy Policy.
+          </span>
+        </div>
+
+        <button
+          type="submit"
+          className="w-full bg-orange-500 text-white py-2 rounded-lg hover:bg-orange-600"
+        >
+          Continue
+        </button>
+      </form>
+
+      <div className="flex justify-center mt-4 space-x-4">
+        <button
+          onClick={googleLogin}
+          className="flex items-center bg-white border border-gray-300 px-4 py-2 rounded-lg shadow-sm hover:bg-gray-100"
+        >
+          <span className="mr-2">🔴</span> Continue with Google
+        </button>
+        <button
+          onClick={appleLogin}
+          className="flex items-center bg-white border border-gray-300 px-4 py-2 rounded-lg shadow-sm hover:bg-gray-100"
+        >
+          <span className="mr-2">🍏</span> Continue with Apple
+        </button>
       </div>
+
+      <p className="text-center text-sm text-gray-600 mt-4">
+        Already have an account? <a href="#" className="text-blue-500">Sign in</a>
+      </p>
+    </div>
       {/* Freelance Card Section */}
       <div className="bg-orange-500 text-white p-6 rounded-3xl relative max-w-md">
         {/* Star Icon at Top Right */}
