@@ -1,6 +1,8 @@
 import axios from "axios";
 
-const BASE_URI = "http://localhost:5050/api/v1";
+// const BASE_URI = "http://localhost:5050/api/v1";
+const BASE_URI = "http://92.168.100.35:5050/api/v1";
+
 const api = axios.create({ baseURL: BASE_URI, withCredentials: true });
 
 export const loginGoogle = () => api.get("/auth/google");

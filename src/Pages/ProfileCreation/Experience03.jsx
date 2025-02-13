@@ -12,6 +12,7 @@ const Experience = () => {
 
   const handleSubmit = () => {
     if (!freelanceExp) return;
+
     updateProfile({ freelanceExp, profile_step: 1 }).then(
       () => {
         navigate("/goal");
@@ -36,6 +37,7 @@ const Experience = () => {
         >
           <input
             onChange={handleSelection}
+
             data-level={card.value}
             name="experience"
             type="radio"

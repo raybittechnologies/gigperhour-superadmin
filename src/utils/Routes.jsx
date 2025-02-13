@@ -1,5 +1,4 @@
 import { createBrowserRouter } from "react-router-dom";
-
 import Layout from "../ui/Layout";
 import Login from "../Pages/Auth/Login";
 import Welcome from "../Pages/User/Welcome";
@@ -32,5 +31,4 @@ const browserRoutes = createBrowserRouter([
     ],
   },
 ]);
-
 export default browserRoutes;
