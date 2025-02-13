@@ -10,9 +10,15 @@ export const loginGoogle = () => api.get("/auth/google");
 export const getUser = () => api.get("/user/getMe");
 
 //Profile creations
-export const createProfile = (data, token = null) =>
-  api.post("/user/create", data, {
+export const createProfile = async (data, token = null) =>
+  await api.post("/user/create", data, {
     headers: { Authorization: `Bearer ${token}` },
   });
 
-export const updateProfile = (data) => api.post("/user/new-profile", data);
+export const updateProfile = async (data) =>
+  await api.patch("/user/new-profile", data);
+
+export const getWorkCategories = async () => await api.get("/workCategory");
+
+export const getSpecialitiesByCategory = async (id) =>
+  await api.get(`/speciality/category/${id}`);

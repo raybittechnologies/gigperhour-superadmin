@@ -12,7 +12,8 @@ const Experience = () => {
 
   const handleSubmit = () => {
     if (!freelanceExp) return;
-    updateProfile({ freelanceExp, profile_setup: 1 }).then(
+
+    updateProfile({ freelanceExp, profile_step: 1 }).then(
       () => {
         navigate("/goal");
       },
@@ -36,10 +37,11 @@ const Experience = () => {
         >
           <input
             onChange={handleSelection}
-            type="radio"
-            name="experience"
-            value={card.label}
+
             data-level={card.value}
+            name="experience"
+            type="radio"
+            value={card.label}
             className="w-5 h-5 text-blue-500 focus:ring-blue-500"
           />
           <span className="text-gray-700">{card.label}</span>

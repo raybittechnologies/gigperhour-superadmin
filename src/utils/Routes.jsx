@@ -9,8 +9,9 @@ import Role from "../Pages/ProfileCreation/Role01";
 import SignUp from "../Pages/ProfileCreation/SignUp02";
 import Goal from "../Pages/ProfileCreation/Goal04";
 import Experience from "../Pages/ProfileCreation/Experience03";
-// import WorkPreference from "../Pages/ProfileCreation/WorkPreference05";
-// import Categories from "../Pages/ProfileCreation/Categories06";
+import WorkPreference from "../Pages/ProfileCreation/WorkPreference05";
+import Categories from "../Pages/ProfileCreation/Categories06";
+
 const browserRoutes = createBrowserRouter([
   {
     path: "/",
@@ -25,8 +26,8 @@ const browserRoutes = createBrowserRouter([
       { path: "/agreement", element: <Agreement /> },
       { path: "/experience", element: <Experience /> },
       { path: "/goal", element: <Goal /> },
-      // { path: "/work-preference", element: <WorkPreference /> },
-      // { path: "/categories", element: <Categories /> },
+      { path: "/work-preference", element: <WorkPreference /> },
+      { path: "/categories", element: <Categories /> },
     ],
   },
 ]);
