@@ -5,12 +5,12 @@ import Welcome from "../Pages/User/Welcome";
 import UserExists from "../Pages/Auth/UserExists";
 import LandingPage from "../Pages/home/LandingPage";
 import Agreement from "../Pages/ProfileCreation/Agreement";
-import Role from "../Pages/ProfileCreation/Role01";
-import SignUp from "../Pages/ProfileCreation/SignUp02";
-import Goal from "../Pages/ProfileCreation/Goal04";
-import Experience from "../Pages/ProfileCreation/Experience03";
-import WorkPreference from "../Pages/ProfileCreation/WorkPreference05";
-import Categories from "../Pages/ProfileCreation/Categories06";
+import Role from "../Pages/ProfileCreation/Role";
+import SignUp from "../Pages/ProfileCreation/SignUp";
+import Experience from "../Pages/ProfileCreation/Experience01";
+import Goal from "../Pages/ProfileCreation/Goal02";
+import WorkPreference from "../Pages/ProfileCreation/WorkPreference03";
+import Categories from "../Pages/ProfileCreation/Categories04";
 
 const browserRoutes = createBrowserRouter([
   {

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getWorkCategories } from "../../utils/api";
+import { getUserProfile, getWorkCategories } from "../../utils/api";
 import SubWorkCategories from "../../components/SubWorkCategories";
 
 const Categories = () => {
@@ -12,6 +12,15 @@ const Categories = () => {
         setCategories(data.data.data);
       },
       () => {}
+    );
+
+    getUserProfile(["services"]).then(
+      (res) => {
+        console.log(res);
+      },
+      (err) => {
+        console.error(err);
+      }
     );
   }, []);
 

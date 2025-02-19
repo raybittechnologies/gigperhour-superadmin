@@ -4,7 +4,7 @@ import { getSpecialitiesByCategory, updateProfile } from "../utils/api";
 
 const SubWorkCategories = ({ id }) => {
   const [subCats, setSubCats] = useState([]);
-  const [selctedSubCats, setSelectedSubCats] = useState([]);
+  const [selectedSubCats, setSelectedSubCats] = useState([]);
 
   useEffect(() => {
     getSpecialitiesByCategory(id).then(
@@ -16,18 +16,19 @@ const SubWorkCategories = ({ id }) => {
   }, [id]);
 
   const handleSubCatSelect = (e) => {
-    if (selctedSubCats.length >= 3 && e.target.checked) return;
     const subCat = e.target.value;
-    if (e.target.checked)
-      setSelectedSubCats((state) =>
-        state.includes(subCat)
-          ? state.filter((el) => el !== subCat)
-          : [...state, subCat]
-      );
+    if (e.target.checked) {
+      if (selectedSubCats.length >= 3) return;
+      setSelectedSubCats((state) => [...state, subCat]);
+    }
+    if (!e.target.checked) {
+      if (selectedSubCats.includes(subCat))
+        setSelectedSubCats((state) => state.filter((el) => el !== subCat));
+    }
   };
 
   const handleSubmit = () => {
-    updateProfile(selctedSubCats).then(
+    updateProfile({ services: selectedSubCats, profile_step: 4 }).then(
       () => {
         console.log("data saved");
       },
@@ -58,6 +59,7 @@ const SubWorkCategories = ({ id }) => {
           <span>{el.label}</span>
         </label>
       ))}
+      <button onClick={handleSubmit}>Submit</button>
     </div>
   );
 };
