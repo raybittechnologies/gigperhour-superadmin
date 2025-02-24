@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getUserProfile, updateProfile } from "../../utils/api";
 
+
 const Goal = () => {
   const navigate = useNavigate();
   const [freelanceGoals, setfreelanceGoal] = useState(null);
@@ -18,6 +19,7 @@ const Goal = () => {
       }
     );
   }, []);
+
 
   const handleSelection = (e) => {
     setfreelanceGoal(e.target.dataset.level);
@@ -50,6 +52,7 @@ const Goal = () => {
             type="radio"
             name="experience"
             checked={freelanceGoals === card.value}
+
             value={card.value}
             className="w-5 h-5 text-blue-500 focus:ring-blue-500"
           />

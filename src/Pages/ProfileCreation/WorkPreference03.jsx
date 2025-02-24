@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getUserProfile, updateProfile } from "../../utils/api";
+
 import { useNavigate } from "react-router-dom";
 
 const WorkPreference = () => {
@@ -30,7 +31,6 @@ const WorkPreference = () => {
     });
   };
 
-  console.log(modeOfWork);
 
   const handleSubmit = () => {
     if (Object.keys(modeOfWork).length < 1) return;
@@ -54,6 +54,7 @@ const WorkPreference = () => {
             onChange={handleCheck}
             type="checkbox"
             checked={modeOfWork?.[item.value] || false}
+
             name={item.value}
             value={item.value}
             className="w-5 h-5 text-green-500 focus:ring-green-500"

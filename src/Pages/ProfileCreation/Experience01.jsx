@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getUserProfile, updateProfile } from "../../utils/api";
+
 import { useNavigate } from "react-router-dom";
 
 const Experience = () => {
@@ -18,6 +19,7 @@ const Experience = () => {
       }
     );
   }, []);
+
 
   const handleSelection = (e) => {
     setfreelanceExp(e.target.dataset.level);

@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { getUserProfile, getWorkCategories } from "../../utils/api";
+
 import SubWorkCategories from "../../components/SubWorkCategories";
 
 const Categories = () => {
   const [categories, setCategories] = useState([]);
   const [subCat, setSubCat] = useState();
   const [selectedSubCats, setSelectedSubCats] = useState();
+
 
   useEffect(() => {
     getWorkCategories().then(
@@ -27,6 +29,7 @@ const Categories = () => {
         console.error(err);
       }
     );
+
   }, []);
 
   return (
@@ -59,6 +62,7 @@ const Categories = () => {
       {/* Right Sidebar */}
       {subCat ? (
         <SubWorkCategories id={subCat} alreadySelected={selectedSubCats} />
+
       ) : (
         <p>Click on a category to view sub cats</p>
       )}
