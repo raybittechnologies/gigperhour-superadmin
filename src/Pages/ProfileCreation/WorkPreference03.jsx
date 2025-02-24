@@ -6,24 +6,27 @@ const WorkPreference = () => {
   const navigate = useNavigate();
   const [modeOfWork, setModeOfWork] = useState({});
 
-  // useEffect(() => {
-  //   getUserProfile("modeOfWork").then(
-  //     (res) => {
-  //       if (res.data.data && res.data.data.modeOfWork) {
-  //         // setModeOfWork(res.data.data.modeOfWork);
-  //       }
-  //     },
-  //     (err) => {
-  //       console.error(err);
-  //     }
-  //   );
-  // }, []);
+  useEffect(() => {
+    getUserProfile("modeOfWork").then(
+      (res) => {
+        if (res.data.data && res.data.data.modeOfWork) {
+          setModeOfWork(res.data.data.modeOfWork);
+        }
+      },
+      (err) => {
+        console.error(err);
+      }
+    );
+  }, []);
 
   const handleCheck = (e) => {
     const checked = e.target.value;
     setModeOfWork((state) => {
-      state[checked] ? delete state[checked] : (state[checked] = true);
-      return state;
+      let prevState = { ...state };
+      prevState[checked]
+        ? delete prevState[checked]
+        : (prevState[checked] = true);
+      return { ...prevState };
     });
   };
 
@@ -50,7 +53,7 @@ const WorkPreference = () => {
           <input
             onChange={handleCheck}
             type="checkbox"
-            // checked={modeOfWork?.[item.value] || false}
+            checked={modeOfWork?.[item.value] || false}
             name={item.value}
             value={item.value}
             className="w-5 h-5 text-green-500 focus:ring-green-500"

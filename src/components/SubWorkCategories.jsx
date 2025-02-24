@@ -1,10 +1,13 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import { getSpecialitiesByCategory, updateProfile } from "../utils/api";
+import BottomNav from "./BottomNav";
+import { useNavigate } from "react-router-dom";
 
-const SubWorkCategories = ({ id }) => {
+const SubWorkCategories = ({ id, alreadySelected }) => {
   const [subCats, setSubCats] = useState([]);
-  const [selectedSubCats, setSelectedSubCats] = useState([]);
+  const [selectedSubCats, setSelectedSubCats] = useState(alreadySelected[0]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getSpecialitiesByCategory(id).then(
@@ -19,18 +22,30 @@ const SubWorkCategories = ({ id }) => {
     const subCat = e.target.value;
     if (e.target.checked) {
       if (selectedSubCats.length >= 3) return;
-      setSelectedSubCats((state) => [...state, subCat]);
+      setSelectedSubCats((state) => {
+        let tempState = [...state];
+
+        return [...tempState, subCat];
+      });
     }
     if (!e.target.checked) {
-      if (selectedSubCats.includes(subCat))
-        setSelectedSubCats((state) => state.filter((el) => el !== subCat));
+      if (selectedSubCats.includes(subCat)) {
+        setSelectedSubCats((state) => {
+          let tempState = [...state];
+          tempState = tempState.filter((el) => el !== subCat);
+          return tempState;
+        });
+      }
     }
   };
 
   const handleSubmit = () => {
-    updateProfile({ services: selectedSubCats, profile_step: 4 }).then(
+    updateProfile({
+      services: { [id]: selectedSubCats },
+      profile_step: 4,
+    }).then(
       () => {
-        console.log("data saved");
+        navigate("/skills");
       },
       (err) => {
         console.error(err);
@@ -54,12 +69,14 @@ const SubWorkCategories = ({ id }) => {
             type="checkbox"
             value={el.id}
             className="form-checkbox"
+            checked={selectedSubCats && selectedSubCats.includes(el.id)}
             onChange={handleSubCatSelect}
           />
           <span>{el.label}</span>
         </label>
       ))}
-      <button onClick={handleSubmit}>Submit</button>
+
+      <BottomNav onNext={handleSubmit} />
     </div>
   );
 };

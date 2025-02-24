@@ -11,6 +11,7 @@ import Experience from "../Pages/ProfileCreation/Experience01";
 import Goal from "../Pages/ProfileCreation/Goal02";
 import WorkPreference from "../Pages/ProfileCreation/WorkPreference03";
 import Categories from "../Pages/ProfileCreation/Categories04";
+import Skill from "../Pages/ProfileCreation/Skills05";
 
 const browserRoutes = createBrowserRouter([
   {
@@ -28,7 +29,9 @@ const browserRoutes = createBrowserRouter([
       { path: "/goal", element: <Goal /> },
       { path: "/work-preference", element: <WorkPreference /> },
       { path: "/categories", element: <Categories /> },
+      { path: "/skills", element: <Skill /> },
     ],
   },
 ]);
+
 export default browserRoutes;

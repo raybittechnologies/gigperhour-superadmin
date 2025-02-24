@@ -5,6 +5,7 @@ import SubWorkCategories from "../../components/SubWorkCategories";
 const Categories = () => {
   const [categories, setCategories] = useState([]);
   const [subCat, setSubCat] = useState();
+  const [selectedSubCats, setSelectedSubCats] = useState();
 
   useEffect(() => {
     getWorkCategories().then(
@@ -16,7 +17,11 @@ const Categories = () => {
 
     getUserProfile(["services"]).then(
       (res) => {
-        console.log(res);
+        if (res.data.data && res.data.data.services) {
+          const servicesId = Object.keys(res.data.data.services)[0];
+          setSubCat(servicesId);
+          setSelectedSubCats(Object.values(res.data.data.services));
+        }
       },
       (err) => {
         console.error(err);
@@ -53,7 +58,7 @@ const Categories = () => {
 
       {/* Right Sidebar */}
       {subCat ? (
-        <SubWorkCategories id={subCat} />
+        <SubWorkCategories id={subCat} alreadySelected={selectedSubCats} />
       ) : (
         <p>Click on a category to view sub cats</p>
       )}
