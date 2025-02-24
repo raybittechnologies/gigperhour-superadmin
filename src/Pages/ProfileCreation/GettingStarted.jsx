@@ -1,30 +1,24 @@
 
 import Star from "../../components/star";
-// import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import NavBarr from "../../components/NavBarr";
 export default function GettingStarted() {
+
+
+    const [darkMode, setDarkMode] = useState(false);
+  const navigate = useNavigate();
   return (
-    <div>
-         <nav className="flex justify-between items-center py-3 bg-white h-[60px] shadow-md">
-       {/* Logo */}
-       <div className="text-3xl font-bold tracking-wider text-black dark:text-white">
-        <img src="src/assets/Logo-Text.svg"  className="relative pl-[120px] " alt="Logo" />
-       </div>
-
-      {/* Dark Mode Toggle */}
-      <div className="flex items-center gap-4 right-[50px] relative">
-     
-        <img src="src/assets/Toggle-mode.svg" className="w-[110px] h-[40px] top-[10px] left-[1088px]"/>
-
-        {/* User Icon */}
-        <img src="src/assets/user.svg" className="w-[32px] h-[32px] left-[75px]"/>
-      </div>
-    </nav>
+    <div  className={`min-h-screen z[20] ${darkMode ? "bg-black text-white" : " text-black"}`}>
+    <NavBarr changeMode={setDarkMode}/>
 
 
 
          {/* Main Content */}
          <div className="flex flex-col md:flex-row justify-center items-start pl-[120px]  pr-[120px] relative mx-auto mt-[1rem] gap-8">
-          <Star/>
+             <div className="absolute inset-0 flex justify-center items-center z-10  pointer-events-none" >
+                    <Star />
+                  </div>
   {/* Left Section */}
   <div className="w-full md:w-1/2 space-y-6">
     <h3 className="text-[24px]  font-inter font-[400]">Hey Basit, are you ready for your next big opportunity?</h3>
@@ -52,7 +46,7 @@ export default function GettingStarted() {
 
     {/* Continue Button */}
     <div className="flex flex-row">
-  <button className="bg-[#E66D3D] text-white  h-[50px] pt-[12px] pb-[15px] pr-[50px] pl-[50px] rounded-lg font-semibold w-[172px]">Continue</button>
+  <button className="bg-[#E66D3D] text-white  h-[50px] pt-[12px] pb-[15px] pr-[50px] pl-[50px] rounded-lg font-semibold w-[172px] " onClick={() => navigate("/answerOne")}>Continue</button>
   <p className="text-[15px]  text-[#555555] mt-[2px] h-[50px] ml-[20px]">
     It takes just 5-10 minutes, and you can{" "}
     edit it anytime. Your progress is saved{" "}

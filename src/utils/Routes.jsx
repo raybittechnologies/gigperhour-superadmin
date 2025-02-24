@@ -5,14 +5,20 @@ import Welcome from "../Pages/User/Welcome";
 import UserExists from "../Pages/Auth/UserExists";
 import LandingPage from "../Pages/home/LandingPage";
 import Agreement from "../Pages/ProfileCreation/Agreement";
-import Role from "../Pages/ProfileCreation/Role01";
-import SignUp from "../Pages/ProfileCreation/SignUp02";
-import Goal from "../Pages/ProfileCreation/Goal04";
-import Experience from "../Pages/ProfileCreation/Experience03";
-import WorkPreference from "../Pages/ProfileCreation/WorkPreference05";
-import Categories from "../Pages/ProfileCreation/Categories06";
+import Role from "../Pages/ProfileCreation/Role";
+import SignUp from "../Pages/ProfileCreation/SignUp";
+import Experience from "../Pages/ProfileCreation/Experience01";
+import Goal from "../Pages/ProfileCreation/Goal02";
+import WorkPreference from "../Pages/ProfileCreation/WorkPreference03";
+import Categories from "../Pages/ProfileCreation/Categories04";
 import SignUpSnd from "../Pages/ProfileCreation/SignUpSnd";
 import GettingStarted from "../Pages/ProfileCreation/GettingStarted";
+import Answer01 from "../Pages/ProfileCreation/Answer01";
+import Answer02 from "../Pages/ProfileCreation/Answer02";
+import Answer03 from "../Pages/ProfileCreation/Answer03";
+import AccountSuccess from "../Pages/ProfileCreation/AccountSuccess";
+import AboutYourself from "../Pages/ProfileCreation/AboutYourself";
+import WorkType from "../Pages/ProfileCreation/WorkType";
 
 const browserRoutes = createBrowserRouter([
   {
@@ -32,6 +38,12 @@ const browserRoutes = createBrowserRouter([
       { path: "/categories", element: <Categories /> },
       { path: "/signUpSnd", element: <SignUpSnd /> },
       { path: "/gettingStarted", element: <GettingStarted /> },
+      { path: "/answerOne", element: <Answer01 /> },
+      { path: "/answerTwo", element: <Answer02 /> },
+      { path: "/answerThree", element: <Answer03 /> },
+      { path: "/success", element: <AccountSuccess /> },
+      { path: "/about", element: <AboutYourself /> },
+      { path: "/workType", element: <WorkType/> },
     ],
   },
 ]);

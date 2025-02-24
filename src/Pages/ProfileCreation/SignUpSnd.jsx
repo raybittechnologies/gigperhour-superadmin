@@ -26,12 +26,12 @@ const SignUpSnd = () => {
           </div>
 
           {/* Second Row - Sign Up Form */}
-          <div className="backdrop-blur-3xl py-[10px] rounded-2xl bg-gradient-to-b from-black/10 to-black/30 shadow-lg w-full border-0 border-solid border-white w-[573px] h-[485px] mt-[-11px] pl-[44px] pr-[44px]">
-            <img src="src/assets/Email Marketing 3D Model.svg" alt="Illustration of a mailbox with a megaphone" className="mx-auto w-[270px] h-[270px] mt-[-20px]" />
-            <div className="mt-[-20px]">
-              <h3 className="text-[24px] font-inter font-[500] mb-4 text-white text-center">Verify your email to continue</h3>
-              <h4 className="text-white text-center text-[16px] mb-6">
-                Weve sent a verification email to: ProductX@gmail.com. Please check your inbox and click the link to confirm your email address.
+          <div className=" backdrop-blur-3xl py-[10px] rounded-2xl bg-gradient-to-b from-black/10 to-black/30 shadow-lg  border-0 border-solid border-white mt-[-11px] pl-[44px] pr-[44px] h-[480px]">
+            <img src="src/assets/Email Marketing 3D Model.svg" alt="Illustration of a mailbox with a megaphone" className="mx-auto object-cover w-[200px] h-[200px]" />
+            <div className="">
+              <h3 className="text-[24px] font-inter font-[400] mb-4 text-white text-center">Verify your email to continue</h3>
+              <h4 className="text-white font-[300] w-[493px] h-[72px] text-[19px] mb-6">
+                We have sent a verification email to: ProductX@gmail.com. Please check your inbox and click the link to confirm your email address.
               </h4>
               <div className="flex justify-center mb-6">
                 <button className="text-white bg-none mr-[130px]">Send again</button>
