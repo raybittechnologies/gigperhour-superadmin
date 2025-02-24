@@ -1,10 +1,25 @@
-import { useState } from "react";
-import { updateProfile } from "../../utils/api";
+import { useEffect, useState } from "react";
+import { getUserProfile, updateProfile } from "../../utils/api";
+
 import { useNavigate } from "react-router-dom";
 
 const Experience = () => {
   const navigate = useNavigate();
   const [freelanceExp, setfreelanceExp] = useState(null);
+
+  useEffect(() => {
+    getUserProfile("freelanceExp").then(
+      (res) => {
+        if (res.data.data && res.data.data.freelanceExp) {
+          setfreelanceExp(res.data.data.freelanceExp);
+        }
+      },
+      (err) => {
+        console.error(err);
+      }
+    );
+  }, []);
+
 
   const handleSelection = (e) => {
     setfreelanceExp(e.target.dataset.level);
@@ -37,10 +52,10 @@ const Experience = () => {
         >
           <input
             onChange={handleSelection}
-
             data-level={card.value}
             name="experience"
             type="radio"
+            checked={freelanceExp === card.value}
             value={card.label}
             className="w-5 h-5 text-blue-500 focus:ring-blue-500"
           />

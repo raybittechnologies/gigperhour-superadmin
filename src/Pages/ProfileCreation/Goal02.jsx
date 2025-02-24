@@ -1,11 +1,25 @@
-
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { updateProfile } from "../../utils/api";
+import { getUserProfile, updateProfile } from "../../utils/api";
+
 
 const Goal = () => {
   const navigate = useNavigate();
   const [freelanceGoals, setfreelanceGoal] = useState(null);
+
+  useEffect(() => {
+    getUserProfile("freelanceGoals").then(
+      (res) => {
+        if (res.data.data && res.data.data.freelanceGoals) {
+          setfreelanceGoal(res.data.data.freelanceGoals);
+        }
+      },
+      (err) => {
+        console.error(err);
+      }
+    );
+  }, []);
+
 
   const handleSelection = (e) => {
     setfreelanceGoal(e.target.dataset.level);
@@ -37,6 +51,8 @@ const Goal = () => {
             data-level={card.value}
             type="radio"
             name="experience"
+            checked={freelanceGoals === card.value}
+
             value={card.value}
             className="w-5 h-5 text-blue-500 focus:ring-blue-500"
           />

@@ -15,8 +15,10 @@ const Role = () => {
   };
   return (
     <div className=" relative flex flex-col items-center justify-center  ">
+
      
        <img src="src/assets/Logo-Text.svg" className="absolute  top-[12px] left-[110px] leading-[58.09px] tracking-[-1%]" alt="Logo Text" />
+
 
       
     {/* Heading */}

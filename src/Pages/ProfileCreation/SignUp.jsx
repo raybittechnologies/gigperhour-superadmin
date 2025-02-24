@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+
 import { useNavigate } from "react-router-dom";
 import Star from "../../components/star";
 
@@ -22,6 +23,7 @@ const SignUp = () => {
       [name]: type === "checkbox" ? checked : value,
     });
   };
+
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible); // Toggle the password visibility state
   };
@@ -35,6 +37,7 @@ const SignUp = () => {
     window.location.href =
       "http://localhost:5050/api/v1/auth/apple/signup/freelancer";
   };
+
 
   //comment for push
   return (
@@ -196,6 +199,7 @@ const SignUp = () => {
 
       {/* Second Column - Freelance Card Section */}
       <img src="src/assets\connetCard.svg" className="h-[530px] mt-[25px]" />
+
     </div>
   );
 };
