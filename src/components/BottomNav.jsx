@@ -1,16 +1,13 @@
 /* eslint-disable react/prop-types */
 const BottomNav = ({ onNext, onBack }) => {
   return (
-    <div className="fixed bottom-0 left-0 w-full flex justify-between bg-gray-800 text-white p-4">
-      <button
-        onClick={onBack}
-        className="bg-gray-600 px-4 py-2 rounded-lg hover:bg-gray-700"
-      >
+    <div className="flex justify-between mt-4">
+      <button onClick={onBack} className=" w-[200px]">
         Back
       </button>
       <button
         onClick={onNext}
-        className="bg-blue-600 px-4 py-2 rounded-lg hover:bg-blue-700"
+        className="bg-[#E66D3D] text-white px-6 py-2 rounded"
       >
         Next
       </button>

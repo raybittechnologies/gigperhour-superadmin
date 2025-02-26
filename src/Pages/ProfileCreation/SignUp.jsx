@@ -1,6 +1,5 @@
 import { useState } from "react";
 
-
 import { useNavigate } from "react-router-dom";
 import Star from "../../components/star";
 
@@ -30,14 +29,14 @@ const SignUp = () => {
 
   const googleLogin = async () => {
     window.location.href =
-      "http://localhost:5050/api/v1/auth/google/signup/client";
+      // "http://localhost:5050/api/v1/auth/google/signup/client";
+      "http://192.168.100.36:5050/api/v1/auth/google/signup/client";
   };
 
   const appleLogin = async () => {
     window.location.href =
       "http://localhost:5050/api/v1/auth/apple/signup/freelancer";
   };
-
 
   //comment for push
   return (
@@ -48,12 +47,16 @@ const SignUp = () => {
       <div className="flex flex-col w-[573px] ">
         {/* First Row - Heading */}
         <div className="mb-6 mt-[-28px] ">
-          <img
+          {/* <img
             src="src/assets/Logo-Text.svg"
             alt="Logo Text"
             className="relative"
-          />
-          <h3 className="font-inter font-[400] text-[20px]  mt-[-7px] leading-[29.05px] tracking-[-0.01em]  relative ">
+          /> */}
+
+          <h3 className="text-[#000000] w-[122px] font-inter font-[400] text-[25px] absolute  top-[6px] mt-[-10px] leading-[58.09px] tracking-[-1%]">
+            Elevance
+          </h3>
+          <h3 className="font-inter font-[400] text-[20px]  mt-[52px] leading-[29.05px] tracking-[-0.01em]  relative ">
             Create your account and create a world of opportunities
           </h3>
         </div>
@@ -199,7 +202,6 @@ const SignUp = () => {
 
       {/* Second Column - Freelance Card Section */}
       <img src="src/assets\connetCard.svg" className="h-[530px] mt-[25px]" />
-
     </div>
   );
 };

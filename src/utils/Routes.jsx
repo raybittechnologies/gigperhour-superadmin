@@ -11,9 +11,7 @@ import Experience from "../Pages/ProfileCreation/Experience01";
 import Goal from "../Pages/ProfileCreation/Goal02";
 import WorkPreference from "../Pages/ProfileCreation/WorkPreference03";
 import Categories from "../Pages/ProfileCreation/Categories04";
-
 import Skill from "../Pages/ProfileCreation/Skills05";
-
 import SignUpSnd from "../Pages/ProfileCreation/SignUpSnd";
 import GettingStarted from "../Pages/ProfileCreation/GettingStarted";
 import Answer01 from "../Pages/ProfileCreation/Answer01";
@@ -21,8 +19,8 @@ import Answer02 from "../Pages/ProfileCreation/Answer02";
 import Answer03 from "../Pages/ProfileCreation/Answer03";
 import AccountSuccess from "../Pages/ProfileCreation/AccountSuccess";
 import AboutYourself from "../Pages/ProfileCreation/AboutYourself";
-import WorkType from "../Pages/ProfileCreation/WorkType";
-
+import Title from "../Pages/ProfileCreation/Title";
+import Work from "../Pages/ProfileCreation/Work";
 
 const browserRoutes = createBrowserRouter([
   {
@@ -40,9 +38,7 @@ const browserRoutes = createBrowserRouter([
       { path: "/goal", element: <Goal /> },
       { path: "/work-preference", element: <WorkPreference /> },
       { path: "/categories", element: <Categories /> },
-
       { path: "/skills", element: <Skill /> },
-
       { path: "/signUpSnd", element: <SignUpSnd /> },
       { path: "/gettingStarted", element: <GettingStarted /> },
       { path: "/answerOne", element: <Answer01 /> },
@@ -50,8 +46,8 @@ const browserRoutes = createBrowserRouter([
       { path: "/answerThree", element: <Answer03 /> },
       { path: "/success", element: <AccountSuccess /> },
       { path: "/about", element: <AboutYourself /> },
-      { path: "/workType", element: <WorkType/> },
-
+      { path: "/title", element: <Title /> },
+      { path: "/work", element: <Work /> },
     ],
   },
 ]);

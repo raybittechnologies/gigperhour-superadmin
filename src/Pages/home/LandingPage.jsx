@@ -1,6 +1,9 @@
+import Navbar from "../../components/Navbar";
+
 const LandingPage = () => {
   return (
     <div className="flex flex-col min-h-screen">
+        <Navbar/>
       {/* Hero Section */}
       <div className="flex-grow bg-blue-50">
         <div className="container mx-auto px-4 py-16 text-center">

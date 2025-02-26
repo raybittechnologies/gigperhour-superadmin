@@ -30,12 +30,13 @@ export default function NavBarr({ changeMode }) {
     <>
       <nav className="flex justify-between items-center py-3 bg-white h-[60px] shadow-md">
         {/* Logo */}
-        <div className="text-3xl font-bold tracking-wider text-black dark:text-white" onClick={() => navigate("/")}>
-          <img
-            src="src/assets/Logo-Text.svg"
-            className="relative pl-[120px] "
-            alt="Logo"
-          />
+        <div
+          className="text-3xl font-bold tracking-wider text-black dark:text-white"
+          onClick={() => navigate("/")}
+        >
+          <h3 className="text-[#000000] font-inter font-[400] pl-[120px]">
+            Elevance
+          </h3>
         </div>
 
         {/* Dark Mode Toggle */}
