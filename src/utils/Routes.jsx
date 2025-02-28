@@ -20,7 +20,9 @@ import Answer03 from "../Pages/ProfileCreation/Answer03";
 import AccountSuccess from "../Pages/ProfileCreation/AccountSuccess";
 import AboutYourself from "../Pages/ProfileCreation/AboutYourself";
 import Title from "../Pages/ProfileCreation/Title";
-import Work from "../Pages/ProfileCreation/Work";
+import WorkExperience07 from "../Pages/ProfileCreation/Work07";
+import Education08 from "../Pages/ProfileCreation/Education08";
+import Languages from "../Pages/ProfileCreation/Languages";
 
 const browserRoutes = createBrowserRouter([
   {
@@ -47,7 +49,9 @@ const browserRoutes = createBrowserRouter([
       { path: "/success", element: <AccountSuccess /> },
       { path: "/about", element: <AboutYourself /> },
       { path: "/title", element: <Title /> },
-      { path: "/work", element: <Work /> },
+      { path: "/work", element: <WorkExperience07 /> },
+      { path: "/education", element: <Education08 /> },
+      { path: "/languages", element: <Languages /> },
     ],
   },
 ]);
