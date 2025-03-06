@@ -23,6 +23,11 @@ import Title from "../Pages/ProfileCreation/Title";
 import WorkExperience07 from "../Pages/ProfileCreation/Work07";
 import Education08 from "../Pages/ProfileCreation/Education08";
 import Languages from "../Pages/ProfileCreation/Languages";
+import Bio from "../Pages/ProfileCreation/bio";
+import Rate from "../Pages/ProfileCreation/Rate";
+import PicUpload from "../Pages/ProfileCreation/PicUpload";
+import Review from "../Pages/ProfileCreation/Review";
+import FinishProfile from "../Pages/ProfileCreation/FinishProfile";
 
 const browserRoutes = createBrowserRouter([
   {
@@ -52,6 +57,11 @@ const browserRoutes = createBrowserRouter([
       { path: "/work", element: <WorkExperience07 /> },
       { path: "/education", element: <Education08 /> },
       { path: "/languages", element: <Languages /> },
+      { path: "/bio", element: <Bio /> },
+      { path: "/rate", element: <Rate /> },
+      { path: "/picUpload", element: <PicUpload /> },
+      { path: "/review", element: <Review /> },
+      { path: "/finish", element: <FinishProfile /> },
     ],
   },
 ]);

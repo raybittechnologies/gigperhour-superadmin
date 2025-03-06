@@ -1,9 +1,22 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import ConnectFrame from "../../components/ConnectFrame";
 import Star from "../../components/star";
 const SignUpSnd = () => {
   const [showPopup, setShowPopup] = useState(false);
   const navigate = useNavigate();
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  const handleClick = (e) => {
+    e.preventDefault(); // Prevent default link behavior
+    setIsAnimating(true); // Trigger animation
+    setShowPopup(true); // Show the popup
+
+    // Reset animation state after it completes
+    setTimeout(() => {
+      setIsAnimating(false);
+    }, 500); // Match the duration of the animation
+  };
 
   return (
     <div className="">
@@ -58,11 +71,10 @@ const SignUpSnd = () => {
                 <div className="flex justify-center">
                   <a
                     href="#"
-                    className="text-white text-center text-[14px] underline"
-                    onClick={(e) => {
-                      e.preventDefault(); // Prevent default link behavior
-                      setShowPopup(true);
-                    }}
+                    className={`text-white text-center text-[14px] underline ${
+                      isAnimating ? "animate-comeCloser" : ""
+                    }`}
+                    onClick={handleClick}
                   >
                     Didnt receive email?
                   </a>
@@ -73,7 +85,7 @@ const SignUpSnd = () => {
         </div>
 
         {/* Second Column - Freelance Card Section */}
-        <img src="src/assets\connetCard.svg" className="h-[530px] mt-[25px]" />
+        <ConnectFrame />
       </div>
 
       {/* Popup Modal */}

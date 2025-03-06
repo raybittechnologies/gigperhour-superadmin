@@ -139,7 +139,7 @@ const Languages = () => {
 
         <BottomNav
           onBack={() => navigate("/education")}
-          onNext={() => navigate("/languages")}
+          onNext={() => navigate("/bio")}
         />
       </div>
     </div>

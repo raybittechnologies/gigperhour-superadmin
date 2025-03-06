@@ -1,29 +1,49 @@
 /* eslint-disable react/prop-types */
+import { Pencil, Trash2 } from "lucide-react";
+
 const EducationCard = ({ qualification }) => {
   return (
-    <div className="bg-white shadow-md rounded-lg p-4 border border-gray-200">
-      <h3 className="text-lg font-semibold text-gray-900">
-        {qualification.school}
-      </h3>
-      <p className="text-sm text-gray-600">
-        {qualification.degree} in {qualification.fieldOfStudy}
-      </p>
-
-      <div className="mt-2 text-sm text-gray-700">
-        <p>
-          <span className="font-medium">Start Date:</span>{" "}
-          {new Date(qualification.startDate).toLocaleDateString()}
-        </p>
-        <p>
-          <span className="font-medium">End Date:</span>{" "}
-          {qualification.endDate
-            ? new Date(qualification.endDate).toLocaleDateString()
+    <div className="bg-white text-black shadow-sm rounded-lg p-4 border border-gray-300 flex flex-col gap-2 w-[440px] h-[191px]">
+      {/* Header: School Name & Dates */}
+      <div className="flex justify-between items-center">
+        <div className="flex items-center gap-2">
+          <span className="text-lg">
+            <img src="src/assets/university.svg" alt="Education Icon" />
+          </span>
+          <h3 className="text-lg font-semibold">
+            {qualification?.school || "Unknown School"}
+          </h3>
+        </div>
+        <p className="text-sm text-gray-500">
+          {qualification?.startDate
+            ? new Date(qualification.startDate).toLocaleString("default", {
+                month: "short",
+                year: "numeric",
+              })
+            : "Unknown"}{" "}
+          -{" "}
+          {qualification?.endDate
+            ? new Date(qualification.endDate).toLocaleString("default", {
+                month: "short",
+                year: "numeric",
+              })
             : "Ongoing"}
         </p>
-        <p>
-          <span className="font-medium">Description:</span>{" "}
-          {qualification.description}
-        </p>
+      </div>
+
+      {/* Degree & Field of Study */}
+      <p className="text-gray-700 text-sm font-medium">
+        {qualification?.degree || "No Degree"} in{" "}
+        {qualification?.fieldOfStudy || "Unknown Field"}
+      </p>
+
+      {/* Description */}
+      <p className="text-gray-600 text-sm">{qualification?.description}</p>
+
+      {/* Action Icons */}
+      <div className="flex gap-3 mt-2 text-gray-500">
+        <Pencil size={16} className="cursor-pointer hover:text-gray-700" />
+        <Trash2 size={16} className="cursor-pointer hover:text-gray-700" />
       </div>
     </div>
   );

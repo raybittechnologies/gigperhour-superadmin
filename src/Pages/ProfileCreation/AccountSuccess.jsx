@@ -1,32 +1,58 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useNavigate } from "react-router-dom";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+import { motion } from "framer-motion";
 
 const AccountSuccess = () => {
   const [darkMode] = useState(false);
-  const navigate = useNavigate(); // Initialize navigate
+  const navigate = useNavigate();
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigate("/about"); // Redirect to /about after 3 seconds
+      navigate("/about");
     }, 4000);
 
     return () => clearTimeout(timer);
   }, [navigate]);
 
   return (
-    <div className={`min-h-screen z-20 ${darkMode ? "bg-black text-white" : "bg-white text-black"}`}>
+    <div
+      className={`min-h-screen z-20 ${
+        darkMode ? "bg-black text-white" : "bg-white text-black"
+      }`}
+    >
       <div className="container text-center">
-        <div className="flex justify-center mb-4">
-          <img
-            src="https://s3-alpha-sig.figma.com/img/0b16/a4b7/db86a8a9b6520f628506a6b12ea699c6?Expires=1740960000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=s97RoXYvSmm3dZH9gXnNpOazJ5UEjvS0wMTc4yL8wPw6U8-ZGa5s3jQLidrMS8cPAPSoMQKyU3MSjnlsurax~y5l0ou6b~B-ZtB7pIjw1ofVn3ERzguoQE1e66rf~wmxPkBoR45kF8V-8cpOio82qTz6Z6SVZuXyyZXKnTUmQ-ORdh0CCGcsg22~P7Ks~EPWUMosoDZT886Y0UCsEVI-6D92Jz1qDSsydjAfKxF6WUmBO5cjtBSKls2OvQzgxwM2h4wxQk581IYrnEAdct06lgZUgg8sykY0IopjrZsuJOxHRx0OpDwR4CjGDa4Pnyqv9jFY~YOflKprQSLNd4ifwg__"
-            alt="Success Animation"
-            className="w-[500px] h-[388px]"
+        <div className="flex justify-center mb-4 ">
+          <DotLottieReact
+            className="w-[390px] h-[390px]"
+            src="src/assets/Animation - 1741239542947.lottie"
+            loop
+            autoplay
           />
         </div>
         <h2 className="text-lg md:text-xl font-semibold">
           Congratulations, your account has been successfully created..!
         </h2>
-        <p className="text-sm mt-2">Redirecting you...</p>
+        <div className="flex items-center justify-center gap-2 mt-2">
+          <p className="text-[17px]">Redirecting you...</p>
+          {[...Array(3)].map((_, index) => (
+            <motion.img
+              key={index}
+              src="src/assets/Ellipse-loader.svg"
+              alt={`Loading ${index + 1}`}
+              className="w-5 h-5"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{
+                duration: 0.5,
+                ease: "easeOut",
+                delay: index * 0.2, // Each dot appears with a delay
+                repeat: Infinity, // Loop infinitely
+                repeatType: "reverse", // Creates a smooth in-out effect
+              }}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

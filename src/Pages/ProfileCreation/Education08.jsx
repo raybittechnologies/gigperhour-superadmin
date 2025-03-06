@@ -64,7 +64,7 @@ const Education08 = () => {
             {userQualifications.length > 0 &&
               userQualifications.map((el) => (
                 <div key={el.id} className="mr-4 mb-4">
-                  <EducationCard experience={el} />
+                  <EducationCard qualification={el} />
                 </div>
               ))}
 

@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 import Star from "../../components/star";
+import ConnectFrame from "../../components/ConnectFrame";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -47,12 +48,6 @@ const SignUp = () => {
       <div className="flex flex-col w-[573px] ">
         {/* First Row - Heading */}
         <div className="mb-6 mt-[-28px] ">
-          {/* <img
-            src="src/assets/Logo-Text.svg"
-            alt="Logo Text"
-            className="relative"
-          /> */}
-
           <h3 className="text-[#000000] w-[122px] font-inter font-[400] text-[25px] absolute  top-[6px] mt-[-10px] leading-[58.09px] tracking-[-1%]">
             Elevance
           </h3>
@@ -106,10 +101,10 @@ const SignUp = () => {
               onChange={handleChange}
               style={{
                 appearance: "none",
-                WebkitAppearance: "none", // For Webkit browsers (Chrome, Safari)
-                MozAppearance: "none", // For Firefox
+                WebkitAppearance: "none",
+                MozAppearance: "none",
                 backgroundColor: "white",
-                backgroundImage: "url(src/assets/arrow-down-01.svg)", // Path to your custom icon
+                backgroundImage: "url(src/assets/arrow-down-01.svg)",
                 backgroundRepeat: "no-repeat",
                 backgroundPosition: "right 10px center",
                 backgroundSize: "29px 22px",
@@ -201,7 +196,7 @@ const SignUp = () => {
       </div>
 
       {/* Second Column - Freelance Card Section */}
-      <img src="src/assets\connetCard.svg" className="h-[530px] mt-[25px]" />
+      <ConnectFrame />
     </div>
   );
 };

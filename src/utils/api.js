@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // const BASE_URI = "http://localhost:5050/api/v1";
-const BASE_URI = "http://192.168.100.36:5051/api/v1";
+const BASE_URI = "http://192.168.100.5:5050/api/v1";
 
 const token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoiZGV2LnphaGlkaGtAZ21haWwuY29tIiwibmFtZSI6IlphaGlkIEh1c3NhaW4gS2hhbiIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BQ2c4b2NMQjFNVkdJbW9idG1nVURFWDFVSGtOcGdkc0R3TEo5MlVaRml3OUZYUlZBX1RUX1JnPXM5Ni1jIn0sImlhdCI6MTc0MDM5MTY4MiwiZXhwIjoxNzQyOTgzNjgyfQ.DEYtrPu4U-CwU1NvAfPyFyhPe9MNRPpNVE3cBEAqBZo`;
 
