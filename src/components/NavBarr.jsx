@@ -49,8 +49,8 @@ export default function NavBarr({ changeMode }) {
   }, []);
 
   return (
-    <div className="relative z-50">
-      <nav className="flex justify-between items-center py-3 bg-white h-[60px] shadow-md">
+    <div className="relative z-50 ">
+      <nav className="flex justify-between items-center py-3 bg-white h-[60px] shadow-md ">
         {/* Logo */}
         <div
           className="text-3xl font-bold tracking-wider text-black dark:text-white"

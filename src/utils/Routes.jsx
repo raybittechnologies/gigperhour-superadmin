@@ -1,7 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import Layout from "../ui/Layout";
 import Login from "../Pages/Auth/Login";
-import Welcome from "../Pages/User/Welcome";
 import UserExists from "../Pages/Auth/UserExists";
 import LandingPage from "../Pages/home/LandingPage";
 import Agreement from "../Pages/ProfileCreation/Agreement";
@@ -28,6 +27,20 @@ import Rate from "../Pages/ProfileCreation/Rate";
 import PicUpload from "../Pages/ProfileCreation/PicUpload";
 import Review from "../Pages/ProfileCreation/Review";
 import FinishProfile from "../Pages/ProfileCreation/FinishProfile";
+// -----------------------------------User Dashboard Routes-----------------------------------
+import UserDashBoard from "../Pages/User/DashBoard";
+import ConnectDetails from "../Pages/User/ConnectDetails";
+import BuyConnects from "../Pages/User/BuyConnects";
+import SavedJobs from "../Pages/User/SavedJobs";
+import Proposals from "../Pages/User/Proposals";
+import ApplyJob from "../Pages/User/ApplyJob-01";
+import ProposalSuccess from "../Pages/User/ProposalSuccess";
+import JobHourly from "../Pages/User/JobHourly";
+import ProposalSuccessHourly from "../Pages/User/ProposalSuccessHourly";
+import ContractsActive from "../Pages/User/ContractsActive";
+import ContractHistory from "../Pages/User/ContractHistory";
+import HourlyWork from "../Pages/User/HourlyWork";
+import ContractDetails from "../Pages/User/ContractDetails";
 
 const browserRoutes = createBrowserRouter([
   {
@@ -38,7 +51,6 @@ const browserRoutes = createBrowserRouter([
       { path: "/login", element: <Login /> },
       { path: "/signUp", element: <SignUp /> },
       { path: "/exists", element: <UserExists /> },
-      { path: "/user", element: <Welcome /> },
       { path: "/role", element: <Role /> },
       { path: "/agreement", element: <Agreement /> },
       { path: "/experience", element: <Experience /> },
@@ -62,6 +74,21 @@ const browserRoutes = createBrowserRouter([
       { path: "/picUpload", element: <PicUpload /> },
       { path: "/review", element: <Review /> },
       { path: "/finish", element: <FinishProfile /> },
+
+      //-----------------------------------------User Dashboard Routes-----------------------------------------------
+      { path: "/dashboard", element: <UserDashBoard /> },
+      { path: "/details", element: <ConnectDetails /> },
+      { path: "/connects", element: <BuyConnects /> },
+      { path: "/savedJobs", element: <SavedJobs /> },
+      { path: "/proposals", element: <Proposals /> },
+      { path: "/ApplyJob", element: <ApplyJob /> },
+      { path: "/proposalSuccess", element: <ProposalSuccess /> },
+      { path: "/jobHourly", element: <JobHourly /> },
+      { path: "/SuccessHourly", element: <ProposalSuccessHourly /> },
+      { path: "/activeContracts", element: <ContractsActive /> },
+      { path: "/contractHistory", element: <ContractHistory /> },
+      { path: "/contractDetails", element: <ContractDetails /> },
+      { path: "/hourlyWork", element: <HourlyWork /> },
     ],
   },
 ]);

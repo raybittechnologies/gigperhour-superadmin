@@ -51,7 +51,7 @@ const Role = () => {
             className={`absolute top-2 right-2 w-6 h-6 border-2 rounded-full flex justify-center items-center ${
               selected === "client"
                 ? "border-2 border-[#E66D3D]"
-                : "border-[0.5px] border-white"
+                : "border-[0.5px] border-gray-500"
             }`}
           >
             {selected === "client" && (
