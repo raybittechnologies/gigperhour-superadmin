@@ -41,6 +41,9 @@ import ContractsActive from "../Pages/User/ContractsActive";
 import ContractHistory from "../Pages/User/ContractHistory";
 import HourlyWork from "../Pages/User/HourlyWork";
 import ContractDetails from "../Pages/User/ContractDetails";
+import UserProfile from "../Pages/User/UserProfile";
+import UserRole from "../Pages/User/UserRole";
+import UserLanguage from "../Pages/User/UserLanguage";
 
 const browserRoutes = createBrowserRouter([
   {
@@ -89,6 +92,9 @@ const browserRoutes = createBrowserRouter([
       { path: "/contractHistory", element: <ContractHistory /> },
       { path: "/contractDetails", element: <ContractDetails /> },
       { path: "/hourlyWork", element: <HourlyWork /> },
+      { path: "/profile", element: <UserProfile /> },
+      { path: "/userRole", element: <UserRole /> },
+      { path: "/userLanguage", element: <UserLanguage /> },
     ],
   },
 ]);

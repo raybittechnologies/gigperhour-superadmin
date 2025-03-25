@@ -133,11 +133,13 @@ export default function NavBarUser({ changeMode }) {
 
           {/* User Icon with Dropdown */}
           <div className="relative">
-            <img
-              src="src/assets/profileImage.jpeg"
-              className="w-[32px] h-[32px] cursor-pointer rounded-full"
-              alt="User Icon"
-            />
+            <Link to="/profile">
+              <img
+                src="src/assets/profileImage.jpeg"
+                className="w-[32px] h-[32px] cursor-pointer rounded-full"
+                alt="User Icon"
+              />
+            </Link>
           </div>
         </div>
       </nav>
