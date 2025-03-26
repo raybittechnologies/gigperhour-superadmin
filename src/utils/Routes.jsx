@@ -44,6 +44,10 @@ import ContractDetails from "../Pages/User/ContractDetails";
 import UserProfile from "../Pages/User/UserProfile";
 import UserRole from "../Pages/User/UserRole";
 import UserLanguage from "../Pages/User/UserLanguage";
+import UserWorking from "../Pages/User/UserWorking";
+import Portfolio from "../Pages/User/portfolio";
+import WorkHistory from "../Pages/User/WorkHistory";
+import Projects from "../Pages/User/Projects";
 
 const browserRoutes = createBrowserRouter([
   {
@@ -95,6 +99,10 @@ const browserRoutes = createBrowserRouter([
       { path: "/profile", element: <UserProfile /> },
       { path: "/userRole", element: <UserRole /> },
       { path: "/userLanguage", element: <UserLanguage /> },
+      { path: "/working", element: <UserWorking /> },
+      { path: "/portfolio", element: <Portfolio /> },
+      { path: "/workHistory", element: <WorkHistory /> },
+      { path: "/projects", element: <Projects /> },
     ],
   },
 ]);

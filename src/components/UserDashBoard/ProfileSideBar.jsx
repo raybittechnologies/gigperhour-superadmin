@@ -138,22 +138,82 @@ export default function ProfileSideBar() {
               </span>
             </button>
             {openSections.Work && (
-              <ul className="mt-2 space-y-2  text-sm">
-                <li className="font-inter font-[300] text-[#333333]  flex text-center gap-2 text-[14px]">
-                  <img src="src/assets/agreement-02.svg" />
-                  Portfolio
+              <ul className="mt-2   text-sm">
+                <li>
+                  <NavLink
+                    to="/portfolio"
+                    className={({ isActive }) =>
+                      `font-inter font-[300] text-[14px] pt-[5px] pb-[5px] flex items-center gap-2 ${
+                        isActive
+                          ? "bg-[#E66D3D] text-white -mx-4 px-4"
+                          : "text-[#333333]"
+                      }`
+                    }
+                  >
+                    <img src="src/assets/discount.svg" alt="Proposals" />{" "}
+                    Portfolio
+                  </NavLink>
                 </li>
-                <li className="font-inter font-[300] text-[#333333]  flex text-center gap-2  text-[14px]">
-                  <img src="src/assets/promotion.svg" /> Work History
+                <li>
+                  <NavLink
+                    to="/workHistory"
+                    className={({ isActive }) =>
+                      `font-inter font-[300] text-[14px] pt-[5px] pb-[5px] flex items-center gap-2 ${
+                        isActive
+                          ? "bg-[#E66D3D] text-white -mx-4 px-4"
+                          : "text-[#333333]"
+                      }`
+                    }
+                  >
+                    <img src="src/assets/discount.svg" alt="Proposals" /> Work
+                    History
+                  </NavLink>
                 </li>
-                <li className="font-inter font-[300] text-[#333333]  flex text-center gap-2  text-[14px]">
-                  <img src="src/assets/contracts.svg" /> Projects
+                <li>
+                  <NavLink
+                    to="/projects"
+                    className={({ isActive }) =>
+                      `font-inter font-[300] text-[14px] pt-[5px] pb-[5px] flex items-center gap-2 ${
+                        isActive
+                          ? "bg-[#E66D3D] text-white -mx-4 px-4"
+                          : "text-[#333333]"
+                      }`
+                    }
+                  >
+                    <img src="src/assets/discount.svg" alt="Proposals" />{" "}
+                    Projects
+                  </NavLink>
                 </li>
-                <li className="font-inter font-[300] text-[#333333]  flex text-center gap-2  text-[14px]">
-                  <img src="src/assets/contracts.svg" /> Testimonials
+                <li>
+                  <NavLink
+                    to="/testimonials"
+                    className={({ isActive }) =>
+                      `font-inter font-[300] text-[14px] pt-[5px] pb-[5px] flex items-center gap-2 ${
+                        isActive
+                          ? "bg-[#E66D3D] text-white -mx-4 px-4"
+                          : "text-[#333333]"
+                      }`
+                    }
+                  >
+                    <img src="src/assets/discount.svg" alt="Proposals" />{" "}
+                    Testimonials
+                  </NavLink>
                 </li>
-                <li className="font-inter font-[300] text-[#333333]  flex text-center gap-2  text-[14px]">
-                  <img src="src/assets/contracts.svg" /> Certifications
+
+                <li>
+                  <NavLink
+                    to="/certifications"
+                    className={({ isActive }) =>
+                      `font-inter font-[300] text-[14px] pt-[5px] pb-[5px] flex items-center gap-2 ${
+                        isActive
+                          ? "bg-[#E66D3D] text-white -mx-4 px-4"
+                          : "text-[#333333]"
+                      }`
+                    }
+                  >
+                    <img src="src/assets/discount.svg" alt="Proposals" />{" "}
+                    Certifications
+                  </NavLink>
                 </li>
               </ul>
             )}
