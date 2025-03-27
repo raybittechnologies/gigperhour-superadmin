@@ -242,7 +242,7 @@ export default function ProfileSideBar() {
               <ul className="mt-2   text-sm">
                 <li>
                   <NavLink
-                    to="/activeContracts"
+                    to="/employment"
                     className={({ isActive }) =>
                       `font-inter font-[300] text-[14px] pt-[5px] pb-[5px] flex items-center gap-2 ${
                         isActive

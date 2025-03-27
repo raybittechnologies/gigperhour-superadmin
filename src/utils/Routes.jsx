@@ -48,6 +48,9 @@ import UserWorking from "../Pages/User/UserWorking";
 import Portfolio from "../Pages/User/portfolio";
 import WorkHistory from "../Pages/User/WorkHistory";
 import Projects from "../Pages/User/Projects";
+import Testimonials from "../Pages/User/Testimonials";
+import Certifications from "../Pages/User/Certifications";
+import Employment from "../Pages/User/Employment";
 
 const browserRoutes = createBrowserRouter([
   {
@@ -103,6 +106,9 @@ const browserRoutes = createBrowserRouter([
       { path: "/portfolio", element: <Portfolio /> },
       { path: "/workHistory", element: <WorkHistory /> },
       { path: "/projects", element: <Projects /> },
+      { path: "/testimonials", element: <Testimonials /> },
+      { path: "/certifications", element: <Certifications /> },
+      { path: "/employment", element: <Employment /> },
     ],
   },
 ]);
