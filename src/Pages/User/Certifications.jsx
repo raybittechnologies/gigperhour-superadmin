@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import NavBarUser from "../../components/UserDashBoard/Navbar";
 import SideBar from "../../components/UserDashBoard/ProfileSideBar";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
@@ -9,7 +9,9 @@ export default function Certifications() {
   const togglePopup = () => {
     setShowPopup(!showPopup);
   };
-
+  useEffect(() => {
+    window.scrollTo(0, 0); // Scroll to top on component mount
+  }, []);
   return (
     <div className={`${darkMode ? "bg-black text-white" : "text-[#333333]"}`}>
       <NavBarUser changeMode={setDarkMode} />

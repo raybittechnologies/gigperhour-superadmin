@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-
+import { useLocation } from "react-router-dom";
 export default function SideBar() {
   const [openSections, setOpenSections] = useState({
     work: true,
@@ -10,6 +10,7 @@ export default function SideBar() {
     payouts: true,
     taxDetails: true,
   });
+  const location = useLocation();
 
   const toggleSection = (section) => {
     setOpenSections((prev) => ({
@@ -19,7 +20,7 @@ export default function SideBar() {
   };
 
   return (
-    <aside className="col-span-2  bg-white shadow-md p-4 rounded-md  h-[800px] ">
+    <aside className="col-span-2  bg-white shadow-md p-4 rounded-md h-[800px]">
       {/* Profile Section */}
       <div className="flex items-center space-x-3">
         <img

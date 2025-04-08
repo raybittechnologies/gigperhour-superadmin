@@ -130,7 +130,7 @@ const UserDashBoard = () => {
     setHourlyAmount(20);
   }, []);
   useEffect(() => {
-    window.scrollTo(0, 0); // Scroll to top on component mount
+    window.scrollTo(0, 0);
   }, []);
 
   const handleJobClick = (job) => {
@@ -210,16 +210,16 @@ const UserDashBoard = () => {
         darkMode ? "bg-black text-white" : "text-[#333333] "
       }`}
     >
-      <NavBarUser changeMode={setDarkMode} />
+      <NavBarUser changeMode={setDarkMode} role="user" />
       <div
-        className=" grid grid-cols-12  container mx-auto px-[20px]  "
+        className=" grid grid-cols-12   px-[20px]  "
         style={{ padding: "2%" }}
       >
         {/* Sidebar (Left) */}
         <SideBar />
 
         {/* Main Content (Center) */}
-        <main className="col-span-8   pl-4 pr-4 pb-4 w-full ">
+        <main className="col-span-8 pl-4 pr-4 pb-4 w-full ">
           {/* Header */}
           <div className="w-full ">
             <Slider {...settings}>

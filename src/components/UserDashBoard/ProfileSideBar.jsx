@@ -65,7 +65,10 @@ export default function ProfileSideBar() {
                       }`
                     }
                   >
-                    <img src="src/assets/bookmark-02.svg" alt="Saved Jobs" />{" "}
+                    <img
+                      src="src/assets/UserDashboard/user.svg "
+                      alt="Saved Jobs"
+                    />{" "}
                     Profile
                   </NavLink>
                 </li>
@@ -80,7 +83,10 @@ export default function ProfileSideBar() {
                       }`
                     }
                   >
-                    <img src="src/assets/search-01.svg" alt="Find Jobs" />
+                    <img
+                      src="src/assets/UserDashboard/mentoring.svg"
+                      alt="Find Jobs"
+                    />
                     Role & Skills
                   </NavLink>
                 </li>
@@ -95,7 +101,10 @@ export default function ProfileSideBar() {
                       }`
                     }
                   >
-                    <img src="src/assets/discount.svg" alt="Proposals" />{" "}
+                    <img
+                      src="src/assets/UserDashboard/language-square.svg "
+                      alt="Proposals"
+                    />{" "}
                     Language & Education
                   </NavLink>
                 </li>
@@ -110,7 +119,10 @@ export default function ProfileSideBar() {
                       }`
                     }
                   >
-                    <img src="src/assets/discount.svg" alt="Proposals" />{" "}
+                    <img
+                      src="src/assets/UserDashboard/document-validation.svg"
+                      alt="Proposals"
+                    />{" "}
                     Working Preference
                   </NavLink>
                 </li>
@@ -150,7 +162,10 @@ export default function ProfileSideBar() {
                       }`
                     }
                   >
-                    <img src="src/assets/discount.svg" alt="Proposals" />{" "}
+                    <img
+                      src="src/assets/UserDashboard/aspect-ratio.svg"
+                      alt="Proposals"
+                    />{" "}
                     Portfolio
                   </NavLink>
                 </li>
@@ -165,8 +180,11 @@ export default function ProfileSideBar() {
                       }`
                     }
                   >
-                    <img src="src/assets/discount.svg" alt="Proposals" /> Work
-                    History
+                    <img
+                      src="src/assets/UserDashboard/work-history.svg "
+                      alt="Proposals"
+                    />{" "}
+                    Work History
                   </NavLink>
                 </li>
                 <li>
@@ -180,7 +198,10 @@ export default function ProfileSideBar() {
                       }`
                     }
                   >
-                    <img src="src/assets/discount.svg" alt="Proposals" />{" "}
+                    <img
+                      src="src/assets/UserDashboard/projector.svg"
+                      alt="Proposals"
+                    />{" "}
                     Projects
                   </NavLink>
                 </li>
@@ -195,7 +216,10 @@ export default function ProfileSideBar() {
                       }`
                     }
                   >
-                    <img src="src/assets/discount.svg" alt="Proposals" />{" "}
+                    <img
+                      src="src/assets/UserDashboard/star-square.svg"
+                      alt="Proposals"
+                    />{" "}
                     Testimonials
                   </NavLink>
                 </li>
@@ -211,7 +235,10 @@ export default function ProfileSideBar() {
                       }`
                     }
                   >
-                    <img src="src/assets/discount.svg" alt="Proposals" />{" "}
+                    <img
+                      src="src/assets/UserDashboard/certificate-01.svg"
+                      alt="Proposals"
+                    />{" "}
                     Certifications
                   </NavLink>
                 </li>
@@ -251,14 +278,17 @@ export default function ProfileSideBar() {
                       }`
                     }
                   >
-                    <img src="src/assets/file-02.svg" alt="Contracts" />{" "}
+                    <img
+                      src="src/assets/UserDashboard/backpack-02.svg"
+                      alt="Contracts"
+                    />{" "}
                     Employment History
                   </NavLink>
                 </li>
 
                 <li>
                   <NavLink
-                    to="/contractHistory"
+                    to="/userExperience"
                     className={({ isActive }) =>
                       `font-inter font-[300] text-[14px] pt-[5px] pb-[5px] flex items-center gap-2 ${
                         isActive || location.pathname === "/contractDetails"
@@ -267,7 +297,10 @@ export default function ProfileSideBar() {
                       }`
                     }
                   >
-                    <img src="src/assets/work-history.svg" alt="Contracts" />
+                    <img
+                      src="src/assets/UserDashboard/add-to-list.svg "
+                      alt="Contracts"
+                    />
                     Other Experience
                   </NavLink>
                 </li>
@@ -278,22 +311,34 @@ export default function ProfileSideBar() {
           {/* Organize Financials */}
           <li>
             <button
-              className="w-full flex justify-between items-center font-[400] font-inter pt-1 pb-1"
+              className="w-full flex items-center justify-between font-[400] font-inter pt-1 pb-1"
               onClick={() => toggleSection("support")}
             >
-              Support
-              <span></span>
+              <div className="flex items-center gap-2">
+                <img
+                  src="src/assets/UserDashboard/customer-service-01.svg"
+                  alt="Support Icon"
+                  className="w-5 h-5"
+                />
+                <span>Support</span>
+              </div>
             </button>
           </li>
 
           {/* Payouts */}
           <li>
             <button
-              className="w-full flex justify-between items-center font-[400] font-interpt-1 pb-1"
-              onClick={() => toggleSection("payouts")}
+              className="w-full flex items-center justify-between font-[400] font-inter pt-1 pb-1"
+              onClick={() => toggleSection("logout")}
             >
-              Logout
-              <span></span>
+              <div className="flex items-center gap-2">
+                <img
+                  src="src/assets/UserDashboard/logout-03.svg"
+                  alt="Support Icon"
+                  className="w-5 h-5"
+                />
+                <span>Logout</span>
+              </div>
             </button>
           </li>
         </ul>

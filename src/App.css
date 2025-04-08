@@ -49,3 +49,34 @@ input:-webkit-autofill {
 .hide-scrollbar {
   scrollbar-width: none;
 }
+input[type="radio"].custom-radio {
+  background-color: transparent !important;
+}
+.custom-radio:checked {
+  accent-color: #e66d3d !important;
+}
+select option:hover {
+  background-color: #e66d3d !important;
+  color: white !important;
+}
+
+.slick-slider {
+  touch-action: pan-y;
+}
+/* hide-scrollbar: works across all modern browsers */
+.hide-scrollbar {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+/* global.css or tailwind.css */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

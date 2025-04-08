@@ -1,7 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import NavBarUser from "../../components/UserDashBoard/Navbar";
 import SideBar from "../../components/UserDashBoard/ProfileSideBar";
-import { FiEdit3, FiTrash2, FiPlus } from "react-icons/fi";
 
 export default function Employment() {
   const [darkMode, setDarkMode] = useState(false);
@@ -22,7 +21,9 @@ export default function Employment() {
       endDate: "March 15, 2025",
     },
   ];
-
+  useEffect(() => {
+    window.scrollTo(0, 0); // Scroll to top on component mount
+  }, []);
   return (
     <div className={`${darkMode ? "bg-black text-white" : "text-[#333333]"}`}>
       <NavBarUser changeMode={setDarkMode} />
@@ -32,15 +33,17 @@ export default function Employment() {
           <div className="border border-[#555555] rounded-lg pt-2 pb-4 px-6 relative">
             {/* Header Section */}
             <h3 className="text-[22px] font-[400] mb-4">Employment History</h3>
-            <button className="absolute top-6 right-6 bg-[#E66D3D] p-2 rounded-full text-white">
-              <FiPlus size={16} />
+            <button className="absolute top-6 right-6  p-2 rounded-full ">
+              <img src="src/assets/UserDashboard/plus-sig-circle.svg" />
             </button>
 
             {/* Employment List */}
             {employmentData.map((item, index) => (
               <div
                 key={item.id}
-                className="relative py-4 flex justify-between items-center"
+                className={`relative flex justify-between items-center ${
+                  index === employmentData.length - 1 ? "pt-4" : "py-4"
+                }`}
               >
                 {/* Line Between Data */}
                 {index !== 0 && (
@@ -49,11 +52,25 @@ export default function Employment() {
 
                 {/* Job Details */}
                 <div>
-                  <p className="text-[16px] font-semibold">
+                  <p
+                    className={`text-[16px] font-semibold ${
+                      darkMode ? "text-white" : "text-[#555555]"
+                    }`}
+                  >
                     {item.role}{" "}
-                    <span className="text-[#555555]">| {item.company}</span>
+                    <span
+                      className={`${
+                        darkMode ? "text-white" : "text-[#555555]"
+                      }`}
+                    >
+                      | {item.company}
+                    </span>
                   </p>
-                  <p className="text-[14px] text-[#555555]">
+                  <p
+                    className={`text-[14px] mt-3 ${
+                      darkMode ? "text-white" : "text-[#555555]"
+                    }`}
+                  >
                     {item.startDate} - {item.endDate}
                   </p>
                 </div>
@@ -61,10 +78,10 @@ export default function Employment() {
                 {/* Action Icons */}
                 <div className="flex gap-4">
                   <button className="text-[#E66D3D]">
-                    <FiEdit3 size={18} />
+                    <img src="src/assets/edit.svg" />
                   </button>
                   <button className="text-[#E66D3D]">
-                    <FiTrash2 size={18} />
+                    <img src="src/assets/UserDashboard/delete-circle.svg" />
                   </button>
                 </div>
               </div>

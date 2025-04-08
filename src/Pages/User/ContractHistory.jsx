@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import NavBarUser from "../../components/UserDashBoard/Navbar";
 import SideBar from "../../components/UserDashBoard/SideBar";
 import { Link } from "react-router-dom";
@@ -40,7 +40,9 @@ const contractsData = [
 
 export default function ContractHistory() {
   const [darkMode, setDarkMode] = useState(false);
-
+  useEffect(() => {
+    window.scrollTo(0, 0); // Scroll to top on component mount
+  }, []);
   return (
     <div
       className={`min-h-screen ${

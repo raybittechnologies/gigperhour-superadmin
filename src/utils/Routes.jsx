@@ -6,7 +6,7 @@ import LandingPage from "../Pages/home/LandingPage";
 import Agreement from "../Pages/ProfileCreation/Agreement";
 import Role from "../Pages/ProfileCreation/Role";
 import SignUp from "../Pages/ProfileCreation/SignUp";
-import Experience from "../Pages/ProfileCreation/Experience01";
+
 import Goal from "../Pages/ProfileCreation/Goal02";
 import WorkPreference from "../Pages/ProfileCreation/WorkPreference03";
 import Categories from "../Pages/ProfileCreation/Categories04";
@@ -51,6 +51,21 @@ import Projects from "../Pages/User/Projects";
 import Testimonials from "../Pages/User/Testimonials";
 import Certifications from "../Pages/User/Certifications";
 import Employment from "../Pages/User/Employment";
+import UserExperience from "../Pages/User/UserExperience";
+import ProfileSetting from "../Pages/User/ProfileSetting";
+import Contact from "../Pages/User/Contact";
+import MemberShip from "../Pages/User/MemberShip";
+import GetPaid from "../Pages/User/GetPaid";
+import Security from "../Pages/User/Security";
+import Teams from "../Pages/User/Teams";
+import Notifications from "../Pages/User/Notifications";
+import Billing01 from "../Pages/User/Billing01";
+import Billing02 from "../Pages/User/Billing02";
+import Dashboard from "../Pages/ClientScreens/Dashboard";
+import ClientSuccess from "../Pages/ClientScreens/ClientSuccess";
+import PostJob from "../Pages/ClientScreens/PostJob";
+import JobLong01 from "../Pages/ClientScreens/JobLong01";
+// -------------------------------------------Client Routes--------------------------
 
 const browserRoutes = createBrowserRouter([
   {
@@ -63,7 +78,7 @@ const browserRoutes = createBrowserRouter([
       { path: "/exists", element: <UserExists /> },
       { path: "/role", element: <Role /> },
       { path: "/agreement", element: <Agreement /> },
-      { path: "/experience", element: <Experience /> },
+
       { path: "/goal", element: <Goal /> },
       { path: "/work-preference", element: <WorkPreference /> },
       { path: "/categories", element: <Categories /> },
@@ -109,6 +124,22 @@ const browserRoutes = createBrowserRouter([
       { path: "/testimonials", element: <Testimonials /> },
       { path: "/certifications", element: <Certifications /> },
       { path: "/employment", element: <Employment /> },
+      { path: "/userExperience", element: <UserExperience /> },
+      { path: "/profileSetting", element: <ProfileSetting /> },
+      { path: "/contact", element: <Contact /> },
+      { path: "/memberShip", element: <MemberShip /> },
+      { path: "/getPaid", element: <GetPaid /> },
+      { path: "/security", element: <Security /> },
+      { path: "/teams", element: <Teams /> },
+      { path: "/notifications", element: <Notifications /> },
+      { path: "/billing01", element: <Billing01 /> },
+      { path: "/billing02", element: <Billing02 /> },
+
+      //  --------------------------------------client routes---------------------------------
+      { path: "/clientSuccess", element: <ClientSuccess /> },
+      { path: "/Clientdashboard", element: <Dashboard /> },
+      { path: "/postJob", element: <PostJob /> },
+      { path: "/longTermJob01", element: <JobLong01 /> },
     ],
   },
 ]);

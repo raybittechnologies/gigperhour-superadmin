@@ -1,11 +1,13 @@
 import { useState } from "react";
-
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Star from "../../components/star";
 import ConnectFrame from "../../components/ConnectFrame";
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const role = location.state?.type || "client"; // fallback to 'client'
+
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -25,12 +27,11 @@ const SignUp = () => {
   };
 
   const togglePasswordVisibility = () => {
-    setPasswordVisible(!passwordVisible); // Toggle the password visibility state
+    setPasswordVisible(!passwordVisible);
   };
 
   const googleLogin = async () => {
     window.location.href =
-      // "http://localhost:5050/api/v1/auth/google/signup/client";
       "http://192.168.100.36:5050/api/v1/auth/google/signup/client";
   };
 
@@ -39,25 +40,31 @@ const SignUp = () => {
       "http://localhost:5050/api/v1/auth/apple/signup/freelancer";
   };
 
-  //comment for push
+  const handleContinue = (e) => {
+    e.preventDefault();
+
+    if (role === "client") {
+      navigate("/clientSuccess");
+    } else {
+      navigate("/signUpSnd");
+    }
+  };
+
   return (
-    <div className=" flex flex-col md:flex-row justify-center items-center relative  pt-6 pr-6 pl-6 gap-[4.4rem]">
+    <div className="flex flex-col md:flex-row justify-center items-center relative pt-6 pr-6 pl-6 gap-[4.4rem]">
       <Star />
 
-      {/* First Column (Two Rows: Heading + Sign-Up Form) */}
-      <div className="flex flex-col w-[573px] ">
-        {/* First Row - Heading */}
-        <div className="mb-6 mt-[-28px] ">
-          <h3 className="text-[#000000] w-[122px] font-inter font-[400] text-[25px] absolute  top-[6px] mt-[-10px] leading-[58.09px] tracking-[-1%]">
+      <div className="flex flex-col w-[573px]">
+        <div className="mb-6 mt-[-28px]">
+          <h3 className="text-[#000000] w-[122px] font-inter font-[400] text-[25px] absolute top-[6px] mt-[-10px] leading-[58.09px] tracking-[-1%]">
             Elevance
           </h3>
-          <h3 className="font-inter font-[400] text-[20px]  mt-[52px] leading-[29.05px] tracking-[-0.01em]  relative ">
+          <h3 className="font-inter font-[400] text-[20px] mt-[52px] leading-[29.05px] tracking-[-0.01em] relative">
             Create your account and create a world of opportunities
           </h3>
         </div>
 
-        {/* Second Row - Sign Up Form */}
-        <div className="backdrop-blur-3xl py-[10px] rounded-2xl bg-gradient-to-b from-black/10 to-black/30 shadow-lg w-full border-0 border-solid border-white w-[573px] h-[485px]  mt-[-11px] pl-[44px] pr-[44px]">
+        <div className="backdrop-blur-3xl py-[10px] rounded-2xl bg-gradient-to-b from-black/10 to-black/30 shadow-lg w-full border-0 border-solid border-white w-[573px] h-[485px] mt-[-11px] pl-[44px] pr-[44px]">
           <form>
             <label className="block text-white py-[5px]">Email</label>
             <input
@@ -72,7 +79,7 @@ const SignUp = () => {
             <label className="block text-white mb-1 py-[5px]">Password</label>
             <div className="relative">
               <input
-                type={passwordVisible ? "text" : "password"} // Change input type based on state
+                type={passwordVisible ? "text" : "password"}
                 name="password"
                 placeholder="Enter Your Password..."
                 value={formData.password}
@@ -151,18 +158,18 @@ const SignUp = () => {
               </span>
             </div>
 
-            <div className="flex justify-center  mt-4">
+            <div className="flex justify-center mt-4">
               <button
                 type="submit"
-                onClick={() => navigate("/signUpSnd")}
+                onClick={handleContinue}
                 className="w-[250px] h-[44px] rounded-[5px] bg-[#E66D3D] text-white font-inter text-[16px] pt-[9px] pb-[15px]"
               >
                 Continue
               </button>
             </div>
           </form>
+
           <div className="flex justify-center mt-4 space-x-4">
-            {/* Google Login Button */}
             <button
               onClick={googleLogin}
               className="flex items-center bg-white border border-gray-300 px-4 py-2 rounded-lg shadow-sm hover:bg-gray-100 transition"
@@ -173,7 +180,6 @@ const SignUp = () => {
               Continue with Google
             </button>
 
-            {/* Apple Login Button */}
             <button
               onClick={appleLogin}
               className="flex items-center bg-white border border-gray-300 px-4 py-2 rounded-lg shadow-sm hover:bg-gray-100 transition"
@@ -185,7 +191,6 @@ const SignUp = () => {
             </button>
           </div>
 
-          {/* Sign-in Link */}
           <p className="text-center text-sm text-gray-600 mt-4">
             Already have an account?{" "}
             <a href="#" className="text-blue-500 hover:underline">
@@ -195,7 +200,6 @@ const SignUp = () => {
         </div>
       </div>
 
-      {/* Second Column - Freelance Card Section */}
       <ConnectFrame />
     </div>
   );

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import NavBarUser from "../../components/UserDashBoard/Navbar";
 import SideBar from "../../components/UserDashBoard/SideBar";
 
@@ -14,7 +14,9 @@ export default function ContractDetails() {
   const onClose = () => {
     setSelectedImage(null); // Close the popup
   };
-
+  useEffect(() => {
+    window.scrollTo(0, 0); // Scroll to top on component mount
+  }, []);
   const dummyData = {
     earnings: "$10.00",
     rate: "$10.00/hr",
