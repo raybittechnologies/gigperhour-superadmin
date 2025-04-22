@@ -12,99 +12,101 @@ const Role = () => {
     }
   };
   return (
-    <div className=" relative flex flex-col items-center justify-center  ">
-      {/* <img src="src/assets/Logo-Text.svg" className="absolute  top-[12px] left-[110px] leading-[58.09px] tracking-[-1%]" alt="Logo Text" /> */}
-
-      <h3 className="text-[#000000] w-[122px] font-inter font-[400] text-[24px] absolute  top-[12px] left-[110px] leading-[58.09px] tracking-[-1%]">
+    <div className="relative min-h-screen w-full flex flex-col items-center justify-center px-4">
+      {/* Nav Text (Top-Left Logo) */}
+      <h3 className="text-[#000000] font-inter font-[400] text-[24px] absolute top-[12px] left-[10vw] leading-[58.09px] tracking-[-1%]">
         Elevance
       </h3>
 
-      {/* Heading */}
-      <h3 className="font-inter font-medium text-[22px] leading-[29.05px] mb-6 text-center relative top-[126px] ">
-        Please Select To Continue
-      </h3>
+      {/* Main Content Container */}
+      <div className="flex flex-col items-center justify-center w-full max-w-[500px] mt-[80px]">
+        {/* Heading */}
+        <h3 className="font-inter font-medium text-[22px] leading-[29.05px] mb-6 text-center">
+          Please Select To Continue
+        </h3>
 
-      {/* Cards Container */}
-      <div
-        className="flex justify-center items-center space-x-6  relative top-[140px] h-[250px]   gap-[50px]
- "
-      >
-        <Star />
-        {/* Client Card */}
-        <div
-          className={` relative w-[270px] h-[220px] border-2 rounded-lg p-6 flex flex-col cursor-pointer transition-all duration-300 ${
-            selected === "client"
-              ? "border-2 border-[#E66D3D]"
-              : "border-[0.5px] border-[#555555]"
-          } z-10`}
-          onClick={() => setSelected("client")}
-        >
-          <img
-            src="src/assets/image-1.svg"
-            alt="Client"
-            className="w-[145px] h-[145px] self-start ml-[-20px] relative top-[-15px]"
-          />
-          <p className="font-bold font-inter leading-[19.36px] text-[14px] ">
-            Sign up as Client
-          </p>
+        {/* Cards Container */}
+        <div className="flex flex-col md:flex-row justify-center items-center gap-[20px] md:gap-[50px] mt-4">
+          <Star />
+
+          {/* Client Card */}
+
           <div
-            className={`absolute top-2 right-2 w-6 h-6 border-2 rounded-full flex justify-center items-center ${
+            className={`relative w-[270px] h-[220px] border-2 rounded-lg p-6 flex flex-col items-center md:items-start transition-all duration-300 cursor-pointer z-10 ${
               selected === "client"
-                ? "border-2 border-[#E66D3D]"
-                : "border-[0.5px] border-gray-500"
+                ? "border-[#E66D3D]"
+                : "border-[0.5px] border-[#555555]"
             }`}
+            onClick={() => setSelected("client")}
           >
-            {selected === "client" && (
-              <div className="w-3 h-3 bg-orange-500 rounded-full"></div>
-            )}
+            <img
+              src="src/assets/image-1.svg"
+              alt="Client"
+              className="w-[145px] h-[145px] mb-2 ml-0 md:ml-[-20px]"
+            />
+            <p className="font-inter text-[16px] font-[500] text-center md:text-[14px] md:font-bold md:text-left leading-[19.36px]">
+              Sign up as Client
+            </p>
+            <div
+              className={`absolute top-2 right-2 w-6 h-6 border-2 rounded-full flex justify-center items-center ${
+                selected === "client"
+                  ? "border-[#E66D3D]"
+                  : "border-[0.5px] border-gray-500"
+              }`}
+            >
+              {selected === "client" && (
+                <div className="w-3 h-3 bg-orange-500 rounded-full"></div>
+              )}
+            </div>
           </div>
-        </div>
 
-        {/* Freelancer Card */}
-        <div
-          className={` relative w-[270px] h-[220px] border-2 rounded-lg p-6 flex flex-col  cursor-pointer transition-all duration-300 ${
-            selected === "freelancer"
-              ? "border-2 border-[#E66D3D]"
-              : "border-[0.5px] border-[#555555]"
-          } z-10`}
-          onClick={() => setSelected("freelancer")}
-        >
-          <img
-            src="src/assets/image 2.svg"
-            alt="Freelancer"
-            className="w-[145px] h-[145px] self-start  ml-[-20px]  relative top-[-15px]"
-          />
-          <p className="font-bold font-inter leading-[19.36px] text-[14px]  ">
-            Sign up as Freelancer
-          </p>
+          {/* Freelancer Card */}
+
           <div
-            className={`absolute top-2 right-2 w-6 h-6 border-2 rounded-full flex justify-center items-center ${
+            className={`relative w-[270px] h-[220px] border-2 rounded-lg p-6 flex flex-col items-center md:items-start transition-all duration-300 cursor-pointer z-10 ${
               selected === "freelancer"
-                ? "border-2 border-[#E66D3D]"
-                : "border-[0.5px] border-white"
+                ? "border-[#E66D3D]"
+                : "border-[0.5px] border-[#555555]"
             }`}
+            onClick={() => setSelected("freelancer")}
           >
-            {selected === "freelancer" && (
-              <div className="w-3 h-3 bg-orange-500 rounded-full"></div>
-            )}
+            <img
+              src="src/assets/image 2.svg"
+              alt="Freelancer"
+              className="w-[145px] h-[145px] mb-2 ml-0 md:ml-[-20px]"
+            />
+            <p className="font-inter text-[16px] font-[500] text-center md:text-[14px] md:font-bold md:text-left leading-[19.36px]">
+              Sign up as Freelancer
+            </p>
+            <div
+              className={`absolute top-2 right-2 w-6 h-6 border-2 rounded-full flex justify-center items-center ${
+                selected === "freelancer"
+                  ? "border-[#E66D3D]"
+                  : "border-[0.5px] border-white"
+              }`}
+            >
+              {selected === "freelancer" && (
+                <div className="w-3 h-3 bg-orange-500 rounded-full"></div>
+              )}
+            </div>
           </div>
         </div>
-      </div>
-      {/* button */}
 
-      <div className=" relative top-[155px] text-center">
-        <button
-          onClick={handleCreateAccount}
-          className="bg-[#E66D3D] text-white   font-semibold p-[11px_100px] mt-[25px] rounded-lg shadow-md hover:bg-[#d45f34] transition duration-300"
-        >
-          Create account
-        </button>
-        <h4 className="mt-[10px] font-inter font-medium text-[17px] leading-[24.2px] tracking-[1%]">
-          Already have an account?{" "}
-          <NavLink to="/login" className="underline text-[20px]">
-            Login
-          </NavLink>
-        </h4>
+        {/* Button Section */}
+        <div className="mt-[40px] text-center">
+          <button
+            onClick={handleCreateAccount}
+            className="bg-[#E66D3D] text-white font-semibold px-[100px] py-[11px] mt-[25px] rounded-lg shadow-md hover:bg-[#d45f34] transition duration-300"
+          >
+            Create account
+          </button>
+          <h4 className="mt-[35px] mb-2 font-inter font-medium text-[17px] leading-[24.2px] tracking-[1%]">
+            Already have an account?{" "}
+            <NavLink to="/login" className="underline text-[20px]">
+              Login
+            </NavLink>
+          </h4>
+        </div>
       </div>
     </div>
   );

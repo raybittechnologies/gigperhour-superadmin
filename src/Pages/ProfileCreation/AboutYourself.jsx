@@ -4,7 +4,7 @@ import NavBarr from "../../components/NavBarr";
 import Star from "../../components/star";
 import { useNavigate } from "react-router-dom";
 export default function AboutYourself() {
-  const [progress] = useState(10); // Example progress state
+  const [progress] = useState(10);
   const [darkMode, setDarkMode] = useState(false);
   const navigate = useNavigate();
   return (

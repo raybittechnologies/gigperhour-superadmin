@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 
-export default function ClientSideBar() {
+export default function ClientSideBar({ activeTab }) {
   const [openSections, setOpenSections] = useState({
     Profile: true,
     Work: true,
@@ -17,13 +17,18 @@ export default function ClientSideBar() {
   };
 
   return (
-    <aside className="col-span-2  bg-white shadow-md py-4 pr-4 pl-2 rounded-md  h-[560px] ">
-      {/* Profile Section */}
+    <aside className="col-span-2  bg-white shadow-md pt-4 pb-2 pr-0 pl-2 rounded-md   ">
       <div className="flex items-center space-x-3">
+        <img
+          src="src/assets/profileImage.jpeg"
+          alt="Profile"
+          className="w-10 h-10 rounded-full"
+        />
         <h4 className="font-[500] text-lg font-inter text-[#333333]">
-          Settings
+          Basit Bashir
         </h4>
       </div>
+      {/* Profile Section */}
 
       {/* Sidebar Navigation */}
       <nav className="mt-4">
@@ -49,40 +54,45 @@ export default function ClientSideBar() {
             </button>
             {openSections.Profile && (
               <ul className="mt-2  text-sm">
-                <li>
+                <li className="">
                   <NavLink
-                    to="/profile"
-                    className={({ isActive }) =>
-                      `font-inter font-[300] text-[14px] pt-[5px] pb-[5px] flex items-center gap-2 ${
-                        isActive
-                          ? "bg-[#E66D3D] text-white -mx-4 px-4"
+                    to="/jobDashboard?tab=jobs"
+                    className={() =>
+                      `relative z-10 font-inter font-[300] text-[14px] pt-[5px] pb-[5px] flex items-center gap-2 ${
+                        activeTab === "jobs"
+                          ? "text-white bg-[#E66D3D] -mx-2 pl-2 overflow-y-auto"
                           : "text-[#333333]"
                       }`
                     }
                   >
-                    <img
-                      src="src/assets/UserDashboard/user.svg "
-                      alt="Saved Jobs"
-                    />{" "}
-                    Job Posts & Proposals
+                    <span className="relative z-10 flex items-center gap-2">
+                      <img
+                        src="src/assets/UserDashboard/user.svg"
+                        alt="Job Posts"
+                      />
+                      Job Posts & Proposals
+                    </span>
                   </NavLink>
                 </li>
+
                 <li>
                   <NavLink
-                    to="/contact"
-                    className={({ isActive }) =>
-                      `font-inter font-[300] text-[14px] pt-[5px] pb-[5px] flex items-center gap-2 ${
-                        isActive
-                          ? "bg-[#E66D3D] text-white -mx-4 px-4"
+                    to="/jobDashboard"
+                    className={() =>
+                      `relative z-10 font-inter font-[300] text-[14px] pt-[5px] pb-[5px] flex items-center gap-2 ${
+                        activeTab === "contracts"
+                          ? "text-white bg-[#E66D3D] -mx-2  pl-2 overflow-y-auto"
                           : "text-[#333333]"
                       }`
                     }
                   >
-                    <img
-                      src="src/assets/UserDashboard/contact-02.svg "
-                      alt="Find Jobs"
-                    />
-                    Pending Offers
+                    <span className="relative z-10 flex items-center gap-2">
+                      <img
+                        src="src/assets/UserDashboard/user.svg"
+                        alt="Contracts"
+                      />
+                      Pending offers
+                    </span>
                   </NavLink>
                 </li>
                 <li>
@@ -105,7 +115,7 @@ export default function ClientSideBar() {
                 </li>
                 <li>
                   <NavLink
-                    to="/memberShip"
+                    to="/searchTalent"
                     className={({ isActive }) =>
                       `font-inter font-[300] text-[14px] pt-[5px] pb-[5px] flex items-center gap-2 ${
                         isActive
@@ -123,7 +133,7 @@ export default function ClientSideBar() {
                 </li>
                 <li>
                   <NavLink
-                    to="/getPaid"
+                    to="/hiredTalent"
                     className={({ isActive }) =>
                       `font-inter font-[300] text-[14px] pt-[5px] pb-[5px] flex items-center gap-2 ${
                         isActive
@@ -141,7 +151,7 @@ export default function ClientSideBar() {
                 </li>
                 <li>
                   <NavLink
-                    to="/teams"
+                    to="/savedTalent"
                     className={({ isActive }) =>
                       `font-inter font-[300] text-[14px] pt-[5px] pb-[5px] flex items-center gap-2 ${
                         isActive
@@ -185,7 +195,114 @@ export default function ClientSideBar() {
               className="w-full flex justify-between items-center font-[400] font-inter pt-1 pb-1"
               onClick={() => toggleSection("Work")}
             >
-              Billing
+              Manage Work
+              <span>
+                <img
+                  src={
+                    openSections.Work
+                      ? "src/assets/arrow-up.svg"
+                      : "src/assets/arrow-down-01.svg"
+                  }
+                  alt="Arrow"
+                  className="w-4 h-4"
+                />
+              </span>
+            </button>
+
+            {openSections.Work && (
+              <ul className="mt-2 text-sm">
+                <li>
+                  <NavLink
+                    to="/billing01"
+                    className={`font-inter font-[300] text-[14px] pt-[5px] pb-[5px] flex items-center gap-2 ${
+                      location.pathname.startsWith("/billing")
+                        ? "bg-[#E66D3D] text-white -mx-4 px-4"
+                        : "text-[#333333]"
+                    }`}
+                  >
+                    <img
+                      src="src/assets/UserDashboard/invoice-04.svg "
+                      alt="Proposals"
+                    />
+                    Your Contracts
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/timesheets"
+                    className={({ isActive }) =>
+                      `font-inter font-[300] text-[14px] pt-[5px] pb-[5px] flex items-center gap-2 ${
+                        isActive
+                          ? "bg-[#E66D3D] text-white -mx-4 px-4"
+                          : "text-[#333333]"
+                      }`
+                    }
+                  >
+                    <img
+                      src="src/assets/UserDashboard/user-account.svg "
+                      alt="Proposals"
+                    />{" "}
+                    TimeSheets
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/billing01"
+                    className={`font-inter font-[300] text-[14px] pt-[5px] pb-[5px] flex items-center gap-2 ${
+                      location.pathname.startsWith("/billing")
+                        ? "bg-[#E66D3D] text-white -mx-4 px-4"
+                        : "text-[#333333]"
+                    }`}
+                  >
+                    <img
+                      src="src/assets/UserDashboard/invoice-04.svg "
+                      alt="Proposals"
+                    />
+                    Billing & Payment
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/billing01"
+                    className={`font-inter font-[300] text-[14px] pt-[5px] pb-[5px] flex items-center gap-2 ${
+                      location.pathname.startsWith("/billing")
+                        ? "bg-[#E66D3D] text-white -mx-4 px-4"
+                        : "text-[#333333]"
+                    }`}
+                  >
+                    <img
+                      src="src/assets/UserDashboard/invoice-04.svg "
+                      alt="Proposals"
+                    />
+                    Billing & Payment
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/billing01"
+                    className={`font-inter font-[300] text-[14px] pt-[5px] pb-[5px] flex items-center gap-2 ${
+                      location.pathname.startsWith("/billing")
+                        ? "bg-[#E66D3D] text-white -mx-4 px-4"
+                        : "text-[#333333]"
+                    }`}
+                  >
+                    <img
+                      src="src/assets/UserDashboard/invoice-04.svg "
+                      alt="Proposals"
+                    />
+                    Billing & Payment
+                  </NavLink>
+                </li>
+              </ul>
+            )}
+          </li>
+          {/*Reports */}
+          <li>
+            <button
+              className="w-full flex justify-between items-center font-[400] font-inter pt-1 pb-1"
+              onClick={() => toggleSection("Work")}
+            >
+              Reports
               <span>
                 <img
                   src={
@@ -217,14 +334,60 @@ export default function ClientSideBar() {
                     Billing & Payment
                   </NavLink>
                 </li>
+                <li>
+                  <NavLink
+                    to="/billing01"
+                    className={`font-inter font-[300] text-[14px] pt-[5px] pb-[5px] flex items-center gap-2 ${
+                      location.pathname.startsWith("/billing")
+                        ? "bg-[#E66D3D] text-white -mx-4 px-4"
+                        : "text-[#333333]"
+                    }`}
+                  >
+                    <img
+                      src="src/assets/UserDashboard/invoice-04.svg "
+                      alt="Proposals"
+                    />
+                    Billing & Payment
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/billing01"
+                    className={`font-inter font-[300] text-[14px] pt-[5px] pb-[5px] flex items-center gap-2 ${
+                      location.pathname.startsWith("/billing")
+                        ? "bg-[#E66D3D] text-white -mx-4 px-4"
+                        : "text-[#333333]"
+                    }`}
+                  >
+                    <img
+                      src="src/assets/UserDashboard/invoice-04.svg "
+                      alt="Proposals"
+                    />
+                    Billing & Payment
+                  </NavLink>
+                </li>
               </ul>
             )}
           </li>
-
+          <li>
+            <button
+              className="w-full flex items-center justify-between font-[400] font-inter "
+              onClick={() => toggleSection("support")}
+            >
+              <div className="flex items-center gap-2">
+                <img
+                  src="src/assets/UserDashboard/customer-service-01.svg"
+                  alt="Support Icon"
+                  className="w-5 h-5"
+                />
+                <span>Messages</span>
+              </div>
+            </button>
+          </li>
           {/* Organize Financials */}
           <li>
             <button
-              className="w-full flex items-center justify-between font-[400] font-inter pt-1 pb-1"
+              className="w-full flex items-center justify-between font-[400] font-inter  "
               onClick={() => toggleSection("support")}
             >
               <div className="flex items-center gap-2">
@@ -241,7 +404,7 @@ export default function ClientSideBar() {
           {/* Payouts */}
           <li>
             <button
-              className="w-full flex items-center justify-between font-[400] font-inter pt-1 pb-1"
+              className="w-full flex items-center justify-between font-[400] font-inter pb-1"
               onClick={() => toggleSection("logout")}
             >
               <div className="flex items-center gap-2">

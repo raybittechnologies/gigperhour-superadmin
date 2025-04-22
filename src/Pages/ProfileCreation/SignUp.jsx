@@ -6,7 +6,7 @@ import ConnectFrame from "../../components/ConnectFrame";
 const SignUp = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const role = location.state?.type || "client"; // fallback to 'client'
+  const role = location.state?.type || "client";
 
   const [passwordVisible, setPasswordVisible] = useState(false);
 
@@ -42,7 +42,6 @@ const SignUp = () => {
 
   const handleContinue = (e) => {
     e.preventDefault();
-
     if (role === "client") {
       navigate("/clientSuccess");
     } else {
@@ -51,32 +50,46 @@ const SignUp = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row justify-center items-center relative pt-6 pr-6 pl-6 gap-[4.4rem]">
+    <div className="flex flex-col lg:flex-row justify-center items-center relative px-4  pt-6 gap-[4.4rem]">
       <Star />
 
-      <div className="flex flex-col w-[573px]">
+      {/* Form Section */}
+      <div className="flex flex-col w-full px-[10px] mb-5 md:mb-0 md:w-[573px]">
+        {/* Heading */}
         <div className="mb-6 mt-[-28px]">
-          <h3 className="text-[#000000] w-[122px] font-inter font-[400] text-[25px] absolute top-[6px] mt-[-10px] leading-[58.09px] tracking-[-1%]">
+          <h3 className="text-[#000000] font-inter font-[400] text-[25px] absolute top-[6px] mt-[-14px] leading-[58.09px] tracking-[-1%]">
             Elevance
           </h3>
-          <h3 className="font-inter font-[400] text-[20px] mt-[52px] leading-[29.05px] tracking-[-0.01em] relative">
+          <h3 className="font-inter font-[400] text-[18px] md:text-[20px] mt-[45px] leading-[29.05px] tracking-[-0.01em] relative">
             Create your account and create a world of opportunities
           </h3>
         </div>
 
-        <div className="backdrop-blur-3xl py-[10px] rounded-2xl bg-gradient-to-b from-black/10 to-black/30 shadow-lg w-full border-0 border-solid border-white w-[573px] h-[485px] mt-[-11px] pl-[44px] pr-[44px]">
-          <form>
-            <label className="block text-white py-[5px]">Email</label>
+        {/* Form Container */}
+        <div
+          className="
+    backdrop-blur-0 md:backdrop-blur-3xl
+    bg-transparent md:bg-gradient-to-b md:from-black/10 md:to-black/30
+    text-black md:text-white
+    shadow-lg w-full border md:border-0
+    h-auto md:min-h-[485px] mt-[-11px] px-6 md:px-[44px]
+    rounded-[1px] md:rounded-md py-[6px]
+  "
+        >
+          <div className="relative z-10">
+            {/* Email */}
+            <label className="block  py-[5px]">Email</label>
             <input
               type="email"
               name="email"
               placeholder="Enter Your Email..."
               value={formData.email}
               onChange={handleChange}
-              className="w-full h-[45px] text-[14px] rounded-[5px] placeholder:text-[12px] pl-[20px]"
+              className="w-full h-[45px] bg-white text-gray-800 placeholder:text-gray-400 text-[14px] rounded-[5px] pl-[20px] shadow-sm border border-gray-300"
             />
 
-            <label className="block text-white mb-1 py-[5px]">Password</label>
+            {/* Password */}
+            <label className="block  py-[5px]">Password</label>
             <div className="relative">
               <input
                 type={passwordVisible ? "text" : "password"}
@@ -84,7 +97,7 @@ const SignUp = () => {
                 placeholder="Enter Your Password..."
                 value={formData.password}
                 onChange={handleChange}
-                className="w-full h-[45px] text-[14px] abc rounded-[5px] placeholder:text-[12px] pl-[20px]"
+                className="w-full h-[45px] bg-white text-gray-800 placeholder:text-gray-400 text-[14px] rounded-[5px] pl-[20px] shadow-sm border border-gray-300"
               />
               <span
                 onClick={togglePasswordVisibility}
@@ -101,28 +114,18 @@ const SignUp = () => {
               </span>
             </div>
 
-            <label className="block text-white mb-1 p-[5px]">Country</label>
+            {/* Country Select */}
+            <label className="block   py-[5px]">Country</label>
             <select
               name="country"
               value={formData.country}
               onChange={handleChange}
+              className=" w-full appearance-none bg-white text-gray-800 text-[14px] rounded-[5px] pl-[20px] pr-[40px] shadow-sm border border-gray-300 h-[45px] mb-4"
               style={{
-                appearance: "none",
-                WebkitAppearance: "none",
-                MozAppearance: "none",
-                backgroundColor: "white",
                 backgroundImage: "url(src/assets/arrow-down-01.svg)",
                 backgroundRepeat: "no-repeat",
                 backgroundPosition: "right 10px center",
                 backgroundSize: "29px 22px",
-                paddingRight: "30px",
-                border: "1px solid #ccc",
-                borderRadius: "5px",
-                width: "100%",
-                height: "45px",
-                fontSize: "14px",
-                paddingLeft: "20px",
-                marginBottom: "1rem",
               }}
             >
               <option value="">Select Country</option>
@@ -131,33 +134,44 @@ const SignUp = () => {
               <option value="Canada">Canada</option>
             </select>
 
-            <div className="flex items-center">
+            {/* Checkboxes */}
+            <div className="flex items-start mb-2 md:mb-0">
               <input
                 type="checkbox"
                 name="receiveUpdates"
                 checked={formData.receiveUpdates}
                 onChange={handleChange}
-                className="mr-2 w-[18px] h-[25px]"
+                className="mr-2 w-[18px] h-[25px] mt-[2px]  shrink-0"
               />
-              <span className="text-white text-[14px] leading-[24px]">
+              <span className="text-[12px] md:text-[14px] leading-[20px] md:leading-[24px]">
                 Keep me updated with valuable jobs and exciting work
                 opportunities.
               </span>
             </div>
 
-            <div className="flex items-center">
+            <div className="flex items-start mb-4 gap-2">
               <input
                 type="checkbox"
                 name="agreeTerms"
                 checked={formData.agreeTerms}
                 onChange={handleChange}
-                className="mr-2 w-[18px] h-[25px]"
+                className="mt-[6px] w-[18px] h-[18px] shrink-0"
               />
-              <span className="text-white text-[14px] leading-[24px]">
-                I acknowledge and agree to Product 1’s Terms of Service.
+              <span className="text-[12px] md:text-[14px] leading-[20px] md:leading-[24px]">
+                I acknowledge and agree to Product 1’s Terms of Service,
+                including the{" "}
+                <a href="#" className="underline font-[600]">
+                  User Agreement
+                </a>{" "}
+                and{" "}
+                <a href="#" className="underline font-[600]">
+                  Privacy Policy
+                </a>
+                .
               </span>
             </div>
 
+            {/* Submit Button */}
             <div className="flex justify-center mt-4">
               <button
                 type="submit"
@@ -167,40 +181,46 @@ const SignUp = () => {
                 Continue
               </button>
             </div>
-          </form>
+          </div>
 
-          <div className="flex justify-center mt-4 space-x-4">
+          <div className="flex flex-col sm:flex-row justify-center items-center mt-4 gap-3">
             <button
               onClick={googleLogin}
-              className="flex items-center bg-white border border-gray-300 px-4 py-2 rounded-lg shadow-sm hover:bg-gray-100 transition"
+              className="flex items-center text-black bg-white border border-gray-300 px-4 py-2 rounded-lg shadow-sm hover:bg-gray-100 transition"
             >
               <span className="mr-2">
                 <img src="src/assets/google.svg" />
-              </span>{" "}
+              </span>
               Continue with Google
             </button>
 
             <button
               onClick={appleLogin}
-              className="flex items-center bg-white border border-gray-300 px-4 py-2 rounded-lg shadow-sm hover:bg-gray-100 transition"
+              className="flex items-center text-black bg-white border border-gray-300 px-4 py-2 rounded-lg shadow-sm hover:bg-gray-100 transition"
             >
               <span className="mr-2">
                 <img src="src/assets/apple.svg" />
-              </span>{" "}
+              </span>
               Continue with Apple
             </button>
           </div>
 
-          <p className="text-center text-sm text-gray-600 mt-4">
+          <p className="text-center font-[400] text-sm  0 mt-4">
             Already have an account?{" "}
-            <a href="#" className="text-blue-500 hover:underline">
+            <a href="#" className="font-[600] hover:underline">
               Sign in
             </a>
           </p>
         </div>
       </div>
-
-      <ConnectFrame />
+      {/* ConnectFrame: only between md and lg */}
+      <div className="hidden md:block lg:hidden mt-8 mb-8 flex justify-center ">
+        <ConnectFrame />
+      </div>
+      {/* ConnectFrame: only visible on large (lg+) beside form */}
+      <div className="hidden lg:block ">
+        <ConnectFrame />
+      </div>
     </div>
   );
 };

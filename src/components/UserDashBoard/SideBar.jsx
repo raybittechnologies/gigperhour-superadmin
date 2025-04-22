@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import { CiBookmark } from "react-icons/ci";
+import { CiSearch } from "react-icons/ci";
+import { CiDiscount1 } from "react-icons/ci";
 export default function SideBar() {
   const [openSections, setOpenSections] = useState({
     work: true,
@@ -68,23 +71,43 @@ export default function SideBar() {
                       }`
                     }
                   >
-                    <img src="src/assets/bookmark-02.svg" alt="Saved Jobs" />{" "}
-                    Saved Jobs
+                    {({ isActive }) => (
+                      <>
+                        <CiBookmark
+                          className={`w-[17px] h-[17px] ${
+                            isActive ? "text-white" : "text-[#000000]"
+                          }`}
+                        />
+                        Saved Jobs
+                      </>
+                    )}
                   </NavLink>
                 </li>
+
                 <li>
                   <NavLink
                     to="/findJobs"
                     className={({ isActive }) =>
-                      `font-inter font-[300] text-[14px] pt-[5px] pb-[5px] flex items-center gap-2  rounded-md ${
-                        isActive ? "bg-orange-500 text-white" : "text-[#333333]"
+                      `font-inter font-[300] text-[14px] pt-[5px] pb-[5px] flex items-center gap-2 rounded-md ${
+                        isActive
+                          ? "bg-orange-500 text-white -mx-4 px-4"
+                          : "text-[#333333]"
                       }`
                     }
                   >
-                    <img src="src/assets/search-01.svg" alt="Find Jobs" /> Find
-                    Jobs
+                    {({ isActive }) => (
+                      <>
+                        <CiSearch
+                          className={`w-[18px] h-[18px] ${
+                            isActive ? "text-white" : "text-[#000000]"
+                          }`}
+                        />
+                        Find Jobs
+                      </>
+                    )}
                   </NavLink>
                 </li>
+
                 <li>
                   <NavLink
                     to="/proposals"
@@ -96,8 +119,16 @@ export default function SideBar() {
                       }`
                     }
                   >
-                    <img src="src/assets/discount.svg" alt="Proposals" />{" "}
-                    Proposals & Offers
+                    {({ isActive }) => (
+                      <>
+                        <CiDiscount1
+                          className={`w-[18px] h-[18px] ${
+                            isActive ? "text-white" : "text-[#000000]"
+                          }`}
+                        />
+                        Proposals & Offers
+                      </>
+                    )}
                   </NavLink>
                 </li>
               </ul>

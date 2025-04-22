@@ -10,12 +10,13 @@ export default function PostJob() {
   const navigate = useNavigate();
 
   const handleSelect = (type) => {
-    setSelectedType(type);
-
-    if (type === "long") {
-      setTimeout(() => {
-        navigate("/longTermJob01");
-      }, 500); //
+    setSelectedType(type); // Only update the selection
+  };
+  const handleContinue = () => {
+    if (selectedType === "long") {
+      navigate("/longTermJob01");
+    } else if (selectedType === "short") {
+      navigate("/shortTermJob01"); // You can adjust this path if needed
     }
   };
 
@@ -27,12 +28,14 @@ export default function PostJob() {
     >
       <NavBarUser changeMode={setDarkMode} role="client" />
 
-      <div className="grid grid-cols-12 gap-4 px-[20px] py-[20px]">
-        <div className="col-span-2">
-          <SideBar />
+      <div className="flex h-[calc(100vh-64px)] hide-scrollbar">
+        <div className="w-[240px] fixed left-0 top-[64px] px-[20px] py-[20px] bottom-0 z-10 ">
+          <div className="h-full overflow-y-auto hide-scrollbar rounded-[8px]">
+            <SideBar />
+          </div>
         </div>
 
-        <div className="col-span-10 pl-6">
+        <div className="ml-[240px] flex-1 overflow-y-auto p-6 hide-scrollbar">
           <div
             className={`p-6 border rounded-lg ${
               darkMode ? "border-[#E9E9E9]" : "border-[#555555]"
@@ -120,7 +123,7 @@ export default function PostJob() {
             </div>
 
             {/* Buttons */}
-            <div className="flex justify-end gap-9 mt-32">
+            <div className="flex justify-end gap-9 mt-36">
               <button className="px-6 py-2 border font-[600] border-[#E66D3D] rounded-md   transition">
                 Cancel
               </button>
@@ -130,6 +133,7 @@ export default function PostJob() {
                     ? "bg-[#E66D3D] "
                     : "bg-[#E66D3D] cursor-not-allowed"
                 }`}
+                onClick={handleContinue}
                 disabled={!selectedType}
               >
                 Continue

@@ -65,6 +65,21 @@ import Dashboard from "../Pages/ClientScreens/Dashboard";
 import ClientSuccess from "../Pages/ClientScreens/ClientSuccess";
 import PostJob from "../Pages/ClientScreens/PostJob";
 import JobLong01 from "../Pages/ClientScreens/JobLong01";
+import JobLong02 from "../Pages/ClientScreens/JobLong02";
+import JobLong03 from "../Pages/ClientScreens/JobLong03";
+import JobLong04 from "../Pages/ClientScreens/JobLong04";
+import JobLong05 from "../Pages/ClientScreens/JobLong05";
+import ReviewJob from "../Pages/ClientScreens/ReviewJob";
+import FinalizeJob from "../Pages/ClientScreens/FinalizeJob";
+import JobSuccess from "../Pages/ClientScreens/JobSuccess";
+import JobPosted from "../Pages/ClientScreens/jobPosted-2";
+import JobDashboard from "../Pages/ClientScreens/jobDashboard";
+import SearchTalent from "../Pages/ClientScreens/SearchTalent";
+import HiredTalent from "../Pages/ClientScreens/HiredTalent";
+import SavedTalent from "../Pages/ClientScreens/SavedTalent";
+import Timesheets from "../Pages/ClientScreens/Timesheets";
+import TimeSheet02 from "../Pages/ClientScreens/TimeSheet02";
+
 // -------------------------------------------Client Routes--------------------------
 
 const browserRoutes = createBrowserRouter([
@@ -140,6 +155,20 @@ const browserRoutes = createBrowserRouter([
       { path: "/Clientdashboard", element: <Dashboard /> },
       { path: "/postJob", element: <PostJob /> },
       { path: "/longTermJob01", element: <JobLong01 /> },
+      { path: "/longTermJob02", element: <JobLong02 /> },
+      { path: "/longTermJob03", element: <JobLong03 /> },
+      { path: "/longTermJob04", element: <JobLong04 /> },
+      { path: "/longTermJob05", element: <JobLong05 /> },
+      { path: "/jobReview", element: <ReviewJob /> },
+      { path: "/FinalizeJob", element: <FinalizeJob /> },
+      { path: "/jobSuccess", element: <JobSuccess /> },
+      { path: "/jobPosted", element: <JobPosted /> },
+      { path: "/jobDashboard", element: <JobDashboard /> },
+      { path: "/searchTalent", element: <SearchTalent /> },
+      { path: "/hiredTalent", element: <HiredTalent /> },
+      { path: "/savedTalent", element: <SavedTalent /> },
+      { path: "/timesheets", element: <Timesheets /> },
+      { path: "/timesheet02", element: <TimeSheet02 /> },
     ],
   },
 ]);
