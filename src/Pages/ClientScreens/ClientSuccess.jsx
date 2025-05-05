@@ -46,9 +46,9 @@ const ClientSuccess = () => {
               transition={{
                 duration: 0.5,
                 ease: "easeOut",
-                delay: index * 0.2, // Each dot appears with a delay
-                repeat: Infinity, // Loop infinitely
-                repeatType: "reverse", // Creates a smooth in-out effect
+                delay: index * 0.2,
+                repeat: Infinity,
+                repeatType: "reverse",
               }}
             />
           ))}

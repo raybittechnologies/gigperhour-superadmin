@@ -18,7 +18,7 @@ export default function ConnectDetails() {
       date: "21-02-2025",
       action: "Monthly Tokens Renewals",
       tokens: "+21",
-      jobTitle: "", // No job title for this transaction
+      jobTitle: "",
     },
     {
       date: "18-02-2025",

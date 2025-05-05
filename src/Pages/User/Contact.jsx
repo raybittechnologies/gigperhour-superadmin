@@ -120,7 +120,7 @@ export default function Contact() {
         ? "border-[#E9E9E9] text-white"
         : "border-[#555555] text-[#555555]"
     }`}
-                      rows={1} // Starts with single line but will expand if needed
+                      rows={1}
                     />
                   </div>
                   <div>

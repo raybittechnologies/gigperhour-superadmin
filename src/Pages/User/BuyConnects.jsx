@@ -34,8 +34,8 @@ export default function BuyConnects() {
                 <img
                   src={
                     darkMode
-                      ? "src/assets/UserDashboard/square-arrow-left-01.svg" // Dark mode image
-                      : "src/assets/UserDashboard/square-arrow-left-light.svg" // Light mode image
+                      ? "src/assets/UserDashboard/square-arrow-left-01.svg"
+                      : "src/assets/UserDashboard/square-arrow-left-light.svg"
                   }
                   alt="Back to Dashboard"
                   className="cursor-pointer"

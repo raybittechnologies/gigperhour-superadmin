@@ -16,6 +16,7 @@ export default function Timesheets() {
       date: "Monday, January 1, 2025",
       entries: [
         {
+          id: 1,
           freelancer: "Basit Bashir",
           jobTitle: "I need a designer for Landing Page",
           hours: 5,
@@ -29,6 +30,7 @@ export default function Timesheets() {
       date: "Tuesday, January 2, 2025",
       entries: [
         {
+          id: 2,
           freelancer: "Ali Khan",
           jobTitle: "I need a designer for Landing Page",
           hours: 5,
@@ -39,9 +41,10 @@ export default function Timesheets() {
       ],
     },
     {
-      date: "wednesday, January 3, 2025",
+      date: "Wednesday, January 3, 2025",
       entries: [
         {
+          id: 3,
           freelancer: "Ali Khan",
           jobTitle: "I need a designer for Landing Page",
           hours: 5,
@@ -52,9 +55,24 @@ export default function Timesheets() {
       ],
     },
     {
-      date: "thrusday, January 4, 2025",
+      date: "Thursday, January 4, 2025",
       entries: [
         {
+          id: 4,
+          freelancer: "Ali Khan",
+          jobTitle: "I need a designer for Landing Page",
+          hours: 5,
+          amount: 550,
+          avatar: "https://randomuser.me/api/portraits/men/32.jpg",
+          paymentType: "Hourly",
+        },
+      ],
+    },
+    {
+      date: "Friday, January 17, 2025",
+      entries: [
+        {
+          id: 5,
           freelancer: "Ali Khan",
           jobTitle: "I need a designer for Landing Page",
           hours: 5,
@@ -118,15 +136,24 @@ export default function Timesheets() {
                   onChange={(update) => setDateRange(update)}
                   placeholderText="Select date range"
                   dateFormat="dd/MM/yyyy"
-                  className="w-full outline-none text-sm bg-transparent border px-4 pr-16 py-2 rounded-md border-[#555555]"
+                  className={`w-full outline-none text-sm bg-transparent border px-4 pr-16 py-2 rounded-md ${
+                    darkMode ? "border-[#E9E9E9]" : "border-[#555555]"
+                  }`}
                 />
                 <CalendarDays
                   size={18}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#555555] pointer-events-none"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 font-[300] pointer-events-none"
                 />
               </div>
               <button className="flex items-center gap-2">
-                <img src="src/assets/clientscreen/filter-horizontal.svg" />
+                <img
+                  src={
+                    darkMode
+                      ? "src/assets/clientscreen/filter-horizontal-dark.svg" // Dark mode image
+                      : "src/assets/clientscreen/filter-horizontal.svg" // Light mode image
+                  }
+                  alt="Filter"
+                />
                 Filter
               </button>
             </div>

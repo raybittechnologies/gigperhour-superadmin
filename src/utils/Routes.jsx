@@ -79,6 +79,12 @@ import HiredTalent from "../Pages/ClientScreens/HiredTalent";
 import SavedTalent from "../Pages/ClientScreens/SavedTalent";
 import Timesheets from "../Pages/ClientScreens/Timesheets";
 import TimeSheet02 from "../Pages/ClientScreens/TimeSheet02";
+import WorkDiaries from "../Pages/ClientScreens/WorkDiaries";
+import CustomExports from "../Pages/ClientScreens/CustomExports";
+import YourContracts from "../Pages/ClientScreens/YourContracts";
+import WeeklySummary from "../Pages/ClientScreens/WeeklySummary";
+import TransactionHistory from "../Pages/ClientScreens/TransactionHistory";
+import ClientSetting from "../Pages/ClientScreens/ClientSetting";
 
 // -------------------------------------------Client Routes--------------------------
 
@@ -169,6 +175,12 @@ const browserRoutes = createBrowserRouter([
       { path: "/savedTalent", element: <SavedTalent /> },
       { path: "/timesheets", element: <Timesheets /> },
       { path: "/timesheet02", element: <TimeSheet02 /> },
+      { path: "/workDiaries", element: <WorkDiaries /> },
+      { path: "/customExp", element: <CustomExports /> },
+      { path: "/contractsClient", element: <YourContracts /> },
+      { path: "/weeklySummary", element: <WeeklySummary /> },
+      { path: "/transactionHistory", element: <TransactionHistory /> },
+      { path: "/clientSettings", element: <ClientSetting /> },
     ],
   },
 ]);

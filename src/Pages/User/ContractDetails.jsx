@@ -12,7 +12,7 @@ export default function ContractDetails() {
   };
 
   const onClose = () => {
-    setSelectedImage(null); // Close the popup
+    setSelectedImage(null); 
   };
   useEffect(() => {
     window.scrollTo(0, 0); // Scroll to top on component mount

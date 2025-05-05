@@ -2,8 +2,10 @@ import NavBarUser from "../../components/UserDashBoard/Navbar";
 import SideBar from "../../components/ClientScreen/ClientSideBar";
 import { useState } from "react";
 import { AllContracts } from "../../components/ClientScreen/AllContracts";
-import { useLocation } from "react-router-dom";
+
 import { useNavigate } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
+import { useEffect } from "react";
 const jobData = [
   {
     proposals: 0,
@@ -66,14 +68,19 @@ const contracts = [
 export default function JobDashboard() {
   const [darkMode, setDarkMode] = useState(false);
   const navigate = useNavigate();
-  const location = useLocation();
-  const [activeTab, setActiveTab] = useState(
-    location.state?.activeTab || "jobs" // Initialize with route state
-  );
+  // const location = useLocation();
+  const [activeTab, setActiveTab] = useState("jobs");
+  const [searchParams] = useSearchParams();
   const handleTabClick = (tab) => {
     setActiveTab(tab);
     navigate(`/jobDashboard?tab=${tab}`);
   };
+  useEffect(() => {
+    const tab = searchParams.get("tab");
+    if (tab) {
+      setActiveTab(tab);
+    }
+  }, [searchParams]);
   return (
     <div
       className={`min-h-screen flex flex-col ${
@@ -122,7 +129,7 @@ export default function JobDashboard() {
                         : "border-[#555555] text-[#555555]"
                       : "border-transparent"
                   }`}
-                  onClick={() => setActiveTab("contracts")}
+                  onClick={() => handleTabClick("contracts")}
                 >
                   All Contracts
                 </button>
