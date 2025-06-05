@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import NavBarUser from "../../components/UserDashBoard/Navbar";
 import SideBar from "../../components/UserDashBoard/ProfileSideBar";
+import MobileSidebar from "../../components/UserDashBoard/ProfileMobile";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 export default function Testimonials() {
@@ -13,15 +14,34 @@ export default function Testimonials() {
     window.scrollTo(0, 0); // Scroll to top on component mount
   }, []);
   return (
-    <div className={`${darkMode ? "bg-black text-white" : "text-[#333333]"}`}>
+    <div
+      className={`min-h-screen ${
+        darkMode ? "bg-black text-white" : "text-[#333333]"
+      }`}
+    >
       <NavBarUser changeMode={setDarkMode} />
-      <div className="grid grid-cols-12 gap-4 px-[20px] py-[20px]">
-        <SideBar />
-        <div className="col-span-10 pl-6">
+      <div className="flex h-[calc(100vh-64px)] hide-scrollbar">
+        {/* Desktop Sidebar */}
+        <div className="md:w-[240px] hidden md:fixed md:left-0 md:top-[64px] md:px-[20px] md:py-[20px] md:bottom-0 md:z-10 md:block">
+          <div className="h-full overflow-y-auto overflow-x-hidden hide-scrollbar rounded-[8px]">
+            <SideBar />
+          </div>
+        </div>
+
+        {/* Mobile Sidebar */}
+        <div className="fixed top-[48px] pt-[20px] bottom-0 z-10">
+          <div className="block h-full overflow-y-auto overflow-x-hidden hide-scrollbar py-[20px] md:hidden">
+            <MobileSidebar />
+          </div>
+        </div>
+        <div className="md:p-6 py-6 pl-4 pr-7 md:pl-6 col-span-full md:ml-[220px] ml-[20px] flex-1 overflow-y-auto hide-scrollbar">
           <div className="border border-[#555555] rounded-lg pt-2 pb-4 px-6  relative">
             {/* Header Section */}
             <h3 className="text-[22px] font-[400] mb-2">
-              Testimonials (Endorsements from past clients)
+              Testimonials{" "}
+              <span className="block sm:inline  sm:text-[20px] text-[14px]">
+                (Endorsements from past clients)
+              </span>
             </h3>
 
             {/* Plus Icon */}
@@ -56,7 +76,7 @@ export default function Testimonials() {
         {/* Popup Component */}
         {showPopup && (
           <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-[10] ">
-            <div className="bg-white px-6 py-3 rounded-lg shadow-lg mt-[60px] h-[500px] w-[600px]">
+            <div className="bg-white px-4 py-5 rounded-lg shadow-lg mt-[60px] w-[90%] max-w-[600px] max-h-[90vh] overflow-y-auto">
               {/* Header Section */}
               <div className="flex justify-between  mb-4">
                 <h3 className="text-[22px]  text-[#333333] font-[400]">
@@ -69,7 +89,7 @@ export default function Testimonials() {
               </div>
 
               {/* Form Section */}
-              <div className="grid grid-cols-2 gap-4 mb-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                 {/* First name  */}
                 <div>
                   <label className="block text-[#333333] text-[15px] mb-1">
@@ -155,7 +175,7 @@ export default function Testimonials() {
               </div>
 
               {/* Buttons Section */}
-              <div className="flex justify-end mt-4 gap-4">
+              <div className="flex justify-end mt-4 gap-4 [@media(max-width:424px)]:flex-col">
                 <button
                   className="border border-[#E66D3D] text-[#333333] font-[600] text-[16px] px-9 py-2 rounded"
                   onClick={togglePopup}

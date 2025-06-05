@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import { CiBookmark } from "react-icons/ci";
-import { CiSearch } from "react-icons/ci";
-import { CiDiscount1 } from "react-icons/ci";
+import { CiBookmark, CiSearch, CiDiscount1, CiDollar } from "react-icons/ci";
+
+import { LuAlarmClock } from "react-icons/lu";
+import { ImFileText2 } from "react-icons/im";
 export default function SideBar() {
   const [openSections, setOpenSections] = useState({
     work: true,
@@ -201,8 +202,8 @@ export default function SideBar() {
                       }`
                     }
                   >
-                    <img src="src/assets/file-02.svg" alt="Contracts" /> Active
-                    Contracts
+                    <ImFileText2 className="w-[14px] h-5  " strokeWidth={0.1} />
+                    Active Contracts
                   </NavLink>
                 </li>
 
@@ -217,8 +218,19 @@ export default function SideBar() {
                       }`
                     }
                   >
-                    <img src="src/assets/work-history.svg" alt="Contracts" />
-                    Contract History
+                    {({ isActive }) => (
+                      <>
+                        <img
+                          src={
+                            isActive || location.pathname === "/contractDetails"
+                              ? "src/assets/userDashboard/work-history-white.svg"
+                              : "src/assets/work-history.svg"
+                          }
+                          alt="Contracts"
+                        />
+                        Contract History
+                      </>
+                    )}
                   </NavLink>
                 </li>
 
@@ -233,7 +245,11 @@ export default function SideBar() {
                       }`
                     }
                   >
-                    <img src="src/assets/alarm-clock.svg" alt="Contracts" />{" "}
+                    {/* <img src="src/assets/alarm-clock.svg" alt="Contracts" />{" "} */}
+                    <LuAlarmClock
+                      className="w-[18px] h-5  ml-[-1px]"
+                      strokeWidth={1.3}
+                    />
                     Hourly Work Diary
                   </NavLink>
                 </li>
@@ -269,11 +285,14 @@ export default function SideBar() {
                   <img src="src/assets/reports.svg " /> Your Reports
                 </li>
                 <li className="font-inter font-[300] text-[#333333]  flex items-center gap-2  text-[14px]">
-                  <img src="src/assets/reports.svg " /> Billings & Earnings
+                  <img src="src/assets/invoice-03.svg" /> Billings & Earnings
                 </li>
                 <li className="font-inter font-[300] text-[#333333]  flex items-center gap-2  text-[14px]">
-                  <img src="src/assets/invoice-03.svg " /> Transactions &
-                  Invoices
+                  <CiDollar
+                    className="w-[18px] h-5  ml-[-2px]"
+                    strokeWidth={0.4}
+                  />{" "}
+                  Transactions & Invoices
                 </li>
                 <li className="font-inter font-[300] text-[#333333]  flex items-center gap-2  text-[14px]">
                   <img src="src/assets/certificate-01.svg" /> Certificate of

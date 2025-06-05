@@ -1,5 +1,6 @@
 import NavBarUser from "../../components/UserDashBoard/Navbar";
 import SideBar from "../../components/ClientScreen/ClientSideBar";
+import MobileSidebar from "../../components/ClientScreen/mobileSidebar";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -19,20 +20,26 @@ export default function JobLong05() {
       <NavBarUser changeMode={setDarkMode} role="client" />
 
       <div className="flex h-[calc(100vh-64px)] hide-scrollbar">
-        <div className="w-[240px] fixed left-0 top-[64px] px-[20px] py-[20px] bottom-0 z-10 ">
-          <div className="h-full overflow-y-auto hide-scrollbar rounded-[8px]">
+        <div className="md:w-[240px] hidden md:fixed md:left-0 md:top-[64px] md:px-[20px] md:py-[20px] md:bottom-0 md:z-10 md:block">
+          <div className="h-full overflow-y-auto overflow-x-hidden hide-scrollbar rounded-[8px]">
             <SideBar />
           </div>
         </div>
+        {/* Mobile Sidebar - shown only below 768px */}
+        <div className="fixed top-[48px] pt-[20px]  bottom-0 z-10">
+          <div className="block  h-full overflow-y-auto overflow-x-hidden hide-scrollbar py-[20px] md:hidden">
+            <MobileSidebar />
+          </div>
+        </div>
 
-        <div className="ml-[240px] flex-1 overflow-y-auto p-6 hide-scrollbar">
+        <div className="md:ml-[240px] ml-[100px] flex-1 overflow-y-auto md:p-6 px-3 py-6 hide-scrollbar">
           <div
-            className={`p-6 border rounded-lg ${
+            className={`md:p-6 px-3 py-6 border rounded-lg ${
               darkMode ? "border-[#E9E9E9]" : "border-[#555555]"
             }`}
           >
-            <div className="flex justify-between items-center mb-4">
-              <h3 className="text-2xl">Start the conversation.</h3>
+            <div className="flex justify-between  mb-4">
+              <h3 className="md:text-2xl text-xl">Start the conversation.</h3>
               <span className="text-xl">5/5</span>
             </div>
             <p className={` ${darkMode ? "text-[#E9E9E9]" : "text-[#555555]"}`}>
@@ -57,14 +64,13 @@ export default function JobLong05() {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 rows="5"
-                className={`w-[30vw] border rounded p-3 bg-transparent  resize-none focus:border-[#E66D3D] outline-none ${
+                className={`md:w-[30vw] w-full border rounded p-3 bg-transparent  resize-none focus:border-[#E66D3D] outline-none ${
                   darkMode ? "border-[#E9E9E9]" : "border-[#555555]"
                 }`}
               />
             </div>
-
-            <div className="flex items-center gap-4 mb-10">
-              <label className="flex items-center gap-2 cursor-pointer bg-[#E66D3D] text-white px-4 py-2 rounded ">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-1 sm:gap-4 mb-10">
+              <label className="flex items-center gap-2 cursor-pointer bg-[#E66D3D] text-white px-4 py-2 rounded">
                 <img
                   src="src/assets/clientscreen/file-attachment.svg"
                   className="w-[20px] h-[20px]"
@@ -76,11 +82,14 @@ export default function JobLong05() {
                   className="hidden"
                 />
               </label>
-              <span>(Max file size 200MB)</span>
+              <span className="block sm:inline w-full sm:w-auto">
+                (Max file size 200MB)
+              </span>
             </div>
+
             {file && (
               <div
-                className={`flex items-center bg-[#555555] rounded-md p-2 mb-20   w-[320px] ${
+                className={`flex items-center bg-[#555555] rounded-md p-2 mb-20   md:w-[320px] ${
                   darkMode
                     ? "text-[#333333] bg-[#E9E9E9]"
                     : "text-white bg-[#555555]"
@@ -96,8 +105,8 @@ export default function JobLong05() {
                 )}
 
                 {/* File name and size */}
-                <div className="flex-1">
-                  <p className="text-sm  truncate">{file.name}</p>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm truncate">{file.name}</p>
                   <p className="text-xs mt-1">
                     {(file.size / (1024 * 1024)).toFixed(1)}MB
                   </p>
@@ -115,19 +124,16 @@ export default function JobLong05() {
               </div>
             )}
 
-            <div className="flex justify-between ">
+            <div className="flex flex-col sm:flex-row justify-between gap-4 mt-10 w-full">
               <button
-                className="px-9 py-2 border border-[#E66D3D] font-semibold rounded-md"
+                className="w-full sm:w-auto border border-[#E66D3D] font-[600] px-6 py-2 rounded-md"
                 onClick={() => navigate("/longTermJob04")}
               >
                 Back
               </button>
               <button
-                className="px-9 py-2 bg-[#E66D3D] text-white font-semibold rounded-md"
-                onClick={() => {
-                  // handle submission here
-                  navigate("/jobReview"); // or any next route
-                }}
+                className="w-full sm:w-auto bg-[#E66D3D] font-[600] text-white px-6 py-2 rounded-md"
+                onClick={() => navigate("/jobReview")}
               >
                 Continue
               </button>

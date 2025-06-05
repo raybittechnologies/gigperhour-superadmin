@@ -9,7 +9,7 @@ const JobHourly = () => {
   const [fixedAmount, setFixedAmount] = useState(" $12.00");
   const [tokens] = useState(10);
   useEffect(() => {
-    window.scrollTo(0, 0); // Scroll to top on component mount
+    window.scrollTo(0, 0);
   }, []);
 
   return (
@@ -19,21 +19,21 @@ const JobHourly = () => {
       }`}
     >
       <NavBarUser changeMode={setDarkMode} />
-      <div className="container max-w-screen-xl mx-auto px-[100px] pt-3 pb-3 relative z-[20]">
+      <div className=" px-4 sm:px-6  pt-3 pb-3 relative z-[20]">
         <h3 className="text-[22px] font-[400]">Submit a Proposal</h3>
 
-        <div className=" text-sm flex pl-5 gap-8 mt-2">
+        <div className="text-sm flex flex-wrap md:flex-row pl-5 gap-3 lg:gap-8 mt-2 ">
           <p>
             Hourly: <span className="text-[#E66D3D] ">$100</span>
           </p>
-          <span className="flex gap-2">
+          <span className="flex gap-2 items-center">
             <img
               src={
                 darkMode
                   ? "src/assets/UserDashboard/developer-dark.svg"
                   : "src/assets/UserDashboard/developer.svg"
               }
-              className="w-[15px] h-[15px] mt-1"
+              className="w-[15px] h-[15px]"
               alt="Developer"
             />
             Intermediate
@@ -42,7 +42,7 @@ const JobHourly = () => {
             Tokens required for Proposal:{" "}
             <span className="text-[#E66D3D] ">11</span>
           </p>
-          <div className="flex gap-1">
+          <div className="flex gap-1 flex-wrap">
             <p>
               Available Tokens: <span className="text-[#D84839]">{tokens}</span>
             </p>
@@ -54,26 +54,27 @@ const JobHourly = () => {
           </div>
         </div>
 
-        <div className="flex justify-between text-sm mt-4 border-b pb-2  pl-5 border-[#555555]">
-          <p className=" ">One-Time Project</p>
-          <p className="text-[#D84839] flex font-[400] gap-2">
-            {" "}
+        <div className="flex flex-col sm:flex-row sm:justify-between text-sm mt-4 border-b pb-2 pl-5 border-[#555555] gap-2">
+          <p>One-Time Project</p>
+          <p className="text-[#D84839] flex font-[400] gap-2 items-center">
             <img
               src="src/assets/UserDashboard/flag-02.svg"
-              className="w-[18px] mt-[3px]"
-            />{" "}
+              className="w-[18px]"
+              alt="Flag"
+            />
             Flag inappropriate
           </p>
         </div>
+
         <div className="pt-2 pl-5 border-b border-[#555555] pb-2">
-          <h2 className="text-[16px] font-[600] ">Job Details</h2>
-          <div className="flex justify-between">
-            <p className=" text-[16px] font-[600] mt-1">
+          <h2 className="text-[16px] font-[600]">Job Details</h2>
+          <div className="flex flex-col sm:flex-row sm:justify-between">
+            <p className="text-[16px] font-[600] mt-1">
               Front End Designer Needed for Engaging Web Projects
             </p>
             <p className="font-[400] text-[16px]">Posted 06-03-2025</p>
           </div>
-          <p className=" w-[606px] text-[16px] font-[400] mt-2">
+          <p className="text-[16px] font-[400] mt-2 max-w-full lg:max-w-[606px]">
             I am looking for an individual who can create interactive designs
             for me in Figma. Need clean designs and responsive also.
           </p>
@@ -81,7 +82,7 @@ const JobHourly = () => {
 
         <div className="mt-2 pl-5 border-b border-[#555555] pb-3">
           <h3 className="text-[20px] font-[400]">Required Skills:</h3>
-          <div className="flex gap-2 mt-2">
+          <div className="flex flex-wrap gap-2 mt-2">
             {[
               "Figma",
               "Web Design",
@@ -98,64 +99,52 @@ const JobHourly = () => {
           </div>
         </div>
 
-        <div className=" pt-2 pl-5  border-b border-[#555555] pb-3">
-          {/* Title */}
+        <div className="pt-2 pl-5 border-b border-[#555555] pb-3">
           <h3 className="text-[20px] font-[400]">Terms</h3>
-
-          {/* Payment Options */}
           <div>
             <div className="mt-1">
               <p className="font-[400]">
                 What is the rate you d like to bid for this job?
               </p>
-              <div className="flex gap-10 mt-4">
-                <p className="mr-[90px]">Your Profile Rate: {fixedAmount}</p>
-
+              <div className="flex flex-col lg:flex-row sm:gap-14 mt-4">
+                <p>Your Profile Rate: {fixedAmount}</p>
                 <p>Client’s budget: $12.00 - $20.00</p>
               </div>
 
-              <div className="flex justify-between mt-4">
-                {/* Bid */}
-                <div className="">
-                  <p className="text-sm mb-1">
-                    <span className="font-[600]">Hourly Rate</span>
-                  </p>
+              <div className="flex flex-wrap md:flex-row justify-between gap-4 mt-4 [@media(max-width:530px)]:flex-col">
+                <div>
+                  <p className="text-sm mb-1 font-[600]">Hourly Rate</p>
                   <input
                     type="text"
-                    className="border border-gray-400 rounded  text-[#555555] text-right px-4 py-2 mt-2 font-[400] w-[300px] bg-transparent"
+                    className="border border-gray-400 rounded text-[#555555] text-right px-4 py-2 mt-2 font-[400] w-full lg:w-[300px] bg-transparent"
                     value={fixedAmount}
                     onChange={(e) => setFixedAmount(e.target.value)}
-                  />{" "}
+                  />
                   <span> /hr</span>
                 </div>
 
-                <div className="">
-                  <p className="text-sm mb-1">
-                    <span className="font-[600]">Freelancer Fee</span>
-                  </p>
+                <div>
+                  <p className="text-sm mb-1 font-[600]">Freelancer Fee</p>
                   <input
                     type="text"
-                    className={`rounded px-4 py-2 text-right mt-2 font-[400] w-[300px] ${
+                    className={`rounded px-4 py-2 text-right mt-2 font-[400] w-full lg:w-[300px] ${
                       darkMode
                         ? "bg-white text-black"
                         : "bg-[#555555] text-white"
                     }`}
                     value={fixedAmount}
                     onChange={(e) => setFixedAmount(e.target.value)}
-                  />{" "}
+                  />
                 </div>
 
-                {/* Amount Received */}
-                <div className="">
-                  <p className="text-sm mb-1">
-                    <span className="font-[600]">You’ll Receive</span>
-                  </p>
+                <div>
+                  <p className="text-sm mb-1 font-[600]">You’ll Receive</p>
                   <input
                     type="text"
-                    className="border border-gray-400 rounded  text-[#555555] text-right px-4 py-2 mt-2 font-[400] w-[300px] bg-transparent"
+                    className="border border-gray-400 rounded text-[#555555] text-right px-4 py-2 mt-2 font-[400] w-full lg:w-[300px] bg-transparent"
                     value={fixedAmount}
                     onChange={(e) => setFixedAmount(e.target.value)}
-                  />{" "}
+                  />
                   <span> /hr</span>
                 </div>
               </div>
@@ -165,13 +154,13 @@ const JobHourly = () => {
 
         <div className="mt-2 pl-5 border-b border-[#555555] pb-3">
           <h3 className="text-[20px] font-[400]">Schedule a rate increase</h3>
-          <p className="font-[300] text-[#000000]">
+          <p className="font-[300] ">
             Propose an optional rate increase. If approved by your client, your
             rate will increase automatically over the contract’s lifetime. This
             term can’t be changed once you accept an offer from your client.
           </p>
-          <div className="flex gap-8">
-            <div className="relative w-[340px] mt-2">
+          <div className="flex flex-col md:flex-row gap-4 mt-2">
+            <div className="relative w-full md:w-[340px]">
               <label className="block text-[14px] font-[400] mb-1">
                 How often do you want a rate increase?
               </label>
@@ -183,13 +172,13 @@ const JobHourly = () => {
               <img
                 src="src/assets/arrow-down-01.svg"
                 alt="Dropdown Icon"
-                className={`absolute right-3 top-1/2  w-5 h-5  mt-1 cursor-pointer transition-transform duration-300 ${
+                className={`absolute right-3 top-1/2 w-5 h-5 mt-1 cursor-pointer transition-transform duration-300 ${
                   isOpen ? "rotate-180" : "rotate-0"
                 }`}
                 onClick={() => setIsOpen(!isOpen)}
               />
             </div>
-            <div className="relative w-[340px] mt-2">
+            <div className="relative w-full md:w-[340px]">
               <label className="block text-[14px] font-[400] mb-1">
                 How much of an increase do you want?
               </label>
@@ -201,7 +190,7 @@ const JobHourly = () => {
               <img
                 src="src/assets/arrow-down-01.svg"
                 alt="Dropdown Icon"
-                className={`absolute right-3 top-1/2  w-5 h-5  mt-1 cursor-pointer transition-transform duration-300 ${
+                className={`absolute right-3 top-1/2 w-5 h-5 mt-1 cursor-pointer transition-transform duration-300 ${
                   isOpenn ? "rotate-180" : "rotate-0"
                 }`}
                 onClick={() => setIsOpenn(!isOpenn)}
@@ -210,37 +199,33 @@ const JobHourly = () => {
           </div>
         </div>
 
-        <div className="mt-2 pl-5  border-[#555555] pb-3">
+        <div className="mt-2 pl-5 border-[#555555] pb-3">
           <h3 className="text-[20px] font-[400]">Additional Details</h3>
           <p className="font-[400] text-[14px] mt-3">Cover Letter</p>
-          <textarea className="border border-[#555555] bg-transparent h-[170px] p-2 w-full  rounded mt-1 "></textarea>
+          <textarea className="border border-[#555555] bg-transparent h-[170px] p-2 w-full rounded mt-1"></textarea>
         </div>
 
-        <div className=" mt-2 pl-5 border-b border-[#555555] pb-3">
+        <div className="mt-2 pl-5 border-b border-[#555555] pb-3">
           <p className="text-lg font-[400]">Attachments</p>
-          <div className="p-4 border border-[#555555] rounded text-center  mt-2 border-dashed mask-image-[repeating-linear-gradient(90deg,#555555,#555555_10px,transparent_10px,transparent_20px)]">
+          <div className="p-4 border border-[#555555] rounded text-center mt-2 border-dashed">
             Drag or{" "}
-            <span className="text-orange-500 underline cursor-pointer">
+            <span className="text-[#E66D3D] underline cursor-pointer">
               upload
             </span>{" "}
             project files
           </div>
-
-          <p className="text-xs  mt-1">
-            You may attach up to 10 files under the size of 25 MB each. Include
-            work samples or other documents to support your application. Do not
-            attach your resume — your Upwork profile is automatically forwarded
-            to the client with your proposal
+          <p className="text-xs mt-1">
+            You may attach up to 10 files under the size of 25 MB each...
           </p>
         </div>
 
-        <div className="mt-6 flex gap-8">
+        <div className="mt-6 flex flex-col sm:flex-row gap-4">
           <Link to="/successHourly">
-            <button className="bg-[#E66D3D] text-white font-[600] px-6 py-2 rounded">
+            <button className="bg-[#E66D3D] text-white font-[600] px-6 py-2 rounded w-full sm:w-auto">
               Submit for 11 Tokens
             </button>
           </Link>
-          <button className="border border-[#E66D3D] font-[600]   px-9 py-2  rounded">
+          <button className="border border-[#E66D3D] font-[600] px-9 py-2 rounded w-full sm:w-auto">
             Cancel
           </button>
         </div>

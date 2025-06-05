@@ -5,22 +5,22 @@ import BottomNav from "../../components/BottomNav";
 import { useNavigate } from "react-router-dom";
 import SubWorkCategories from "../../components/SubWorkCategories";
 import { getUserProfile, getWorkCategories } from "../../utils/api";
-
+import { useDarkMode } from "../../context/DarkMode.jsx";
 const Categories = () => {
   const [categories, setCategories] = useState([]);
 
   const [selectedSpecialties, setSelectedSpecialties] = useState([]);
   const [progress] = useState(20);
-  const [darkMode, setDarkMode] = useState(false);
+
   const navigate = useNavigate();
   const [subCat, setSubCat] = useState(null);
   const [selectedSubCats, setSelectedSubCats] = useState();
-
+  const { darkMode } = useDarkMode();
   useEffect(() => {
     getWorkCategories()
       .then((res) => {
         if (res.data && res.data.data) {
-          setCategories(res.data.data); // Set categories from API
+          setCategories(res.data.data);
         }
       })
       .catch((error) => {
@@ -46,23 +46,24 @@ const Categories = () => {
         darkMode ? "bg-black text-white" : "text-black"
       }`}
     >
-      <NavBarr changeMode={setDarkMode} />
+      <NavBarr />
       <div className="absolute inset-0 flex justify-center items-center z-[0] pointer-events-none">
         <Star />
       </div>
 
-      <div className="container max-w-screen-xl mx-auto px-[120px] pt-3 pb-3 relative z-[20]">
-        <div className="flex justify-between items-center mb-2">
-          <h3 className="text-[24px] font-[400] font-inter">
+      <div className="  md:px-[60px]  px-[30px]  pt-3 pb-3 relative z-[20] ">
+        <div className="flex flex-row justify-between items-start sm:items-center mb-2 gap-2">
+          <h3 className="text-[20px] sm:text-[24px] font-[400] font-inter">
             Awesome! What type of work are you looking to do?
           </h3>
-          <span className="text-sm">2/10</span>
+          <span className="text-sm sm:mt-0 mt-3 font-[500]">2/10</span>
         </div>
+
         <p className="text-sm font-inter font-[400]">
           Don’t worry you can change these choices later...
         </p>
 
-        <div className="grid grid-cols-2 gap-6 mt-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
           <div>
             <h3 className="text-[#F99F39] font-[700] text-[16px] font-inter mb-2">
               Select 1 Category below:

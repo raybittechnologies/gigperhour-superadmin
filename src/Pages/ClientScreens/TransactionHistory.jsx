@@ -1,9 +1,12 @@
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
+
 import NavBarUser from "../../components/UserDashBoard/Navbar";
 import SideBar from "../../components/ClientScreen/ClientSideBar";
+import MobileSidebar from "../../components/ClientScreen/mobileSidebar";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import { MdOutlineDownloading } from "react-icons/md";
+import { ChevronDown } from "lucide-react";
 import { DateRange } from "react-date-range";
 import {
   format,
@@ -20,10 +23,77 @@ import {
   parse,
 } from "date-fns";
 
+const ShimmerTransactionsTable = ({ darkMode }) => {
+  const bgClass = darkMode ? "bg-gray-700" : "bg-gray-300";
+
+  return (
+    <div className="animate-pulse">
+      <table className="w-full text-sm text-left">
+        {/* Desktop table header */}
+        <thead className="hidden md:table-header-group">
+          <tr className="border-b border-b-[#555555]">
+            <th className="px-4 py-3 hidden md:table-cell">Date</th>
+            <th className="px-4 py-3 hidden md:table-cell">Type</th>
+            <th className="px-4 py-3">Contract / Details</th>
+            <th className="px-4 py-3">Freelancer</th>
+            <th className="px-4 py-3 text-right">Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          {[...Array(4)].map((_, idx) => (
+            <React.Fragment key={idx}>
+              {/* Desktop row */}
+              <tr>
+                <td className={`px-2 py-3 hidden md:table-cell`}>
+                  <div className={`h-4 w-16 rounded ${bgClass}`} />
+                </td>
+                <td className={`px-2 py-3 hidden md:table-cell`}>
+                  <div className={`h-4 w-20 rounded ${bgClass}`} />
+                </td>
+                <td className="sm:px-2 pl-2 py-3">
+                  <div className={`h-4 w-40 mb-1 rounded ${bgClass}`} />
+                  <div
+                    className={`h-3 w-32 hidden md:block rounded ${bgClass}`}
+                  />
+                </td>
+                <td className="px-2 py-3 hidden md:table-cell">
+                  <div className="flex items-center gap-2">
+                    <div className={`w-6 h-6 rounded-full ${bgClass}`} />
+                    <div className={`h-4 w-24 rounded ${bgClass}`} />
+                  </div>
+                </td>
+                <td className="sm:px-3 pr-1 py-3 text-right">
+                  <div className={`h-4 w-16 ml-auto rounded ${bgClass}`} />
+                </td>
+              </tr>
+
+              {/* Mobile rows */}
+              <tr className="md:hidden">
+                <td className="pb-2 pl-2" colSpan="5">
+                  <div className={`h-4 w-20 rounded ${bgClass}`} />
+                </td>
+              </tr>
+              <tr className="md:hidden">
+                <td colSpan="5" className="px-2 pb-4">
+                  <div className="flex items-center gap-2">
+                    <div className={`w-6 h-6 rounded-full ${bgClass}`} />
+                    <div className={`h-4 w-24 rounded ${bgClass}`} />
+                  </div>
+                </td>
+              </tr>
+            </React.Fragment>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
 export default function TransactionHistory() {
   const [darkMode, setDarkMode] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedDateRange, setSelectedDateRange] = useState("All Time");
+  const [isFiltersVisible, setIsFiltersVisible] = useState(false);
   const calendarRef = useRef();
   const [showCalendar, setShowCalendar] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState(null);
@@ -56,6 +126,23 @@ export default function TransactionHistory() {
 
   const lastYearStart = startOfYear(subYears(today, 1));
   const lastYearEnd = endOfYear(subYears(today, 1));
+  const [isOpen1, setIsOpen1] = useState(false);
+  const [isOpen2, setIsOpen2] = useState(false);
+  const [isOpen3, setIsOpen3] = useState(false);
+
+  const [selected1, setSelected1] = useState("All Types");
+  const [selected2, setSelected2] = useState("All Freelancers");
+  const [selected3, setSelected3] = useState("All Contracts");
+  const [loading, setLoading] = useState(true);
+  const toggle = (dropdown) => {
+    setIsOpen1(dropdown === 1 ? !isOpen1 : false);
+    setIsOpen2(dropdown === 2 ? !isOpen2 : false);
+    setIsOpen3(dropdown === 3 ? !isOpen3 : false);
+  };
+
+  const options1 = ["All Types", "Fixed", "Hourly", "Milestone"];
+  const options2 = ["All Freelancers", "John Doe", "Jane Smith", "Alex Kim"];
+  const options3 = ["All Contracts", "Active", "Paused", "Completed"];
 
   const dateOptions = [
     { label: "All Time", range: "" },
@@ -173,7 +260,7 @@ export default function TransactionHistory() {
       date: "1 Apr, 2025",
       type: "Fixed-Price",
       contract: "Responsive Landing Page develop...",
-      detail: "Milestone 1 - Fix Landing Page",
+      detail: "Invoice for Apr 1 - Apr 7, 2025",
       freelancer: "Basit Bashir",
       avatar: "src/assets/profileImage.jpeg",
       amount: "- $23.00",
@@ -244,6 +331,11 @@ export default function TransactionHistory() {
     return txnDate >= rangeStart && txnDate <= rangeEnd;
   });
 
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 2000); // simulate 2s delay
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div
       className={`min-h-screen flex flex-col ${
@@ -252,29 +344,37 @@ export default function TransactionHistory() {
     >
       <NavBarUser changeMode={setDarkMode} role="client" />
       <div className="flex h-[calc(100vh-64px)]">
-        <div className="w-[240px] fixed left-0 top-[64px] px-5 py-5 bottom-0 z-10">
-          <div className="h-full overflow-y-auto hide-scrollbar rounded-md">
+        <div className="md:w-[240px] hidden md:fixed md:left-0 md:top-[64px] md:px-[20px] md:py-[20px] md:bottom-0 md:z-10 md:block">
+          <div className="h-full overflow-y-auto hide-scrollbar rounded-[8px]">
             <SideBar />
           </div>
         </div>
-        <div className="ml-[240px] flex-1 p-6 overflow-y-auto  hide-scrollbar">
-          <div className="p-6 border rounded-lg border-[#555555] space-y-8">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-2xl">Transaction History</h3>
-              <div className="border border-[#E66D3D] rounded px-4 py-2 text-sm">
+
+        {/* Mobile Sidebar */}
+        <div className="fixed top-[48px] pt-[20px] bottom-0 z-10 block md:hidden">
+          <div className="h-full overflow-y-auto hide-scrollbar py-[20px]">
+            <MobileSidebar />
+          </div>
+        </div>
+        <div className="md:ml-[240px] ml-[100px] flex-1 md:p-6 px-3 py-6 overflow-y-auto  hide-scrollbar">
+          <div className="lg:p-6 px-3 py-6  border rounded-lg border-[#555555] space-y-8">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+              <h3 className="md:text-2xl text-xl">Transaction History</h3>
+
+              <div className="w-full sm:w-auto border border-[#E66D3D] rounded px-4 py-2 text-sm">
                 <span>Outstanding Balance</span>
                 <span className="font-semibold ml-2">$0.00</span>
               </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-6">
-              {/* Custom Dropdown */}
-              <div className="relative text-sm">
+            <div className="mb-6">
+              {/* Show Filters Button on Mobile */}
+              <div className="sm:hidden mb-4">
                 <button
-                  onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                  onClick={() => setIsFiltersVisible(!isFiltersVisible)}
                   className="w-full text-left border border-[#555555] bg-transparent rounded px-2 py-2 flex items-center justify-between"
                 >
-                  <span>{selectedDateRange}</span>
+                  <span>Show Filters</span>
                   <svg
                     className="w-4 h-4 ml-2"
                     fill="none"
@@ -285,162 +385,303 @@ export default function TransactionHistory() {
                     <path d="M19 9l-7 7-7-7" />
                   </svg>
                 </button>
-
-                {isDropdownOpen && (
-                  <ul className="absolute mt-1  w-96  text-[#333333] z-10  bg-white border border-[#555555] rounded shadow">
-                    {dateOptions.map((option, index) => (
-                      <li
-                        key={index}
-                        onClick={() => {
-                          if (option.range === "custom") {
-                            setShowCalendar(true);
-                            setIsDropdownOpen(false);
-                          } else {
-                            setSelectedDateRange(option.range || option.label);
-                            if (option.start && option.end) {
-                              setSelectedRange({
-                                startDate: option.start,
-                                endDate: option.end,
-                                key: "selection",
-                              });
-                            }
-                            setShowCalendar(false);
-                            setIsDropdownOpen(false);
-                          }
-                        }}
-                        className="px-4 py-1 cursor-pointer hover:bg-[#E66D3D] hover:text-white transition-colors"
-                      >
-                        <div className="font-medium">{option.label}</div>
-                        {option.range !== "custom" && (
-                          <div className="text-xs">{option.range}</div>
-                        )}
-                      </li>
-                    ))}
-                  </ul>
-                )}
-
-                {showCalendar && (
-                  <div
-                    ref={calendarRef}
-                    className="absolute z-50 mt-2 shadow-lg "
-                  >
-                    <DateRange
-                      ranges={[selectedRange]}
-                      onChange={handleDateChange}
-                      showSelectionPreview
-                      moveRangeOnFirstSelection={false}
-                      editableDateInputs={false}
-                      displayMode="date"
-                      showMonthAndYearPickers={false}
-                      fixedHeight
-                      dayContentRenderer={(day) => {
-                        const isOutsideMonth = !isSameMonth(
-                          day,
-                          selectedRange.startDate
-                        );
-                        const isInRange =
-                          day >= selectedRange.startDate &&
-                          day <= selectedRange.endDate;
-                        return (
-                          <div
-                            style={{
-                              background: isInRange ? "#D9D9D9" : "",
-                              borderRadius: "50%",
-                              width: 24,
-                              height: 24,
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "center",
-                              color: isOutsideMonth ? "#9CA3AF" : "black",
-                            }}
-                          >
-                            {day.getDate()}
-                          </div>
-                        );
-                      }}
-                    />
-                  </div>
-                )}
               </div>
 
-              <select className="border border-[#555555] bg-transparent rounded px-4 py-2 text-sm">
-                <option>All Types</option>
-              </select>
-              <select className="border border-[#555555] bg-transparent rounded px-4 py-2 text-sm">
-                <option>All Freelancers</option>
-              </select>
-              <select className="border border-[#555555] bg-transparent rounded px-4 py-2 text-sm">
-                <option>All Contracts</option>
-              </select>
+              {/* Filters */}
+              <div
+                className={`grid gap-4 ${
+                  isFiltersVisible ? "grid-cols-1" : "hidden"
+                } sm:grid sm:grid-cols-4`}
+              >
+                {/* Date Range Dropdown */}
+                <div className="relative text-sm [@media(max-width:1014px)]:text-[10px]">
+                  <button
+                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                    className="w-full text-left border border-[#555555] bg-transparent rounded px-2 py-2 flex items-center justify-between"
+                  >
+                    <span>{selectedDateRange}</span>
+                    <svg
+                      className="w-4 h-4 ml-2"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+
+                  {isDropdownOpen && (
+                    <ul className="absolute mt-1 sm:w-96 w-72 text-[#333333] z-10 bg-white border border-[#555555] rounded shadow  [@media(max-width:472px)]:w-48">
+                      {dateOptions.map((option, index) => (
+                        <li
+                          key={index}
+                          onClick={() => {
+                            if (option.range === "custom") {
+                              setShowCalendar(true);
+                            } else {
+                              setSelectedDateRange(
+                                option.range || option.label
+                              );
+                              if (option.start && option.end) {
+                                setSelectedRange({
+                                  startDate: option.start,
+                                  endDate: option.end,
+                                  key: "selection",
+                                });
+                              }
+                              setShowCalendar(false);
+                            }
+                            setIsDropdownOpen(false);
+                          }}
+                          className="px-4 py-1 cursor-pointer hover:bg-[#E66D3D] hover:text-white transition-colors"
+                        >
+                          <div className="font-medium">{option.label}</div>
+                          {option.range !== "custom" && (
+                            <div className="text-xs">{option.range}</div>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+
+                  {showCalendar && (
+                    <div
+                      ref={calendarRef}
+                      className="absolute z-50 mt-2 shadow-lg custom-calendar-wrapper "
+                    >
+                      <DateRange
+                        ranges={[selectedRange]}
+                        onChange={handleDateChange}
+                        showSelectionPreview
+                        moveRangeOnFirstSelection={false}
+                        editableDateInputs={false}
+                        displayMode="date"
+                        showMonthAndYearPickers={false}
+                        fixedHeight
+                        dayContentRenderer={(day) => {
+                          const isOutsideMonth = !isSameMonth(
+                            day,
+                            selectedRange.startDate
+                          );
+                          const isInRange =
+                            day >= selectedRange.startDate &&
+                            day <= selectedRange.endDate;
+                          return (
+                            <div
+                              style={{
+                                background: isInRange ? "#D9D9D9" : "",
+                                borderRadius: "50%",
+                                width: 24,
+                                height: 24,
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                color: isOutsideMonth ? "#9CA3AF" : "black",
+                              }}
+                            >
+                              {day.getDate()}
+                            </div>
+                          );
+                        }}
+                      />
+                    </div>
+                  )}
+                </div>
+
+                {/* Dropdowns for Types, Freelancers, Contracts */}
+                {/* Dropdown 1 */}
+                <div className="relative text-sm w-full [@media(max-width:1014px)]:text-[10px]">
+                  <button
+                    onClick={() => toggle(1)}
+                    className="w-full border border-[#555555] bg-transparent rounded px-2 py-2 flex justify-between items-center"
+                  >
+                    {selected1}
+                    <ChevronDown size={16} />
+                  </button>
+                  {isOpen1 && (
+                    <ul className="absolute z-10 mt-1 w-full bg-white border border-[#555555] rounded shadow-lg">
+                      {options1.map((option, i) => (
+                        <li
+                          key={i}
+                          onClick={() => {
+                            setSelected1(option);
+                            setIsOpen1(false);
+                          }}
+                          className="px-4 py-2 cursor-pointer hover:bg-[#E66D3D] hover:text-white text-[#222]"
+                        >
+                          {option}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+
+                {/* Dropdown 2 */}
+                <div className="relative text-sm w-full [@media(max-width:1014px)]:text-[10px]">
+                  <button
+                    onClick={() => toggle(2)}
+                    className="w-full border border-[#555555] bg-transparent rounded px-2 py-2 flex justify-between items-center"
+                  >
+                    {selected2}
+                    <ChevronDown size={16} />
+                  </button>
+                  {isOpen2 && (
+                    <ul className="absolute z-10 mt-1 w-full bg-white border border-[#555555] rounded shadow-lg">
+                      {options2.map((option, i) => (
+                        <li
+                          key={i}
+                          onClick={() => {
+                            setSelected2(option);
+                            setIsOpen2(false);
+                          }}
+                          className="px-4 py-2 cursor-pointer hover:bg-[#E66D3D] hover:text-white text-[#222]"
+                        >
+                          {option}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+
+                {/* Dropdown 3 */}
+                <div className="relative text-sm w-full [@media(max-width:1014px)]:text-[10px]">
+                  <button
+                    onClick={() => toggle(3)}
+                    className="w-full border border-[#555555] bg-transparent rounded px-2 py-2 flex justify-between items-center"
+                  >
+                    {selected3}
+                    <ChevronDown size={16} />
+                  </button>
+                  {isOpen3 && (
+                    <ul className="absolute z-10 mt-1 w-full bg-white border border-[#555555] rounded shadow-lg">
+                      {options3.map((option, i) => (
+                        <li
+                          key={i}
+                          onClick={() => {
+                            setSelected3(option);
+                            setIsOpen3(false);
+                          }}
+                          className="px-4 py-2 cursor-pointer hover:bg-[#E66D3D] hover:text-white text-[#222]"
+                        >
+                          {option}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              </div>
             </div>
 
             <div className="border border-[#555555] rounded overflow-x-auto">
-              <table className="w-full text-sm text-left">
-                <thead>
-                  <tr className="border-b border-b-[#555555]">
-                    <th className="px-4 py-3 font-medium">Date</th>
-                    <th className="px-4 py-3 font-medium">Type</th>
-                    <th className="px-4 py-3 font-medium">
-                      Contract / Details
-                    </th>
-                    <th className="px-4 py-3 font-medium">Freelancer</th>
-                    <th className="px-4 py-3 font-medium text-right">Amount</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {filteredTransactions.map((txn, idx) => (
-                    <tr
-                      key={idx}
-                      onClick={() => {
-                        setSelectedTransaction(txn);
-                        setShowModal(true);
-                      }}
-                      className={`cursor-pointer ${
-                        darkMode ? "hover:bg-[#2C2C2C]" : "hover:bg-[#F9F9F9]"
-                      }`}
-                    >
-                      <td className="px-4 py-3">{txn.date}</td>
-                      <td className="px-4 py-3">{txn.type}</td>
-                      <td className="px-4 py-3">
-                        <div>{txn.contract}</div>
-                        <div className="text-xs text-[#555555]">
-                          {txn.detail}
-                        </div>
-                      </td>
-                      <td className="px-4 py-3 flex items-center gap-2">
-                        <img
-                          src={txn.avatar}
-                          alt="avatar"
-                          className="w-6 h-6 rounded-full"
-                        />
-                        {txn.freelancer}
-                      </td>
-                      <td
-                        className={`px-4 py-3 text-right font-semibold ${
-                          txn.isCredit ? "text-orange-600" : "text-gray-700"
-                        }`}
-                      >
-                        {txn.amount}
-                      </td>
+              {filteredTransactions.length === 0 ? (
+                <div className="p-6 text-center text-gray-500 text-sm">
+                  No data for the selected range.
+                </div>
+              ) : loading ? (
+                <ShimmerTransactionsTable darkMode={darkMode} />
+              ) : (
+                <table className="w-full text-sm text-left">
+                  <thead className="hidden md:table-header-group">
+                    <tr className="border-b border-b-[#555555]">
+                      <th className="px-4 py-3 font-medium hidden md:table-cell">
+                        Date
+                      </th>
+                      <th className="px-4 py-3 font-medium hidden md:table-cell">
+                        Type
+                      </th>
+                      <th className="px-4 py-3 font-medium">
+                        Contract / Details
+                      </th>
+                      <th className="px-4 py-3 font-medium">Freelancer</th>
+                      <th className="px-4 py-3 font-medium text-right">
+                        Amount
+                      </th>
                     </tr>
-                  ))}
-                  {filteredTransactions.length === 0 && (
-                    <tr>
-                      <td
-                        colSpan="5"
-                        className="px-4 py-6 text-center text-gray-500"
-                      >
-                        No transactions found for selected date range.
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {filteredTransactions.map((txn, idx) => {
+                      const key = `txn-${idx}`;
+                      return (
+                        <React.Fragment key={key}>
+                          {/* Desktop row */}
+                          <tr
+                            onClick={() => {
+                              setSelectedTransaction(txn);
+                              setShowModal(true);
+                            }}
+                            className={`cursor-pointer ${
+                              darkMode
+                                ? "hover:bg-[#2C2C2C]"
+                                : "hover:bg-[#F9F9F9]"
+                            }`}
+                          >
+                            <td className="px-2 py-3 hidden md:table-cell">
+                              {txn.date}
+                            </td>
+                            <td className="px-2 py-3 hidden md:table-cell">
+                              {txn.type}
+                            </td>
+                            <td className="sm:px-2 pl-2 py-3">
+                              <div className="font-medium truncate max-w-[150px] md:max-w-none md:truncate-none">
+                                {txn.contract}
+                              </div>
+                              <div
+                                className={`text-xs hidden md:table-cell ${
+                                  darkMode ? "text-white" : "text-[#555555]"
+                                }`}
+                              >
+                                {txn.detail}
+                              </div>
+                            </td>
+                            <td className="px-2 py-3 hidden md:table-cell">
+                              <div className="flex items-center gap-2">
+                                <img
+                                  src={txn.avatar}
+                                  alt="avatar"
+                                  className="w-6 h-6 rounded-full"
+                                />
+                                <span>{txn.freelancer}</span>
+                              </div>
+                            </td>
+                            <td
+                              className={`sm:px-3 pr-1 py-3 text-right font-semibold ${
+                                txn.isCredit ? "text-orange-600" : ""
+                              }`}
+                            >
+                              {txn.amount}
+                            </td>
+                          </tr>
+
+                          {/* Mobile-only rows */}
+                          <tr className="md:hidden">
+                            <td className="pb-3 pl-2" colSpan="5">
+                              {txn.date}
+                            </td>
+                          </tr>
+                          <tr className="md:hidden">
+                            <td colSpan="5" className="px-2 pb-3">
+                              <div className="flex items-center gap-2">
+                                <img
+                                  src={txn.avatar}
+                                  alt="avatar"
+                                  className="w-6 h-6 rounded-full"
+                                />
+                                <span>{txn.freelancer}</span>
+                              </div>
+                            </td>
+                          </tr>
+                        </React.Fragment>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              )}
             </div>
           </div>
           {showModal && selectedTransaction && (
             <div className="fixed inset-0  bg-black bg-opacity-50 flex justify-center items-center z-[10]">
-              <div className="bg-white ml-40 text-[#333333] max-w-4xl w-full rounded-lg px-6 pb-6 pt-4 shadow-lg relative max-h-[85vh] overflow-y-auto hide-scrollbar mt-16">
+              <div className="bg-white  text-[#333333] max-w-4xl w-full rounded-lg px-6 pb-6 pt-4 shadow-lg relative max-h-[85vh] overflow-y-auto hide-scrollbar mt-16">
                 <button
                   onClick={() => setShowModal(false)}
                   className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"

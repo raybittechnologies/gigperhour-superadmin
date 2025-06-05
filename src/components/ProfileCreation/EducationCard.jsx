@@ -3,9 +3,9 @@ import { Pencil, Trash2 } from "lucide-react";
 
 const EducationCard = ({ qualification }) => {
   return (
-    <div className="bg-white text-black shadow-sm rounded-lg p-4 border border-gray-300 flex flex-col gap-2 w-[440px] h-[191px]">
+    <div className="w-[362px] min-h-[176px] sm:min-w-[362px] [@media(max-width:420px)]:w-[300px] bg-white text-black shadow-sm rounded-lg p-4 border border-gray-300 flex flex-col gap-2">
       {/* Header: School Name & Dates */}
-      <div className="flex justify-between items-center">
+      <div className="flex flex-wrap justify-between   ">
         <div className="flex items-center gap-2">
           <span className="text-lg">
             <img src="src/assets/university.svg" alt="Education Icon" />
@@ -14,7 +14,7 @@ const EducationCard = ({ qualification }) => {
             {qualification?.school || "Unknown School"}
           </h3>
         </div>
-        <p className="text-sm text-gray-500">
+        <p className="text-sm text-gray-500 mt-1">
           {qualification?.startDate
             ? new Date(qualification.startDate).toLocaleString("default", {
                 month: "short",

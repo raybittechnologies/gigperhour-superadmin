@@ -5,10 +5,10 @@ import BottomNav from "../../components/BottomNav";
 import WorkExperienceModal from "../../components/ProfileCreation/WorkExperienceModal";
 import WorkExperienceCard from "../../components/ProfileCreation/WorkExperienceCard";
 import { addWorkExpreience, getUserWorkExperiences } from "../../utils/api";
-
+import { useDarkMode } from "../../context/DarkMode.jsx";
 const WorkExperience07 = () => {
   const navigate = useNavigate();
-  const [darkMode, setDarkMode] = useState(false);
+  const { darkMode } = useDarkMode();
   const [progress] = useState(50);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [userWorkExperiences, setUserWorkExperiences] = useState([]);
@@ -44,16 +44,16 @@ const WorkExperience07 = () => {
         darkMode ? "bg-black text-white" : "text-black"
       }`}
     >
-      <NavBarr changeMode={setDarkMode} />
-      <div className="container mx-auto px-4 md:px-20 lg:px-[120px] pt-3 pb-3 relative z-[20]">
+      <NavBarr />
+      <div className="md:px-[60px] px-[30px]  pt-2 pb-3 relative z-[20]">
         <div className="w-full">
-          <div className="flex justify-between items-center mb-2">
-            <h3 className="text-[24px] font-[400] font-inter">
+          <div className="flex flex-row justify-between items-start sm:items-center  gap-2">
+            <h3 className="sm:text-[24px] text-[19px] font-[400] font-inter">
               Do you have any previous relevant experience in this field?
             </h3>
-            <span className="text-sm">5/10</span>
+            <span className="text-sm sm:mt-0 mt-3 font-[500]">5/10</span>
           </div>
-          <p className="mb-6 w-full md:w-[690px]">
+          <p className="mb-3 w-full md:w-[690px] sm:text-sm text-xs sm:pt-0 pt-2 ">
             Freelancers who showcase their work experience have a higher chance
             of landing jobs on our platform. You can still create a profile, but
             adding experience gives you an extra edge!
@@ -69,7 +69,7 @@ const WorkExperience07 = () => {
               ))}
 
             {userWorkExperiences.length > 0 && (
-              <div className="w-[440px]">
+              <div className="w-[350px] ">
                 <div
                   className="w-[48px] h-[48px] mt-4"
                   onClick={() => setIsModalOpen(true)}
@@ -88,7 +88,7 @@ const WorkExperience07 = () => {
           {userWorkExperiences.length === 0 && (
             <div
               onClick={() => setIsModalOpen(true)}
-              className="border-2 border-dashed border-gray-500 p-6 flex justify-center items-center cursor-pointer rounded-lg hover:border-orange-500 w-[440px] h-[187px]"
+              className="border-2 border-dashed border-gray-500 p-6 flex justify-center items-center cursor-pointer rounded-lg hover:border-orange-500 sm:w-[440px] sm:h-[187px]"
             >
               <span className="text-orange-500 text-lg">+</span>
               <span className="ml-2">Add Experience</span>

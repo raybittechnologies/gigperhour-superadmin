@@ -85,6 +85,11 @@ import YourContracts from "../Pages/ClientScreens/YourContracts";
 import WeeklySummary from "../Pages/ClientScreens/WeeklySummary";
 import TransactionHistory from "../Pages/ClientScreens/TransactionHistory";
 import ClientSetting from "../Pages/ClientScreens/ClientSetting";
+import ClientBilling from "../Pages/ClientScreens/ClientBilling";
+import ClientSecurity from "../Pages/ClientScreens/ClientSecurity";
+import Membership from "../Pages/ClientScreens/Membership";
+import Notification from "../Pages/ClientScreens/Notification";
+import Support from "../Pages/ClientScreens/Support";
 
 // -------------------------------------------Client Routes--------------------------
 
@@ -180,7 +185,12 @@ const browserRoutes = createBrowserRouter([
       { path: "/contractsClient", element: <YourContracts /> },
       { path: "/weeklySummary", element: <WeeklySummary /> },
       { path: "/transactionHistory", element: <TransactionHistory /> },
-      { path: "/clientSettings", element: <ClientSetting /> },
+      { path: "/clientSetting", element: <ClientSetting /> },
+      { path: "/clientBilling", element: <ClientBilling /> },
+      { path: "/clientSecurity", element: <ClientSecurity /> },
+      { path: "/clientMembership", element: <Membership /> },
+      { path: "/clientNotifications", element: <Notification /> },
+      { path: "/clientSupport", element: <Support /> },
     ],
   },
 ]);

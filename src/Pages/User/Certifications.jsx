@@ -1,23 +1,49 @@
 import { useState, useEffect } from "react";
 import NavBarUser from "../../components/UserDashBoard/Navbar";
 import SideBar from "../../components/UserDashBoard/ProfileSideBar";
+import MobileSidebar from "../../components/UserDashBoard/ProfileMobile";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 export default function Certifications() {
   const [darkMode, setDarkMode] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [selected, setSelected] = useState("");
+
+  const options = ["Option 1", "Option 2", "Option 3"];
+
+  const handleSelect = (option) => {
+    setSelected(option);
+    setIsOpen(false);
+  };
   const togglePopup = () => {
     setShowPopup(!showPopup);
   };
   useEffect(() => {
-    window.scrollTo(0, 0); // Scroll to top on component mount
+    window.scrollTo(0, 0);
   }, []);
   return (
-    <div className={`${darkMode ? "bg-black text-white" : "text-[#333333]"}`}>
+    <div
+      className={`min-h-screen ${
+        darkMode ? "bg-black text-white" : "text-[#333333]"
+      }`}
+    >
       <NavBarUser changeMode={setDarkMode} />
-      <div className="grid grid-cols-12 gap-4 px-[20px] py-[20px]">
-        <SideBar />
-        <div className="col-span-10 pl-6">
+      <div className="flex h-[calc(100vh-64px)] hide-scrollbar">
+        {/* Desktop Sidebar */}
+        <div className="md:w-[240px] hidden md:fixed md:left-0 md:top-[64px] md:px-[20px] md:py-[20px] md:bottom-0 md:z-10 md:block">
+          <div className="h-full overflow-y-auto overflow-x-hidden hide-scrollbar rounded-[8px]">
+            <SideBar />
+          </div>
+        </div>
+
+        {/* Mobile Sidebar */}
+        <div className="fixed top-[48px] pt-[20px] bottom-0 z-10">
+          <div className="block h-full overflow-y-auto overflow-x-hidden hide-scrollbar py-[20px] md:hidden">
+            <MobileSidebar />
+          </div>
+        </div>
+        <div className="md:p-6 py-6 pl-4 pr-7 md:pl-6 col-span-full md:ml-[220px] ml-[20px] flex-1 overflow-y-auto hide-scrollbar">
           <div className="border border-[#555555] rounded-lg pt-2 pb-4 px-6  relative">
             {/* Header Section */}
             <h3 className="text-[22px] font-[400] mb-2">Certifications</h3>
@@ -26,7 +52,7 @@ export default function Certifications() {
             <button className="absolute top-4 right-4  w-6 h-6 flex items-center justify-center rounded-full">
               <img src="src\assets\UserDashboard\plus-sig-circle.svg" />
             </button>
-            <div className="w-[433px] mx-auto flex flex-col justify-center items-center">
+            <div className="sm:w-[433px] mx-auto flex flex-col justify-center items-center">
               {/* Handshake Image */}
               <div className="flex justify-center items-center w-full">
                 <DotLottieReact
@@ -76,24 +102,35 @@ export default function Certifications() {
                     Certificate
                   </label>
                   <div className="relative w-full">
-                    <select
-                      className="flex items-center border text-[15px] w-full text-[#333333] border-[#555555] rounded-[5px] p-2 focus:border-[#E66D3D] focus:outline-none appearance-none pr-8" // Added pr-8 for image spacing
+                    <div
+                      className="flex items-center justify-between border text-[15px] w-full text-[#333333] border-[#555555] rounded-[5px] p-2 cursor-pointer focus-within:border-[#E66D3D] bg-white"
+                      onClick={() => setIsOpen(!isOpen)}
                     >
-                      <option value="" disabled selected>
-                        Select your certification
-                      </option>
-                      <option value="option1">Option 1</option>
-                      <option value="option2">Option 2</option>
-                      <option value="option3">Option 3</option>
-                    </select>
-                    {/* Custom dropdown image icon */}
-                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2">
+                      <span
+                        className={selected ? "text-[#333]" : "text-[#888]"}
+                      >
+                        {selected || "Select your certification"}
+                      </span>
                       <img
-                        src="src\assets\arrow-down-01.svg"
+                        src="src/assets/arrow-down-01.svg"
                         alt="Dropdown arrow"
-                        className="h-5 w-5 mr-4"
+                        className="h-5 w-5"
                       />
                     </div>
+
+                    {isOpen && (
+                      <ul className="absolute z-10 mt-1 w-full bg-white border border-[#555555] rounded-[5px] shadow-lg">
+                        {options.map((option, index) => (
+                          <li
+                            key={index}
+                            onClick={() => handleSelect(option)}
+                            className="p-2 hover:bg-[#E66D3D] cursor-pointer text-[15px] text-[#333] hover:text-white"
+                          >
+                            {option}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
                   </div>
                 </div>
               </div>

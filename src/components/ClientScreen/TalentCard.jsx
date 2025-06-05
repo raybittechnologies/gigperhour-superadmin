@@ -1,5 +1,7 @@
 import { useState } from "react";
 import MessageModal from "./MessageModal";
+import { PiHeartFill } from "react-icons/pi";
+import { BsHeart } from "react-icons/bs";
 const TalentCard = ({ talent, variant = "default" }) => {
   const [showModal, setShowModal] = useState(false);
   const [message, setMessage] = useState("");
@@ -23,13 +25,13 @@ const TalentCard = ({ talent, variant = "default" }) => {
               <h3 className="text-[15px] font-[400] text-gray-900">
                 {talent.name}
               </h3>
-              <div className="flex gap-3 items-center justify-between">
+              <div className="flex gap-3 flex-wrap items-center justify-between">
                 <p className="text-xs text-gray-600">{talent.location}</p>
-                <button className="flex items-center gap-1 px-2 py-[2px] text-xs font-[300] border border-[#007AFF] text-[#007AFF] rounded-full">
+                <button className="flex items-center gap-1 md:px-2 md:py-[2px] px-1 text-[7px] md:text-xs font-[300] border border-[#007AFF] text-[#007AFF] rounded-full">
                   <img
                     src="src/assets/UserDashboard/zap.svg"
                     alt="zap"
-                    className="w-2 h-3"
+                    className="w-2 h-3 shrink-0"
                   />
                   Active now
                 </button>
@@ -37,14 +39,11 @@ const TalentCard = ({ talent, variant = "default" }) => {
             </div>
           </div>
           <button className="text-gray-400 hover:text-gray-600 text-xl">
-            <img
-              src={
-                variant === "saved"
-                  ? "src/assets/clientscreen/favourite-red.svg" // saved version
-                  : "src/assets/clientscreen/favourite.svg" // default
-              }
-              alt="Favorite"
-            />
+            {variant === "saved" ? (
+              <PiHeartFill className="w-5 h-5 text-[#E66D3D]" />
+            ) : (
+              <BsHeart className="text-[#333333] w-5 h-5" />
+            )}
           </button>
         </div>
 

@@ -1,88 +1,66 @@
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import NavBarUser from "../../components/UserDashBoard/Navbar";
 import SideBar from "../../components/UserDashBoard/SettingSideBar";
+import MobileSidebar from "../../components/UserDashBoard/MobileSettings";
+import NotificationForm from "../../components/NotificationForm";
+function NotificationFormShimmer({ darkMode }) {
+  const shimmer = `animate-pulse rounded bg-gray-300 ${
+    darkMode ? "bg-opacity-20" : "bg-opacity-50"
+  }`;
 
-export default function Notifications() {
-  const [darkMode, setDarkMode] = useState(false);
-
-  const [open, setOpen] = useState(null);
-
-  const optionsMap = {
-    showNotifications: ["All activity", "Mentions only", "Direct messages"],
-    messageCounter: ["All activity"],
-    unreadActivity: ["All activity"],
-    emailInterval: ["Every 10 minutes"],
-    recruitingEmails: ["Only jobs I post"],
-    contractEmails: ["Only freelancers I hire"],
-    groupInvitations: ["Group member"],
-    communication: ["Send me useful emails"],
-  };
-
-  const [formData, setFormData] = useState({
-    showNotifications: "All activity",
-    unreadActivity: "All activity",
-    messageCounter: "All activity",
-    emailInterval: "Every 10 minutes",
-    recruitingEmails: "Only jobs I post",
-    contractEmails: "Only freelancers I hire",
-    groupInvitations: "Group member",
-    communication: "Send me useful emails",
-    taxUpdates: false,
-  });
-
-  const handleChange = (name, value) => {
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-    setOpen(null);
-  };
-  useEffect(() => {
-    window.scrollTo(0, 0); // Scroll to top on component mount
-  }, []);
-
-  const renderCustomSelect = (label, name) => (
-    <div>
-      <label className="block font-[400] mb-1">{label}</label>
-      <div className="relative w-full">
-        <button
-          type="button"
-          onClick={() => setOpen(open === name ? null : name)}
-          className={`w-full bg-transparent text-left  rounded p-2 flex items-center justify-between ${
-            darkMode ? "border border-[#E9E9E9]" : "border border-[#555555]"
-          }`}
-        >
-          <span>{formData[name]}</span>
-          <img
-            src={
-              darkMode
-                ? "src/assets/UserDashboard/arrow-light.svg"
-                : "src/assets/UserDashboard/arror dark.svg"
-            }
-            alt="Dropdown icon"
-            className={`w-3 h-3 transition-transform duration-200 mr-2 ${
-              open === name ? "rotate-180" : ""
-            }`}
-          />
-        </button>
-
-        {open === name && (
-          <ul className="absolute z-10 mt-1 w-full border border-[#555555] bg-white dark:bg-white rounded shadow">
-            {optionsMap[name].map((option) => (
-              <li
-                key={option}
-                onClick={() => handleChange(name, option)}
-                className="px-4 py-2 text-black hover:bg-[#E66D3D] hover:text-white cursor-pointer"
-              >
-                {option}
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
+  const renderSelectShimmer = () => (
+    <div className="flex flex-col h-full justify-start">
+      <div className={`${shimmer} h-4 w-40 mb-2`} />
+      <div className={`${shimmer} h-10 w-full`} />
     </div>
   );
 
+  return (
+    <div
+      className={`border rounded-lg px-4 sm:px-5 pt-2 pb-6 space-y-6 ${
+        darkMode ? "border-white" : "border-[#555555]"
+      }`}
+    >
+      {/* Title */}
+      <div className={`${shimmer} h-6 w-1/3`} />
+
+      {/* Messages Section */}
+      <div className={`${shimmer} h-5 w-28`} />
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
+        {renderSelectShimmer()}
+        {renderSelectShimmer()}
+        {renderSelectShimmer()}
+        {renderSelectShimmer()}
+      </div>
+
+      {/* Email Updates Section */}
+      <div className={`${shimmer} h-5 w-28`} />
+      <div className={`${shimmer} h-4 w-48`} />
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+        {renderSelectShimmer()}
+        {renderSelectShimmer()}
+        {renderSelectShimmer()}
+        {renderSelectShimmer()}
+      </div>
+
+      {/* Tax Updates Section */}
+      <div className={`${shimmer} h-5 w-28`} />
+      <div className="mt-2 flex items-start sm:items-center gap-3">
+        <div className={`${shimmer} h-5 w-5 rounded`} />
+        <div className={`${shimmer} h-4 w-72`} />
+      </div>
+    </div>
+  );
+}
+
+export default function Notifications() {
+  const [darkMode, setDarkMode] = useState(false);
+  const [isLoading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 1200);
+    return () => clearTimeout(timer);
+  }, []);
   return (
     <div
       className={`min-h-screen ${
@@ -90,112 +68,26 @@ export default function Notifications() {
       }`}
     >
       <NavBarUser changeMode={setDarkMode} darkMode={darkMode} />
-      <div className="grid grid-cols-12 gap-4 px-[20px] py-[20px]">
-        <SideBar />
-        <div className="col-span-10 pl-6">
-          <div
-            className={`border rounded-lg px-3 pt-2 pb-6 ${
-              darkMode ? "border-white" : "border-[#555555]"
-            }`}
-          >
-            <h2 className="text-2xl font-[400] mb-4">Notification Settings</h2>
-            <h3 className="text-lg font-semibold mb-2">Messages</h3>
-            {/* Messages Section */}
-            <div className="grid grid-cols-2 gap-6 mb-6">
-              {renderCustomSelect(
-                "Show notifications for",
-                "showNotifications"
-              )}
-              {renderCustomSelect(
-                "Increment message counter for",
-                "messageCounter"
-              )}
-              {renderCustomSelect(
-                "Send an email with unread activity for",
-                "unreadActivity"
-              )}
-              {renderCustomSelect("Email interval", "emailInterval")}
-            </div>
-
-            {/* Email Updates */}
-            <div className="mb-6">
-              <h3 className="text-lg font-semibold mb-2">Email Updates</h3>
-              <p
-                className={`mb-3 ${
-                  darkMode ? "text-[#E9E9E9]" : "text-gray-600"
-                }`}
-              >
-                Sending on w*****56@gmail.com
-              </p>
-
-              <div className="grid grid-cols-2 gap-6">
-                {renderCustomSelect(
-                  "Receive recruiting emails for",
-                  "recruitingEmails"
-                )}
-                {renderCustomSelect(
-                  "Receive contract emails for",
-                  "contractEmails"
-                )}
-                {renderCustomSelect(
-                  "Groups and invitations",
-                  "groupInvitations"
-                )}
-                {renderCustomSelect(
-                  "Communication from Elevance",
-                  "communication"
-                )}
-              </div>
-            </div>
-
-            {/* Tax Updates */}
-            <h3 className="text-lg font-semibold mb-2">Tax Updates</h3>
-            <div className="mt-4 flex items-center">
-              <label className="relative inline-block w-5 h-5">
-                <input
-                  type="checkbox"
-                  name="taxUpdates"
-                  checked={formData.taxUpdates}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      taxUpdates: e.target.checked,
-                    })
-                  }
-                  className="peer absolute opacity-0 w-5 h-5"
-                />
-                <div className="w-5 h-5 border border-[#E66D3D] rounded bg-transparent flex items-center justify-center">
-                  <svg
-                    className={`w-4 h-4 pointer-events-none transition-opacity duration-200 ${
-                      formData.taxUpdates
-                        ? "opacity-100 text-[#E66D3D]"
-                        : "opacity-0"
-                    }`}
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={3}
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                </div>
-              </label>
-
-              <label
-                className={`ml-3 ${
-                  darkMode ? "text-[#E9E9E9]" : "text-gray-700"
-                }`}
-              >
-                I want to receive tax documents digitally (including Form
-                1099-K)
-              </label>
-            </div>
+      <div className="flex h-[calc(100vh-64px)] hide-scrollbar">
+        {/* Desktop Sidebar */}
+        <div className="md:w-[240px] hidden md:fixed md:left-0 md:top-[64px] md:px-[20px] md:py-[20px] md:bottom-0 md:z-10 md:block">
+          <div className="h-full overflow-y-auto overflow-x-hidden hide-scrollbar rounded-[8px]">
+            <SideBar />
           </div>
+        </div>
+
+        {/* Mobile Sidebar */}
+        <div className="fixed top-[48px] pt-[20px] bottom-0 z-10">
+          <div className="block h-full overflow-y-auto overflow-x-hidden hide-scrollbar py-[20px] md:hidden">
+            <MobileSidebar />
+          </div>
+        </div>
+        <div className="md:p-6 py-6 pl-4 pr-7 md:pl-6 col-span-full md:ml-[220px] ml-[20px] flex-1 overflow-y-auto hide-scrollbar">
+          {isLoading ? (
+            <NotificationFormShimmer darkMode={darkMode} />
+          ) : (
+            <NotificationForm darkMode={darkMode} />
+          )}
         </div>
       </div>
     </div>

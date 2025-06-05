@@ -1,13 +1,11 @@
-
-
 /* eslint-disable react/prop-types */
 import { Pencil, Trash2 } from "lucide-react";
 
 const WorkExperienceCard = ({ experience }) => {
   return (
-    <div className="bg-white text-black shadow-sm rounded-lg p-4 border border-gray-300 flex flex-col gap-2 w-[440px] h-[191px]">
+    <div className="w-[362px] min-h-[176px] sm:min-w-[362px] [@media(max-width:420px)]:w-[300px] bg-white text-black shadow-sm rounded-lg p-4 border border-gray-300 flex flex-col gap-2">
       {/* Header: Company Name & Dates */}
-      <div className="flex justify-between items-center">
+      <div className="flex flex-wrap justify-between  gap-y-1">
         <div className="flex items-center gap-2">
           <span className="text-lg">
             <img src="src/assets/briefcase.svg" />
@@ -15,7 +13,7 @@ const WorkExperienceCard = ({ experience }) => {
           {/* Placeholder for an icon */}
           <h3 className="text-lg font-semibold">{experience.company}</h3>
         </div>
-        <p className="text-sm text-gray-500">
+        <p className="text-sm text-gray-500 mt-1">
           {new Date(experience.startDate).toLocaleString("default", {
             month: "short",
             year: "numeric",

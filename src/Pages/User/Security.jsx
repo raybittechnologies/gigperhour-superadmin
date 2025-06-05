@@ -1,12 +1,74 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import NavBarUser from "../../components/UserDashBoard/Navbar";
 import SideBar from "../../components/UserDashBoard/SettingSideBar";
+import SecuritySettings from "../../components/SecuritySettings";
+import MobileSidebar from "../../components/UserDashBoard/MobileSettings";
 
+function SecuritySettingsShimmer({ darkMode }) {
+  const shimmerClass = `animate-pulse rounded bg-gray-300 ${
+    darkMode ? "bg-opacity-20" : "bg-opacity-50"
+  }`;
+
+  return (
+    <div
+      className={`border rounded-lg pl-3 [@media(min-width:1107px)]:pr-[100px] pr-3 pt-2 pb-6 space-y-6 ${
+        darkMode ? "border-white" : "border-[#555555]"
+      }`}
+    >
+      <div className={`${shimmerClass} h-6 w-1/3`} />
+
+      {/* Change Password Section */}
+      <div className="flex flex-col sm:flex-row justify-between gap-4 items-start sm:items-center">
+        <div className="flex-1 space-y-2">
+          <div className={`${shimmerClass} h-4 w-40`} />
+          <div className={`${shimmerClass} h-4 w-60`} />
+        </div>
+        <div className={`${shimmerClass} h-10 w-40 rounded-md`} />
+      </div>
+
+      {/* Google Login */}
+      <div className="flex flex-col sm:flex-row justify-between gap-4 items-start sm:items-center">
+        <div className="flex-1 space-y-2">
+          <div className={`${shimmerClass} h-4 w-40`} />
+          <div className={`${shimmerClass} h-4 w-60`} />
+        </div>
+        <div className={`${shimmerClass} h-10 w-40 rounded-md`} />
+      </div>
+
+      {/* Apple Login */}
+      <div className="flex flex-col sm:flex-row justify-between gap-4 items-start sm:items-center">
+        <div className="flex-1 space-y-2">
+          <div className={`${shimmerClass} h-4 w-40`} />
+          <div className={`${shimmerClass} h-4 w-60`} />
+        </div>
+        <div className={`${shimmerClass} h-10 w-40 rounded-md`} />
+      </div>
+
+      {/* Two-Step Verification */}
+      <div className={`${shimmerClass} h-5 w-1/4`} />
+      {[1, 2, 3].map((_, idx) => (
+        <div
+          key={idx}
+          className="flex flex-row justify-between items-center gap-4 flex-wrap"
+        >
+          <div className="flex-1 space-y-2 min-w-0">
+            <div className={`${shimmerClass} h-4 w-40`} />
+            <div className={`${shimmerClass} h-4 w-60`} />
+          </div>
+          <div className={`${shimmerClass} h-6 w-11 rounded-full`} />
+        </div>
+      ))}
+    </div>
+  );
+}
 export default function Security() {
   const [darkMode, setDarkMode] = useState(false);
-  const [mobileAppEnabled, setMobileAppEnabled] = useState(true);
-  const [smsEnabled, setSmsEnabled] = useState(false);
-  const [authenticatorEnabled, setAuthenticatorEnabled] = useState(false);
+  const [isLoading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 1200);
+    return () => clearTimeout(timer);
+  }, []);
   return (
     <div
       className={`min-h-screen ${
@@ -14,162 +76,26 @@ export default function Security() {
       }`}
     >
       <NavBarUser changeMode={setDarkMode} darkMode={darkMode} />
-      <div className="grid grid-cols-12 gap-4 px-[20px] py-[20px]">
-        <SideBar />
-        <div className="col-span-10 pl-6">
-          <div
-            className={`border rounded-lg pl-3 pr-[100px] pt-2 pb-6  ${
-              darkMode ? "border-white" : "border-[#555555]"
-            }`}
-          >
-            <h2 className="text-2xl font-semibold mb-4">
-              Password and security
-            </h2>
-
-            {/* Password Section */}
-            <div className="mb-6 justify-between flex">
-              <div>
-                <p className="font-[400]">Elevance password</p>
-                <p className=" ">You ve set an Upwork password.</p>
-              </div>
-              <button className="mt-2 px-4 py-2 border border-red-500 text-red-500 rounded-md">
-                Change Password
-              </button>
-            </div>
-
-            {/* Google Login Section */}
-            <div className="mb-6 flex justify-between">
-              <div>
-                <p className="font-[400]">Log in with Google</p>
-                <p className="">
-                  You’ve set up login with your Google account
-                  (a******ar@gmail.com).
-                </p>
-              </div>
-              <button className="mt-2 px-10 py-2 border border-red-500 text-red-500 rounded-md">
-                Disconnect
-              </button>
-            </div>
-
-            {/* Apple Login Section */}
-            <div className="mb-6 flex justify-between">
-              <div>
-                <p className="font-[400]">Log in with Apple</p>
-                <p className="">
-                  Not connected. You can choose to log in with Apple.
-                </p>
-              </div>
-              <button className="mt-2 px-[50px] py-2 border border-red-500 text-red-500 rounded-md">
-                Connect
-              </button>
-            </div>
-
-            {/* Two-Step Verification */}
-            <h3 className="text-xl font-semibold mt-8 mb-4">
-              Two-step verification
-            </h3>
-
-            <div className="space-y-4 mr-[50px]">
-              {/* Mobile App Notifications */}
-              <div className="flex justify-between items-center">
-                <div>
-                  <p className="font-[400] text-sm ">
-                    Mobile app notifications
-                  </p>
-                  <p className="text-sm ">
-                    Verify notifications with your Upwork mobile app.
-                  </p>
-                </div>
-                <label className="relative inline-flex items-center cursor-pointer">
-                  <input
-                    type="checkbox"
-                    className="sr-only peer"
-                    checked={mobileAppEnabled}
-                    onChange={() => setMobileAppEnabled(!mobileAppEnabled)}
-                  />
-
-                  <div
-                    className={`w-11 h-6 rounded-full peer 
-    ${
-      darkMode
-        ? "dark:bg-[white] peer-checked:bg-[white]"
-        : "dark:bg-[#555555] peer-checked:bg-[#555555]"
-    } 
-    
-    peer-checked:after:translate-x-full peer-checked:after:bg-[#E66D3D] 
-    after:content-[''] after:absolute after:top-0.5 after:left-[2px] 
-    after:bg-[#333333] after:rounded-full after:h-5 after:w-5 
-    after:transition-all`}
-                  ></div>
-                </label>
-              </div>
-
-              {/* SMS Text Messages */}
-              <div className="flex justify-between items-center ">
-                <div>
-                  <p className="font-[400] text-sm">SMS text messages</p>
-                  <p className="text-sm ">
-                    Verify one-time codes sent to your mobile number.
-                  </p>
-                </div>
-                <label className="relative inline-flex items-center cursor-pointer">
-                  <input
-                    type="checkbox"
-                    className="sr-only peer"
-                    checked={smsEnabled}
-                    onChange={() => setSmsEnabled(!smsEnabled)}
-                  />
-                  <div
-                    className={`w-11 h-6 rounded-full peer 
-    ${
-      darkMode
-        ? "dark:bg-[white] peer-checked:bg-[white]"
-        : "dark:bg-[#555555] peer-checked:bg-[#555555]"
-    } 
-    
-    peer-checked:after:translate-x-full peer-checked:after:bg-[#E66D3D] 
-    after:content-[''] after:absolute after:top-0.5 after:left-[2px] 
-    after:bg-[#333333] after:rounded-full after:h-5 after:w-5 
-    after:transition-all`}
-                  ></div>{" "}
-                </label>
-              </div>
-
-              {/* Authenticator App Codes */}
-              <div className="flex justify-between items-center">
-                <div>
-                  <p className="font-[400] text-sm">Authenticator app codes</p>
-                  <p className="text-sm">
-                    Verify one-time codes generated in your preferred
-                    third-party authenticator app.
-                  </p>
-                </div>
-                <label className="relative inline-flex items-center cursor-pointer">
-                  <input
-                    type="checkbox"
-                    className="sr-only peer"
-                    checked={authenticatorEnabled}
-                    onChange={() =>
-                      setAuthenticatorEnabled(!authenticatorEnabled)
-                    }
-                  />
-                  <div
-                    className={`w-11 h-6 rounded-full peer 
-    ${
-      darkMode
-        ? "dark:bg-[white] peer-checked:bg-[white]"
-        : "dark:bg-[#555555] peer-checked:bg-[#555555]"
-    } 
-    
-    peer-checked:after:translate-x-full peer-checked:after:bg-[#E66D3D] 
-    after:content-[''] after:absolute after:top-0.5 after:left-[2px] 
-    after:bg-[#333333] after:rounded-full after:h-5 after:w-5 
-    after:transition-all`}
-                  ></div>{" "}
-                </label>
-              </div>
-            </div>
+      <div className="flex h-[calc(100vh-64px)] hide-scrollbar">
+        {/* Desktop Sidebar */}
+        <div className="md:w-[240px] hidden md:fixed md:left-0 md:top-[64px] md:px-[20px] md:py-[20px] md:bottom-0 md:z-10 md:block">
+          <div className="h-full overflow-y-auto overflow-x-hidden hide-scrollbar rounded-[8px]">
+            <SideBar />
           </div>
+        </div>
+
+        {/* Mobile Sidebar */}
+        <div className="fixed top-[48px] pt-[20px] bottom-0 z-10">
+          <div className="block h-full overflow-y-auto overflow-x-hidden hide-scrollbar py-[20px] md:hidden">
+            <MobileSidebar />
+          </div>
+        </div>
+        <div className="md:p-6 py-6 pl-4 pr-7 md:pl-6 col-span-full md:ml-[220px] ml-[20px] flex-1 overflow-y-auto hide-scrollbar">
+          {isLoading ? (
+            <SecuritySettingsShimmer darkMode={darkMode} />
+          ) : (
+            <SecuritySettings darkMode={darkMode} />
+          )}
         </div>
       </div>
     </div>

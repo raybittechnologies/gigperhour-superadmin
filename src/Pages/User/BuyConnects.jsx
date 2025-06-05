@@ -1,12 +1,20 @@
 import { useState, useEffect } from "react";
 import NavBarUser from "../../components/UserDashBoard/Navbar";
 import SideBar from "../../components/UserDashBoard/SideBar";
+import MobileSidebar from "../../components/UserDashBoard/MobileSidebar";
+import { ChevronDown } from "lucide-react";
+
 import { useNavigate } from "react-router-dom";
 export default function BuyConnects() {
   const [darkMode, setDarkMode] = useState(false);
-  const [amount, setAmount] = useState("");
+
   const [promoCode, setPromoCode] = useState("");
   const navigate = useNavigate();
+  const [amount, setAmount] = useState("");
+  const [isOpenAmount, setIsOpenAmount] = useState(false);
+
+  // Example options
+  const amountOptions = ["$5", "$10", "$20", "$50", "$100"];
   const connectData = {
     chargeAmount: "$12.00 + Tax",
     newBalance: 1821,
@@ -23,11 +31,21 @@ export default function BuyConnects() {
       }`}
     >
       <NavBarUser changeMode={setDarkMode} />
-      <div className="grid grid-cols-12  px-[20px]" style={{ padding: "2%" }}>
+      <div className=" flex h-[calc(100vh-64px)] hide-scrollbar">
         {/* Sidebar (Left) */}
-        <SideBar />
+        <div className="md:w-[240px] hidden md:fixed md:left-0 md:top-[64px] md:px-[20px] md:py-[20px] md:bottom-0 md:z-10 md:block">
+          <div className="h-full overflow-y-auto overflow-x-hidden hide-scrollbar rounded-[8px]">
+            <SideBar />
+          </div>
+        </div>
+        {/* Mobile Sidebar - shown only below 768px */}
+        <div className="fixed top-[48px] pt-[20px]  bottom-0 z-10">
+          <div className="block  h-full overflow-y-auto overflow-x-hidden hide-scrollbar py-[20px] md:hidden">
+            <MobileSidebar />
+          </div>
+        </div>
 
-        <div className="container mx-auto pl-6 pb-6 pr-6 col-span-10">
+        <div className="container  col-span-10 md:ml-[200px] ml-[5px]  flex-1 overflow-y-auto p-6 hide-scrollbar">
           <div className=" pl-5  w-full">
             <h3 className="text-lg font-[400] mb-5 flex items-center">
               <span className="mr-2 mt-[2px]">
@@ -63,13 +81,39 @@ export default function BuyConnects() {
             >
               Select the amount to buy
             </label>
-            <select
-              className="w-[462px] border  rounded-[5px] p-2 mt-1 bg-white  text-black font-[300] focus:border-[#E66D3D] focus:outline-none "
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-            >
-              <option>Select</option>
-            </select>
+
+            {/* Custom Dropdown for Amount */}
+            <div className="relative text-sm w-full max-w-[462px] mt-1">
+              <button
+                onClick={() => setIsOpenAmount(!isOpenAmount)}
+                className="w-full  bg-white rounded-[5px] px-3 py-2 flex justify-between items-center text-left text-black font-[300] focus:outline-none "
+              >
+                {amount || "Select"}
+                <ChevronDown
+                  size={16}
+                  className={`ml-2 transition-transform ${
+                    isOpenAmount ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+
+              {isOpenAmount && (
+                <ul className="absolute z-10 mt-1 w-full bg-white border border-[#555555] rounded shadow-lg max-h-60 overflow-auto">
+                  {amountOptions.map((option, i) => (
+                    <li
+                      key={option + i}
+                      onClick={() => {
+                        setAmount(option);
+                        setIsOpenAmount(false);
+                      }}
+                      className="px-4 py-2 cursor-pointer hover:bg-[#E66D3D] hover:text-white text-[#222] transition"
+                    >
+                      {option}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
 
             <p className={`mt-4 ${darkMode ? "text-white" : "text-[#333333]"}`}>
               Your account will be Charged
@@ -112,15 +156,15 @@ export default function BuyConnects() {
             >
               Promo Code
             </label>
-            <div className="flex mt-1">
+            <div className="flex mt-1  gap-y-2 [@media(max-width:431px)]:flex-col">
               <input
                 type="text"
                 placeholder="Enter Code"
-                className="border  p-2 rounded w-[462px] text-[#555555] focus:border-[#E66D3D] focus:outline-none"
+                className="border p-2 rounded w-[462px] text-[#555555] focus:border-[#E66D3D] focus:outline-none [@media(max-width:431px)]:w-full"
                 value={promoCode}
                 onChange={(e) => setPromoCode(e.target.value)}
               />
-              <button className="  w-[94px] border border-[#E66D3D] ml-[20px] px-4 rounded-md hover:bg-orange-50">
+              <button className="w-[94px] border border-[#E66D3D] ml-[20px] px-4 rounded-md py-2 hover:bg-orange-50 [@media(max-width:431px)]:ml-0 [@media(max-width:431px)]:w-full [@media(max-width:431px)]:mt-3">
                 Apply
               </button>
             </div>
@@ -152,11 +196,11 @@ export default function BuyConnects() {
             </p>
 
             {/* Buttons */}
-            <div className="flex justify-end mt-6 gap-9">
-              <button className=" font-[600] border rounded-[5px] w-[155px] border-[#E66D3D]">
+            <div className="flex justify-end mt-6 gap-9 [@media(max-width:431px)]:flex-col [@media(max-width:431px)]:gap-3">
+              <button className="font-[600] border rounded-[5px] w-[155px] border-[#E66D3D] [@media(max-width:431px)]:w-full py-2">
                 Cancel
               </button>
-              <button className="bg-[#E66D3D] text-white px-4 py-2 rounded-[5px] w-[172px]">
+              <button className="bg-[#E66D3D] text-white px-4 py-2 rounded-[5px] w-[172px] [@media(max-width:431px)]:w-full">
                 Continue
               </button>
             </div>

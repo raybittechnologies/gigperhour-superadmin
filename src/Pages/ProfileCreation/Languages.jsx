@@ -2,6 +2,8 @@ import { useState } from "react";
 import NavBarr from "../../components/NavBarr";
 import BottomNav from "../../components/BottomNav";
 import { useNavigate } from "react-router-dom";
+import ISO6391 from "iso-639-1";
+import { useDarkMode } from "../../context/DarkMode.jsx";
 const Languages = () => {
   const [languages, setLanguages] = useState([
     { name: "English", proficiency: "Fluent" },
@@ -9,13 +11,13 @@ const Languages = () => {
     { name: "Hindi", proficiency: "Fluent" },
   ]);
 
-  const languageOptions = ["English", "Urdu", "Hindi", "Spanish", "French"];
+  const languageOptions = ISO6391.getAllNames();
   const proficiencyOptions = ["Basic", "Intermediate", "Fluent"];
-  const [darkMode, setDarkMode] = useState(false);
+  const { darkMode } = useDarkMode();
   const navigate = useNavigate();
   const [progress] = useState(70);
   const addLanguage = () => {
-    setLanguages([...languages, { name: "", proficiency: "" }]);
+    setLanguages([...languages, { name: "", proficiency: "", open: false }]);
   };
 
   const removeLanguage = (index) => {
@@ -34,15 +36,15 @@ const Languages = () => {
         darkMode ? "bg-black text-white" : "text-black"
       }`}
     >
-      <NavBarr changeMode={setDarkMode} />
-      <div className="container mx-auto px-[120px]   pt-3 pb-3min-h-screen">
-        <div className="flex justify-between items-center mb-2">
-          <h3 className="text-[24px] font-[400] font-inter">
+      <NavBarr />
+      <div className="md:px-[60px] px-[30px]  pt-3 pb-3 ">
+        <div className="flex flex-row justify-between items-start sm:items-center mb-2 gap-2">
+          <h3 className="sm:text-[24px]  text-[19px] font-[400] font-inter">
             Great! Now, let us know which languages you speak.
           </h3>
-          <span className="text-sm">7/10</span>
+          <span className="text-sm sm:mt-0 mt-3 font-[500]">7/10</span>
         </div>
-        <p className="mb-6 w-full md:w-[690px]">
+        <p className="mb-6 w-full md:w-[690px] md:text-sm text-xs">
           Elevance is a global platform, and clients often want to know the
           languages you speak. English is a must, but do you speak any others?
         </p>
@@ -61,44 +63,108 @@ const Languages = () => {
               className="grid grid-cols-2 gap-4 mt-3 items-center"
             >
               <div className="flex flex-col">
-                <select
-                  value={lang.name}
-                  onChange={(e) =>
-                    handleLanguageChange(index, "name", e.target.value)
-                  }
-                  className="w-[115px] h-[40px] p-2  bg-transparent border border-gray-600 rounded"
-                >
-                  <option value="">Select Language</option>
-                  {languageOptions.map((option) => (
-                    <option key={option} value={option}>
-                      {option}
-                    </option>
-                  ))}
-                </select>
+                <div className="relative text-sm w-[115px] ">
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setLanguages((prev) =>
+                        prev.map((l, i) =>
+                          i === index
+                            ? { ...l, open: !l.open }
+                            : { ...l, open: false }
+                        )
+                      )
+                    }
+                    className="w-full border border-[#555555] bg-transparent rounded px-2 py-2 flex justify-between items-center  text-[14px]"
+                  >
+                    {lang.name || "Language"}
+                    <svg
+                      className="w-4 h-4 ml-2"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+
+                  {lang.open && (
+                    <ul className="absolute z-10 mt-1 w-[200px] bg-white border border-[#555555] rounded shadow-lg max-h-[190px] overflow-y-auto">
+                      {languageOptions.map((option) => (
+                        <li
+                          key={option}
+                          onClick={() => {
+                            const updated = [...languages];
+                            updated[index].name = option;
+                            updated[index].open = false;
+                            setLanguages(updated);
+                          }}
+                          className="px-4 py-2 cursor-pointer hover:bg-[#E66D3D] hover:text-white text-[#222] "
+                        >
+                          {option}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
               </div>
 
               {/* Wrap Proficiency & Delete button together */}
               <div className="flex items-center ">
-                <select
-                  value={lang.proficiency}
-                  onChange={(e) =>
-                    handleLanguageChange(index, "proficiency", e.target.value)
-                  }
-                  className="w-[115px] p-2 pr-8 bg-transparent border border-gray-600 rounded"
-                >
-                  <option value="">Select Proficiency</option>
-                  {proficiencyOptions.map((option) => (
-                    <option key={option} value={option}>
-                      {option}
-                    </option>
-                  ))}
-                </select>
+                <div className="relative text-sm w-[115px]">
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setLanguages((prev) =>
+                        prev.map((l, i) =>
+                          i === index
+                            ? { ...l, profOpen: !l.profOpen }
+                            : { ...l, profOpen: false }
+                        )
+                      )
+                    }
+                    className="w-full border border-gray-600 bg-transparent rounded px-2 py-2 flex justify-between items-center text-[14px]"
+                  >
+                    {lang.proficiency || "Fluency"}
+                    <svg
+                      className="w-4 h-4 ml-2"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+
+                  {lang.profOpen && (
+                    <ul className="absolute z-10 mt-1 sm:w-[200px] bg-white border border-gray-600 rounded shadow-lg">
+                      {proficiencyOptions.map((option) => (
+                        <li
+                          key={option}
+                          onClick={() => {
+                            handleLanguageChange(index, "proficiency", option); // ✅ keep your handler
+                            setLanguages((prev) =>
+                              prev.map((l, i) =>
+                                i === index ? { ...l, profOpen: false } : l
+                              )
+                            );
+                          }}
+                          className="px-4 py-2 cursor-pointer hover:bg-[#E66D3D] hover:text-white text-[#222]"
+                        >
+                          {option}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
 
                 {/* Delete Button beside Proficiency */}
                 {index > 0 && (
                   <button
                     onClick={() => removeLanguage(index)}
-                    className="text-gray-400 ml-[40px] hover:text-[#E66D3D]"
+                    className="text-gray-400 sm:ml-[40px] ml-2 hover:text-[#E66D3D] flex-shrink-0"
                   >
                     <img
                       src={

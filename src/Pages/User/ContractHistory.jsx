@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import NavBarUser from "../../components/UserDashBoard/Navbar";
 import SideBar from "../../components/UserDashBoard/SideBar";
+import MobileSidebar from "../../components/UserDashBoard/MobileSidebar";
 import { Link } from "react-router-dom";
 const contractsData = [
   {
@@ -37,12 +38,36 @@ const contractsData = [
     rating: 3.0,
   },
 ];
+const shimmerContracts = Array.from({ length: 3 }).map((_, idx) => (
+  <div
+    key={idx}
+    className="border-b border-[#555555] py-4 md:p-6 mb-4 space-y-4 animate-pulse"
+  >
+    <div className="h-6 w-3/4 bg-gray-300 rounded"></div>
+    <div className="flex justify-between gap-4">
+      <div className="h-5 w-20 bg-gray-300 rounded"></div>
+      <div className="h-5 w-16 bg-gray-300 rounded"></div>
+    </div>
+    <div className="text-sm mb-2 flex flex-col md:flex-row md:gap-[15vw] gap-2 mt-3">
+      <div className="h-4 w-24 bg-gray-300 rounded"></div>
+      <div className="h-4 w-32 bg-gray-300 rounded"></div>
+    </div>
+    <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-2">
+      <div className="h-4 w-40 bg-gray-300 rounded"></div>
+    </div>
+    <div className="h-10 w-full max-w-xs bg-gray-300 rounded mt-3"></div>
+  </div>
+));
 
 export default function ContractHistory() {
   const [darkMode, setDarkMode] = useState(false);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
-    window.scrollTo(0, 0); // Scroll to top on component mount
+    window.scrollTo(0, 0);
+    const timer = setTimeout(() => setLoading(false), 1500);
+    return () => clearTimeout(timer);
   }, []);
+
   return (
     <div
       className={`min-h-screen ${
@@ -50,14 +75,26 @@ export default function ContractHistory() {
       }`}
     >
       <NavBarUser changeMode={setDarkMode} />
-      <div className="grid grid-cols-12 gap-4 px-[20px] py-[20px]">
-        <SideBar />
-        <div className="col-span-10 pl-6 ">
+      <div className="flex h-[calc(100vh-64px)] hide-scrollbar">
+        {/* Sidebar (Left) */}
+        <div className="md:w-[240px] hidden md:fixed md:left-0 md:top-[64px] md:px-[20px] md:py-[20px] md:bottom-0 md:z-10 md:block">
+          <div className="h-full overflow-y-auto overflow-x-hidden hide-scrollbar rounded-[8px]">
+            <SideBar />
+          </div>
+        </div>
+        {/* Mobile Sidebar - shown only below 768px */}
+        <div className="fixed top-[48px] pt-[20px]  bottom-0 z-10">
+          <div className="block  h-full overflow-y-auto overflow-x-hidden hide-scrollbar py-[20px] md:hidden">
+            <MobileSidebar />
+          </div>
+        </div>
+        <div className="md:p-6 py-6 pl-6 pr-10  col-span-full md:ml-[220px] ml-[27px] flex-1 overflow-y-auto hide-scrollbar">
           <h3 className="text-xl font-semibold">All Contracts</h3>
 
-          {/* Search Box */}
-          <div className="flex gap-5">
-            <div className="relative w-[690px] my-4">
+          {/* Search & Filter Container */}
+          <div className="flex flex-col md:flex-row gap-4 lg:gap-5 items-start lg:items-center  mt-4">
+            {/* Search Box */}
+            <div className="relative w-full md:w-[40vw]">
               <input
                 type="text"
                 className={`w-full bg-transparent p-2 pl-12 border rounded focus:outline-none ${
@@ -78,112 +115,130 @@ export default function ContractHistory() {
               />
             </div>
 
-            <div className="flex my-6 gap-6 text-[#E66D3D]">
-              <p className="flex gap-1">
+            {/* Filter and Sort */}
+            <div className="flex gap-6 text-[#E66D3D] mt-2 lg:mt-0">
+              <p className="flex items-center gap-1 cursor-pointer">
                 <img
-                  src="src/assets/UserDashboard/filter-horizontal.svg "
+                  src="src/assets/UserDashboard/filter-horizontal.svg"
                   alt="Filter Icon"
-                  className="w-[20px] mt-[-4px]"
+                  className="w-[20px]"
                 />
                 Filter
               </p>
-              <p className="flex gap-1">
+              <p className="flex items-center gap-1 cursor-pointer">
                 <img
                   src="src/assets/UserDashboard/sorting-05.svg"
                   alt="Sort Icon"
-                  className="w-[20px] mt-[-4px]"
+                  className="w-[20px]"
                 />
                 Sort By
               </p>
             </div>
           </div>
 
-          {contractsData.map((contract) => (
-            <div
-              key={contract.id}
-              className="border-b border-[#555555]  p-6  mb-4"
-            >
-              <div className="flex justify-between">
-                <Link to="/contractDetails">
-                  <h4 className="text-lg font-semibold underline cursor-pointer">
-                    {contract.title}
-                  </h4>
-                </Link>
-                {contract.status === "Active" ? (
-                  <div className="flex gap-4">
-                    <button className="border border-[#E66D3D] px-4 py-2 rounded">
-                      Timesheet
-                    </button>
-                    <button className="w-8 h-8 rounded-full border border-[#E66D3D] text-[#E66D3D] flex items-center justify-center hover:bg-gray-100">
-                      •••
-                    </button>
-                  </div>
-                ) : (
-                  <div className="flex gap-4">
-                    <button className="border border-[#E66D3D] px-4 py-2 rounded">
-                      Propose New Contract
-                    </button>
-                    <button className="w-8 h-8 rounded-full border border-[#E66D3D] text-[#E66D3D] flex items-center justify-center hover:bg-gray-100">
-                      •••
-                    </button>
-                  </div>
-                )}
-              </div>
+          {loading
+            ? shimmerContracts
+            : contractsData.map((contract) => (
+                <div
+                  key={contract.id}
+                  className="border-b border-[#555555] py-4 md:p-6  mb-4 "
+                >
+                  {/* Title & Top Buttons */}
+                  <div className="flex flex-row justify-between gap-4">
+                    <Link to="/contractDetails">
+                      <h4 className="text-base md:text-lg font-semibold  mb-2 cursor-pointer underline">
+                        {contract.title}
+                      </h4>
+                    </Link>
 
-              <p className="text-sm flex gap-[15vw]">
-                <span className="font-[400]  cursor-pointer">
-                  Hired by
-                  <span className="text-[#E66D3D] ml-2">
-                    {contract.hiredBy}
-                  </span>
-                </span>
-                <div>
-                  {contract.status === "Active" ? (
-                    <div className="flex items-center gap-2  ">
-                      <div className="gap mb-4 ">
-                        <div className="flex items-center gap-2 ">
-                          <span className="text-white bg-[#95FF00] px-2 py-[2px] rounded-[3px] text-xs">
-                            {contract.status}
-                          </span>
-                          <p className="text-sm">
-                            <span className="underline">
-                              {contract.hoursWorked},{" "}
-                              {contract.earningsThisWeek}
-                            </span>{" "}
-                            this week
+                    <div className="flex items-center gap-3 md:gap-4">
+                      {/* Desktop Main Button */}
+                      {contract.status === "Active" ? (
+                        <button className="hidden [@media(min-width:860px)]:block border px-4 md:px-6  py-2 rounded-md font-[600] border-[#E66D3D] hover:bg-[#E66D3D] hover:text-white transition">
+                          Timesheet
+                        </button>
+                      ) : (
+                        <button className="hidden [@media(min-width:860px)]:block border px-4 md:px-6  py-2 rounded-md font-[600] border-[#E66D3D] hover:bg-[#E66D3D] hover:text-white transition">
+                          Propose New Contract
+                        </button>
+                      )}
+
+                      {/* Options Button */}
+                      <button className="w-8 h-8 rounded-full border border-[#E66D3D] text-[#E66D3D] flex items-center justify-center hover:bg-gray-100">
+                        •••
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Hired By and Status Info */}
+                  <div className="text-sm mb-2 flex flex-col md:flex-row md:gap-[15vw] gap-2 mt-3">
+                    <span className="font-[400]  cursor-pointer">
+                      Hired by
+                      <span className="text-[#E66D3D] ml-2">
+                        {contract.hiredBy}
+                      </span>
+                    </span>
+
+                    <div className="">
+                      {contract.status === "Active" ? (
+                        <>
+                          <div className="flex flex-col md:flex-row md:items-center gap-2">
+                            <span className="text-white bg-[#95FF00] px-2 py-[2px] rounded-[3px] text-xs w-fit">
+                              {contract.status}
+                            </span>
+                            <p className="text-sm">
+                              <span className="underline">
+                                {contract.hoursWorked},{" "}
+                                {contract.earningsThisWeek}
+                              </span>{" "}
+                              this week
+                            </p>
+                          </div>
+                          <p className="text-sm pt-2">
+                            Rate: {contract.rate}, {contract.weeklyLimit} weekly
+                            limit
                           </p>
-                        </div>
-                        <p className="text-sm text-[24px]">
-                          Rate: {contract.rate}, {contract.weeklyLimit} weekly
-                          limit
-                        </p>
-                      </div>
+                        </>
+                      ) : (
+                        <>
+                          <div className="flex items-center gap-2 mb-1">
+                            <span className="text-white bg-[#555555] px-2 py-[2px] rounded-[2px] text-xs w-fit">
+                              {contract.status}
+                            </span>
+                            <span className="text-[#FCE15A]">
+                              {"⭐".repeat(contract.rating)}
+                            </span>
+                            <span>{contract.rating}</span>
+                          </div>
+                          <p className="text-sm underline">
+                            Rate: {contract.rate}
+                          </p>
+                        </>
+                      )}
                     </div>
-                  ) : (
-                    <div className="gap mb-4 gap-2">
-                      <div className="mb-2 ">
-                        <span className="text-white bg-[#555555] px-2 py-1 mr-1 rounded-[2px] text-xs">
-                          {contract.status}
-                        </span>
-                        <span className="text-[#FCE15A] mr-3">
-                          {"⭐".repeat(contract.rating)}
-                        </span>
-                        <span>{contract.rating}</span>
-                      </div>
+                  </div>
 
-                      <p className="text-sm underline ">
-                        Rate: {contract.rate}
-                      </p>
-                    </div>
-                  )}
+                  {/* Date Range */}
+                  <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-2">
+                    <p className="text-sm ">
+                      {contract.startDate} - {contract.endDate}
+                    </p>
+                  </div>
+
+                  {/* Mobile Main Button */}
+                  <div className="flex flex-col items-center mt-3 [@media(min-width:860px)]:hidden">
+                    {contract.status === "Active" ? (
+                      <button className="border px-6  py-2 rounded-md font-[600] border-[#E66D3D] hover:bg-[#E66D3D] hover:text-white transition mb-2 w-full max-w-xs">
+                        Timesheet
+                      </button>
+                    ) : (
+                      <button className="border px-6  py-2 rounded-md font-[600] border-[#E66D3D] hover:bg-[#E66D3D] hover:text-white transition mb-2 w-full max-w-xs">
+                        Propose New Contract
+                      </button>
+                    )}
+                  </div>
                 </div>
-              </p>
-
-              <p className="text-sm ">
-                {contract.startDate} - {contract.endDate}
-              </p>
-            </div>
-          ))}
+              ))}
         </div>
       </div>
     </div>

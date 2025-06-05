@@ -4,7 +4,7 @@ import React from "react";
 const MessageModal = ({ talent, message, setMessage, onClose, onSend }) => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40 px-4">
-      <div className="bg-white rounded-md w-full max-w-lg p-6 shadow-lg relative">
+      <div className="bg-white rounded-md w-full text-[#333333] max-w-lg p-6 shadow-lg relative">
         {/* Close Button */}
         <button onClick={onClose} className="absolute right-4 top-4">
           <img

@@ -1,30 +1,29 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import NavBarr from "../../components/NavBarr";
-import { getUserProfile, updateProfile } from "../../utils/api";
+// import { getUserProfile, updateProfile } from "../../utils/api";
 import BottomNav from "../../components/BottomNav";
-
+import { useDarkMode } from "../../context/DarkMode.jsx";
 export default function Bio() {
-  const [darkMode, setDarkMode] = useState(false);
   const navigate = useNavigate();
-
+  const { darkMode } = useDarkMode();
   const [progress] = useState(30);
 
-  const handleSubmit = () => {
-    console.log("hjola");
-    if (!skills.length) return;
-    updateProfile({
-      skills,
-      profile_step: 5,
-    }).then(
-      () => {
-        navigate("/rate");
-      },
-      (err) => {
-        console.error(err);
-      }
-    );
-  };
+  // const handleSubmit = () => {
+
+  //   if (!bio.length) return;
+  //   updateProfile({
+  //     bio,
+  //     profile_step: 5,
+  //   }).then(
+  //     () => {
+  //       navigate("/rate");
+  //     },
+  //     (err) => {
+  //       console.error(err);
+  //     }
+  //   );
+  // };
 
   return (
     <div
@@ -32,24 +31,22 @@ export default function Bio() {
         darkMode ? "bg-black text-white" : "text-black"
       }`}
     >
-      <NavBarr changeMode={setDarkMode} />
+      <NavBarr />
 
-      <div className="container max-w-screen-xl mx-auto px-[120px] pt-3 pb-3 relative z-[20]">
+      <div className="md:px-[60px] px-[30px] pt-3 pb-3 relative z-[20]">
         <div className="w-full mb-4 flex justify-between items-start">
-          <div className="max-w-2xl flex-grow">
-            <h3 className="text-[24px] font-[400] font-inter">
+          <div className="md:max-w-2xl md:flex-grow">
+            <h3 className="sm:text-[24px] text-[19px] font-[400] font-inter">
               Great! Now, craft a bio to introduce yourself to the world and
               showcase your expertise.
             </h3>
           </div>
-          <span className="text-[18px] font-inter font-[400] ml-auto">
-            8/10
-          </span>
+          <span className="text-sm mt-2 font-[500] ml-2">8/10</span>
         </div>
 
         <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
           <div className="w-full ">
-            <p className=" font-inter font-[400] text-[15px] ">
+            <p className=" font-inter font-[400] md:text-[15px] text-xs ">
               Help people get to know you at a glance! What work do you excel
               at? Clearly showcase your skills using paragraphs or bullet
               points. You can always edit later, but be sure to proofread now!
@@ -64,9 +61,9 @@ export default function Bio() {
             </div>
           </div>
 
-          <div className="mt-[-35px] md:w-1/2 flex justify-center">
+          <div className="md:mt-[-35px] md:w-1/2 flex justify-center">
             <div
-              className={`relative bg-opacity-30 backdrop-blur-[10px] shadow-xl p-6 rounded-lg w-[380px] h-[350px] text-center
+              className={`relative bg-opacity-30 backdrop-blur-[10px] shadow-xl p-6 rounded-lg md:w-[380px] md:h-[350px] text-center
                   ${
                     darkMode
                       ? "bg-[linear-gradient(180deg,rgba(255,255,255,0.1)_0%,rgba(255,255,255,0.3)_100%)]"

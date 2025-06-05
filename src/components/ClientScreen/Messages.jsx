@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { ImAttachment } from "react-icons/im";
 import { BsFillSendFill, BsEmojiSmile } from "react-icons/bs";
-import EmojiPicker from "emoji-picker-react";
+// import EmojiPicker from "emoji-picker-react";
 
 export default function Messages({ darkMode }) {
   const headerUser = {
@@ -47,24 +47,25 @@ export default function Messages({ darkMode }) {
   ]);
 
   const [message, setMessage] = useState("");
-  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  // const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
-  const handleEmojiClick = (emojiData) => {
-    setMessage((prev) => prev + emojiData.emoji);
-  };
+  // const handleEmojiClick = (emojiData) => {
+  //   setMessage((prev) => prev + emojiData.emoji);
+  // };
 
   return (
     <div className="flex flex-col h-screen rounded-md border border-[#555555] relative">
       {/* Top Header */}
-      <div className="flex items-center justify-between px-4 py-2 border-b border-[#555555]">
-        <div className="flex items-center gap-3">
+      <div className="flex flex-wrap sm:flex-nowrap items-center px-4 py-2 border-b border-[#555555] gap-2 md:justify-between">
+        {/* Left: Profile Section */}
+        <div className="flex items-center gap-3 min-w-0">
           <img
             src={headerUser.image}
             alt="Profile"
             className="w-10 h-10 rounded-full"
           />
-          <div>
-            <h1 className=" text-sm">{headerUser.name}</h1>
+          <div className="">
+            <h1 className="text-sm ">{headerUser.name}</h1>
             <p
               className={`text-xs ${
                 darkMode ? "text-[#E9E9E9]" : "text-[#555555]"
@@ -74,9 +75,15 @@ export default function Messages({ darkMode }) {
             </p>
           </div>
         </div>
-        <p>Figma Design for Single Screen</p>
-        <div className="flex items-center gap-4">
-          <button className="text-gray-500 text-xl">
+
+        {/* Center: Title */}
+        <div className="w-full text-center sm:text-left md:text-center md:flex-1 order-3 sm:order-none">
+          <p className="text-sm truncate">Figma Design for Single Screen</p>
+        </div>
+
+        {/* Right: Icons */}
+        <div className="flex items-center gap-2 md:gap-4 ml-auto sm:ml-0">
+          <button>
             <img
               src={
                 darkMode
@@ -84,9 +91,10 @@ export default function Messages({ darkMode }) {
                   : "src/assets/clientscreen/video-01.svg"
               }
               alt="Video"
+              className="w-4 h-4 md:w-6 md:h-6"
             />
           </button>
-          <button className="text-gray-500 text-xl">
+          <button>
             <img
               src={
                 darkMode
@@ -94,6 +102,7 @@ export default function Messages({ darkMode }) {
                   : "src/assets/clientscreen/mail-at-sign-01.svg"
               }
               alt="Mail"
+              className="w-4 h-4 md:w-6 md:h-6"
             />
           </button>
         </div>
@@ -130,7 +139,7 @@ export default function Messages({ darkMode }) {
                   msg.type === "incoming" ? "justify-start" : "justify-end"
                 }`}
               >
-                <div className="flex items-start gap-2 mb-4 max-w-[70%]">
+                <div className="flex items-start gap-2 mb-4 md:max-w-[80%]">
                   {msg.type === "incoming" && (
                     <img
                       src={msg.image}
@@ -178,23 +187,24 @@ export default function Messages({ darkMode }) {
       </div>
 
       {/* Emoji Picker */}
-      {showEmojiPicker && (
+      {/* {showEmojiPicker && (
         <div className="absolute bottom-20 right-10 z-10">
           <EmojiPicker onEmojiClick={handleEmojiClick} />
         </div>
-      )}
+      )} */}
 
       {/* Bottom Input */}
-      <div className="border-t border-[#555555] p-4 flex items-center gap-4 relative">
+      <div className="border-t border-[#555555] md:p-4 py-3 px-2 flex items-center gap-2 sm:gap-3 md:gap-4 overflow-hidden flex-wrap sm:flex-nowrap">
         <input
           type="text"
           placeholder="Message Zahid..."
-          className="flex-1  px-4 text-sm bg-transparent outline-none"
+          className="flex-1 min-w-0 md:px-4 px-1 text-sm bg-transparent outline-none"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
         />
+
         <button
-          className={`text-xl ${
+          className={`text-xl flex-shrink-0 ${
             darkMode ? "text-[#E9E9E9]" : "text-[#555555]"
           }`}
         >
@@ -202,15 +212,15 @@ export default function Messages({ darkMode }) {
         </button>
 
         <button
-          className={`text-xl ${
+          className={`text-xl flex-shrink-0 ${
             darkMode ? "text-[#E9E9E9]" : "text-[#555555]"
           }`}
-          onClick={() => setShowEmojiPicker((prev) => !prev)}
+          // onClick={() => setShowEmojiPicker((prev) => !prev)}
         >
           <BsEmojiSmile />
         </button>
 
-        <button className="rounded-full text-2xl text-[#E66D3D]">
+        <button className="rounded-full text-2xl text-[#E66D3D] flex-shrink-0">
           <BsFillSendFill />
         </button>
       </div>

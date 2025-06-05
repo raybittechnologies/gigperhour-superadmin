@@ -54,13 +54,13 @@ export default function NavBarUser({ changeMode, role = "user" }) {
           className="text-3xl font-bold tracking-wider text-black dark:text-white"
           onClick={() => navigate("/")}
         >
-          <h3 className="text-[#000000] font-inter font-[400] pl-[120px]">
+          <h3 className="text-[#000000] font-inter font-[400] pl-6">
             Elevance
           </h3>
         </div>
 
         {/* Center Icons */}
-        <div className="flex items-center gap-7">
+        <div className="hidden md:flex items-center gap-7">
           <Link
             to={role === "client" ? "/clientDashboard" : routes.dashboard}
             className="relative"
@@ -173,7 +173,7 @@ export default function NavBarUser({ changeMode, role = "user" }) {
         </div>
 
         {/* Right section */}
-        <div className="flex items-center gap-4 pr-[120px] relative">
+        <div className="flex items-center gap-4 pr-6 relative">
           <button onClick={handleDarkMode}>
             <img
               src={
@@ -308,7 +308,7 @@ export default function NavBarUser({ changeMode, role = "user" }) {
                     </Link>
 
                     <button
-                      className="sidebar-link mt-4 flex items-center gap-2"
+                      className="sidebar-link mt-4 flex items-center gap-2 text-[#333333]"
                       onClick={() => alert("Logged out")}
                     >
                       <FiLogOut /> Log Out

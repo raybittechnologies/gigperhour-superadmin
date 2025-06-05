@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
 import { getUserProfile, updateProfile } from "../../utils/api";
 import { useNavigate } from "react-router-dom";
-
+import { useDarkMode } from "../../context/DarkMode.jsx";
 import path from "../../assets/path.svg";
 import pecent from "../../assets/pecent.svg";
 import Star from "../../components/star";
 import NavBarr from "../../components/NavBarr";
-
+import { IoIosArrowDropleft } from "react-icons/io";
 const Answer03 = () => {
   const [modeOfWork, setModeOfWork] = useState({});
-  const [darkMode, setDarkMode] = useState(false);
+  // const [darkMode, setDarkMode] = useState(false);
+  const { darkMode } = useDarkMode();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -60,13 +61,13 @@ const Answer03 = () => {
 
   return (
     <div
-      className={`min-h-screen z[20] ${
+      className={`min-h-screen  ${
         darkMode ? "bg-black text-white" : " text-black"
       }`}
     >
-      <NavBarr changeMode={setDarkMode} />
+      <NavBarr />
       <div className="container relative mx-auto p-6">
-        <div className="absolute inset-0 flex justify-center items-center z-10 pointer-events-none">
+        <div className="absolute inset-0 flex justify-center items-center z-[20] pointer-events-none">
           <Star />
         </div>
         <div className="mt-1 text-center">
@@ -78,14 +79,14 @@ const Answer03 = () => {
           </p>
         </div>
 
-        <div className="mt-6 flex justify-center gap-6">
+        <div className="mt-6 flex justify-center gap-6 sm:flex-row flex-col items-center z-[30] relative">
           {options.map((option) => (
             <div
               key={option.id}
               className={`relative p-4 border-2 rounded-lg cursor-pointer transition-all w-[240px] h-[210px] ${
                 modeOfWork[option.id]
                   ? "border-2 border-[#E66D3D]"
-                  : "border-[0.5px] border-[#555555]"
+                  : "border-[1px] border-[#555555]"
               }`}
               onClick={() => handleCheck(option.id)}
             >
@@ -104,7 +105,7 @@ const Answer03 = () => {
                 className={`absolute top-2 right-2 w-6 h-6 border-2 rounded-full flex justify-center items-center ${
                   modeOfWork[option.id]
                     ? "border-2 border-[#E66D3D]"
-                    : "border-[0.5px] border-white"
+                    : "border-[1px] border-[#555555]"
                 }`}
               >
                 {modeOfWork[option.id] && (
@@ -116,11 +117,11 @@ const Answer03 = () => {
         </div>
 
         <div className="flex items-center justify-center mt-5">
-          <div className="flex items-center ml-[-12rem]">
+          <div className="flex items-center sm:ml-[-12rem]">
             <input
               type="checkbox"
               name="receiveUpdates"
-              className="mr-5 w-[18px] h-[25px]"
+              className="mr-5 w-[18px] h-[18px] appearance-none border border-[#555555] rounded-sm checked:bg-[#E66D3D] checked:border-[#E66D3D] focus:outline-none relative before:content-[''] before:absolute before:top-[3px] before:left-[5px] before:w-[4px] before:h-[9px] before:border-r-[2px] before:border-b-[2px] before:border-white before:rotate-45 before:opacity-0 checked:before:opacity-100"
             />
             <span className="text-[14px] leading-[24px] font-inter font-[400]">
               I’m open to contract-to-hire opportunities.
@@ -128,12 +129,22 @@ const Answer03 = () => {
           </div>
         </div>
 
-        <div className="mt-10 flex justify-between pl-[120px] pr-[120px]">
-          <button onClick={() => navigate("/answerTwo")}>Back</button>
+        <div className="mt-10 flex justify-between md:px-[120px]">
+          <button
+            onClick={() => navigate("/answerTwo")}
+            className="flex items-center gap-1"
+          >
+            {/* Icon for mobile */}
+            <span className="sm:hidden text-[#E66D3D] text-3xl mt-1">
+              <IoIosArrowDropleft />
+            </span>
+            {/* Text for small and up */}
+            <span className="hidden sm:inline">Back</span>
+          </button>
           <div className="flex gap-4">
             <button>Skip for now</button>
             <button
-              className="bg-[#E66D3D] text-white px-6 py-2 rounded w-[137px] ml-[20px]"
+              className="bg-[#E66D3D] text-white px-6 py-2 rounded w-[137px]"
               onClick={handleSubmit}
             >
               Next

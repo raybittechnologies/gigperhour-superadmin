@@ -24,8 +24,8 @@ const EducationModal = ({ isOpen, onClose, onSave }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black text-black bg-opacity-50 flex justify-center items-center">
-      <div className="bg-white p-6 rounded-lg shadow-lg w-[630px] h-[580px]">
+    <div className="fixed inset-0 bg-black text-black bg-opacity-50 flex justify-center items-center overflow-y-auto">
+      <div className="bg-white p-6 rounded-lg shadow-lg w-[630px] max-h-[85vh] overflow-y-auto mt-12 hide-scrollbar text-[#333333]">
         <div className="flex justify-between items-center mb-4 mt-[-14px]">
           <h3 className="text-[24px]  font-[400] font-inter">
             Add Education History
@@ -79,31 +79,31 @@ const EducationModal = ({ isOpen, onClose, onSave }) => {
         />
 
         {/* Start & End Dates */}
-        <div className="flex gap-4 mt-3">
-          <div className="w-1/2">
+        <div className="flex flex-col md:flex-row gap-4 mt-3 sm:pb-0 pb-3">
+          <div className="w-full md:w-1/2">
             <label className="block text-[15px] font-[400] font-inter mb-1">
-              Start Date <span className="text-red-500">*</span>
+              Start Year <span className="text-red-500">*</span>
             </label>
             <input
               type="date"
               name="startDate"
               value={formData.startDate}
               onChange={handleChange}
-              className="w-full p-2 border border-[#555555] rounded mb-2  text-[#555555] text-[14px] focus:border-[#E66D3D] focus:outline-none"
+              className="block w-full max-w-full appearance-none h-[42px] px-3 py-2 border border-[#555555] rounded text-[#555555] text-[15px] focus:border-[#E66D3D] focus:outline-none bg-white"
               required
             />
           </div>
 
-          <div className="w-1/2">
+          <div className="w-full md:w-1/2">
             <label className="block text-[15px] font-[400] font-inter mb-1">
-              End Date <span className="text-red-500">*</span>
+              End Year <span className="text-red-500">*</span>
             </label>
             <input
               type="date"
               name="endDate"
               value={formData.endDate}
               onChange={handleChange}
-              className="w-full p-2 border border-[#555555] rounded mb-2 text-[#555555] text-[14px] focus:border-[#E66D3D] focus:outline-none"
+              className="block w-full max-w-full appearance-none h-[42px] px-3 py-2 border border-[#555555] rounded text-[#555555] text-[15px] focus:border-[#E66D3D] focus:outline-none bg-white"
             />
           </div>
         </div>

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import NavBarUser from "../../components/UserDashBoard/Navbar";
 import SideBar from "../../components/UserDashBoard/ProfileSideBar";
+import MobileSidebar from "../../components/UserDashBoard/ProfileMobile";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 export default function UserExperience() {
@@ -10,15 +11,31 @@ export default function UserExperience() {
     setShowPopup(!showPopup);
   };
   useEffect(() => {
-    window.scrollTo(0, 0); // Scroll to top on component mount
+    window.scrollTo(0, 0);
   }, []);
 
   return (
-    <div className={`${darkMode ? "bg-black text-white" : "text-[#333333]"}`}>
+    <div
+      className={`min-h-screen ${
+        darkMode ? "bg-black text-white" : "text-[#333333]"
+      }`}
+    >
       <NavBarUser changeMode={setDarkMode} />
-      <div className="grid grid-cols-12 gap-4 px-[20px] py-[20px]">
-        <SideBar />
-        <div className="col-span-10 pl-6">
+      <div className="flex h-[calc(100vh-64px)] hide-scrollbar">
+        {/* Desktop Sidebar */}
+        <div className="md:w-[240px] hidden md:fixed md:left-0 md:top-[64px] md:px-[20px] md:py-[20px] md:bottom-0 md:z-10 md:block">
+          <div className="h-full overflow-y-auto overflow-x-hidden hide-scrollbar rounded-[8px]">
+            <SideBar />
+          </div>
+        </div>
+
+        {/* Mobile Sidebar */}
+        <div className="fixed top-[48px] pt-[20px] bottom-0 z-10">
+          <div className="block h-full overflow-y-auto overflow-x-hidden hide-scrollbar py-[20px] md:hidden">
+            <MobileSidebar />
+          </div>
+        </div>
+        <div className="md:p-6 py-6 pl-4 pr-7 md:pl-6 col-span-full md:ml-[220px] ml-[20px] flex-1 overflow-y-auto hide-scrollbar">
           <div className="border border-[#555555] rounded-lg pt-2 pb-4 px-6  relative">
             {/* Header Section */}
             <h3 className="text-[22px] font-[400] mb-2">Other Experiences</h3>
@@ -42,7 +59,7 @@ export default function UserExperience() {
             </div>
 
             {/* Description */}
-            <h3 className=" text-center text-[20px]">
+            <h3 className=" text-center  sm:text-[20px] text-[17px]">
               Add any other experiences that help you stand out
             </h3>
           </div>
@@ -82,7 +99,7 @@ export default function UserExperience() {
                 <div className="mt-9">
                   <textarea
                     placeholder="Start Typing here..."
-                    className="w-full border  border-[#555555] rounded-[5px] p-2 h-24 focus:border-[#E66D3D] focus:outline-none"
+                    className="w-full border  border-[#555555] rounded-[5px]  text-[#333333] p-2 h-24 focus:border-[#E66D3D] focus:outline-none"
                   ></textarea>
                 </div>
               </div>

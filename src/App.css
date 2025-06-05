@@ -6,17 +6,17 @@ input:-webkit-autofill {
   -webkit-box-shadow: none !important;
 }
 .custom-container {
-  max-width: 1200px; /* Adjust as needed */
+  max-width: 1200px;
   width: 100%;
-  margin: 0 auto; /* Center the container */
-  padding: 0 1rem; /* Add some padding */
+  margin: 0 auto;
+  padding: 0 1rem;
 }
 
 .react-tel-input .form-control {
   position: relative;
   font-size: 14px;
   letter-spacing: 0.01rem;
-  margin-top: 2px !important;
+  margin-top: 4px !important;
   margin-bottom: 0 !important;
   padding-left: 48px;
   margin-left: 0;
@@ -25,8 +25,13 @@ input:-webkit-autofill {
   border-radius: 5px;
   line-height: 25px;
   height: 39px;
-  width: 214px;
+  /* width: 214px; */
+  width: 100%;
   outline: none;
+}
+.react-tel-input .country-list .country-name {
+  margin-right: 6px;
+  color: black;
 }
 .react-tel-input .flag-dropdown {
   position: absolute;
@@ -65,12 +70,12 @@ select option:hover {
 }
 /* hide-scrollbar: works across all modern browsers */
 .hide-scrollbar {
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE/Edge */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 .hide-scrollbar::-webkit-scrollbar {
-  display: none; /* Chrome, Safari */
+  display: none;
 }
 /* global.css or tailwind.css */
 .scrollbar-hide::-webkit-scrollbar {
@@ -83,8 +88,63 @@ select option:hover {
 
 input:-webkit-autofill {
   box-shadow: 0 0 0px 1000px white inset !important;
-  -webkit-text-fill-color: #1f2937 !important; /* text-gray-800 */
+  -webkit-text-fill-color: #1f2937 !important;
   transition: background-color 9999s ease-in-out 0s;
+}
+@media (max-width: 480px) {
+  .custom-calendar-wrapper .rdrCalendarWrapper {
+    width: 220px !important;
+    font-size: 9px !important;
+  }
+
+  .custom-calendar-wrapper .rdrMonth {
+    padding-left: 3px !important;
+    padding-right: 22px !important;
+  }
+
+  .custom-calendar-wrapper .rdrWeekDays {
+    margin-bottom: 0 !important;
+    display: grid !important;
+    grid-template-columns: repeat(7, 1fr) !important;
+    gap: 0px !important;
+  }
+
+  .custom-calendar-wrapper .rdrWeekDay {
+    font-size: 8px !important;
+    padding: 2px 0 !important;
+    text-align: center !important;
+  }
+
+  .custom-calendar-wrapper .rdrDays {
+    display: grid !important;
+    grid-template-columns: repeat(7, 1fr) !important;
+    gap: 0px !important;
+  }
+
+  .custom-calendar-wrapper .rdrDay {
+    width: 24px !important;
+    height: 26px !important;
+    margin: 0px !important;
+    font-size: 0.6rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .custom-calendar-wrapper .rdrDayNumber span {
+    font-size: 0.6rem !important;
+    line-height: 1 !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .custom-calendar-wrapper {
+    transform: scale(0.99);
+    transform-origin: top left;
+  }
+}
+.react-datepicker {
+  left: 39px !important;
 }
 
 /*  toggle nav bar  */
@@ -190,4 +250,20 @@ input:-webkit-autofill {
 .rdrDayInPreview,
 .rdrDayEndPreview {
   border: none !important;
+}
+
+/* annimation pop up */
+@keyframes fadeInScale {
+  0% {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-fadeInScale {
+  animation: fadeInScale 0.9s ease-out forwards;
 }

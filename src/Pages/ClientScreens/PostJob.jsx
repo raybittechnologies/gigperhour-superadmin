@@ -1,5 +1,6 @@
 import NavBarUser from "../../components/UserDashBoard/Navbar";
 import SideBar from "../../components/ClientScreen/ClientSideBar";
+import MobileSidebar from "../../components/ClientScreen/mobileSidebar";
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -10,13 +11,13 @@ export default function PostJob() {
   const navigate = useNavigate();
 
   const handleSelect = (type) => {
-    setSelectedType(type); // Only update the selection
+    setSelectedType(type);
   };
   const handleContinue = () => {
     if (selectedType === "long") {
       navigate("/longTermJob01");
     } else if (selectedType === "short") {
-      navigate("/shortTermJob01"); // You can adjust this path if needed
+      navigate("/shortTermJob01");
     }
   };
 
@@ -28,16 +29,22 @@ export default function PostJob() {
     >
       <NavBarUser changeMode={setDarkMode} role="client" />
 
-      <div className="flex h-[calc(100vh-64px)] hide-scrollbar">
-        <div className="w-[240px] fixed left-0 top-[64px] px-[20px] py-[20px] bottom-0 z-10 ">
-          <div className="h-full overflow-y-auto hide-scrollbar rounded-[8px]">
+      <div className="flex h-[calc(100vh-64px)]">
+        <div className="md:w-[240px] hidden md:fixed md:left-0 md:top-[64px] md:px-[20px] md:py-[20px] md:bottom-0 md:z-10 md:block">
+          <div className="h-full overflow-y-auto overflow-x-hidden hide-scrollbar rounded-[8px]">
             <SideBar />
           </div>
         </div>
+        {/* Mobile Sidebar - shown only below 768px */}
+        <div className="fixed top-[48px] pt-[20px]  bottom-0 z-10">
+          <div className="block  h-full overflow-y-auto overflow-x-hidden hide-scrollbar py-[20px] md:hidden">
+            <MobileSidebar />
+          </div>
+        </div>
 
-        <div className="ml-[240px] flex-1 overflow-y-auto p-6 hide-scrollbar">
+        <div className="md:ml-[240px]  ml-[100px] flex-1 overflow-y-auto md:p-6 px-3 py-6 hide-scrollbar">
           <div
-            className={`p-6 border rounded-lg ${
+            className={` md:p-6 px-3 py-6 border rounded-lg ${
               darkMode ? "border-[#E9E9E9]" : "border-[#555555]"
             }`}
           >
@@ -47,7 +54,7 @@ export default function PostJob() {
             </h2>
 
             {/* Project Type Options */}
-            <div className="flex flex-col md:flex-row gap-14 w-[60vw]">
+            <div className="flex flex-col md:flex-row lg:gap-14 gap-4 [@media(min-width:959px)]:w-[60vw]">
               {/* Long Term Project */}
               <div
                 onClick={() => handleSelect("long")}
@@ -117,20 +124,20 @@ export default function PostJob() {
             </div>
 
             {/* Dropdown Placeholder */}
-            <div className="mt-8 flex items-center justify-between text-sm cursor-pointer w-[60vw]">
+            <div className="mt-8 flex items-center justify-between text-sm cursor-pointer [@media(min-width:959px)]:w-[60vw]">
               <span>Repost a previous job</span>
               <ChevronDown size={18} />
             </div>
 
             {/* Buttons */}
-            <div className="flex justify-end gap-9 mt-36">
-              <button className="px-6 py-2 border font-[600] border-[#E66D3D] rounded-md   transition">
+            <div className="flex flex-col sm:flex-row justify-end sm:gap-9 gap-4 mt-36 w-full max-w-full">
+              <button className="w-full sm:w-auto px-6 py-2 border font-[600] border-[#E66D3D] rounded-md transition">
                 Cancel
               </button>
               <button
-                className={`px-6 py-2 rounded-md font-[600] text-white transition ${
+                className={`w-full sm:w-auto px-6 py-2 rounded-md font-[600] text-white transition ${
                   selectedType
-                    ? "bg-[#E66D3D] "
+                    ? "bg-[#E66D3D]"
                     : "bg-[#E66D3D] cursor-not-allowed"
                 }`}
                 onClick={handleContinue}

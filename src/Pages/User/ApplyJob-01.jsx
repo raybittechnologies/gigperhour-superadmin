@@ -13,7 +13,7 @@ const ApplyJob = () => {
     setMilestones((prev) => [...prev, { id: prev.length + 1 }]);
   };
   useEffect(() => {
-    window.scrollTo(0, 0); // Scroll to top on component mount
+    window.scrollTo(0, 0);
   }, []);
 
   return (
@@ -23,10 +23,12 @@ const ApplyJob = () => {
       }`}
     >
       <NavBarUser changeMode={setDarkMode} />
-      <div className="container max-w-screen-xl mx-auto px-[100px] pt-3 pb-3 relative z-[20]">
-        <h3 className="text-[22px] font-[400]">Submit a Proposal</h3>
+      <div className="px-6    pt-3 pb-3 relative z-[20]">
+        <h3 className="text-lg sm:text-xl md:text-2xl font-[400]">
+          Submit a Proposal
+        </h3>
 
-        <div className=" text-sm flex pl-5 gap-8 mt-2">
+        <div className="text-sm flex flex-wrap gap-4 sm:gap-6 md:gap-8 pl-0 sm:pl-5 mt-2">
           <p>
             Fixed: <span className="text-[#E66D3D] ">$100</span>
           </p>
@@ -46,7 +48,7 @@ const ApplyJob = () => {
             Tokens required for Proposal:{" "}
             <span className="text-[#E66D3D] ">11</span>
           </p>
-          <div className="flex gap-1">
+          <div className="flex flex-wrap gap-1">
             <p>
               Available Tokens: <span className="text-[#D84839]">{tokens}</span>
             </p>
@@ -58,34 +60,36 @@ const ApplyJob = () => {
           </div>
         </div>
 
-        <div className="flex justify-between text-sm mt-4 border-b pb-2  pl-5 border-[#555555]">
-          <p className=" ">One-Time Project</p>
-          <p className="text-[#D84839] flex font-[400] gap-2">
-            {" "}
+        <div className="flex flex-col sm:flex-row sm:justify-between text-sm mt-4 border-b pb-2 pl-0 sm:pl-5 border-[#555555]">
+          <p>One-Time Project</p>
+          <p className="text-[#D84839] flex items-center font-[400] gap-2 mt-2 sm:mt-0">
             <img
               src="src/assets/UserDashboard/flag-02.svg"
-              className="w-[18px] mt-[3px]"
-            />{" "}
+              className="w-[18px]"
+            />
             Flag inappropriate
           </p>
         </div>
-        <div className="pt-2 pl-5 border-b border-[#555555] pb-2">
-          <h2 className="text-[16px] font-[600] ">Job Details</h2>
-          <div className="flex justify-between">
-            <p className=" text-[16px] font-[600] mt-1">
+
+        <div className="pt-2 pl-0 sm:pl-5 border-b border-[#555555] pb-2">
+          <h2 className="text-base sm:text-lg font-[600]">Job Details</h2>
+          <div className="flex flex-col sm:flex-row justify-between">
+            <p className="text-base font-[600] mt-1">
               Front End Designer Needed for Engaging Web Projects
             </p>
-            <p className="font-[400] text-[16px]">Posted 06-03-2025</p>
+            <p className="font-[400] text-sm sm:text-base mt-1 sm:mt-0">
+              Posted 06-03-2025
+            </p>
           </div>
-          <p className=" w-[606px] text-[16px] font-[400] mt-2">
+          <p className="max-w-full sm:max-w-[606px] text-sm sm:text-base font-[400] mt-2">
             I am looking for an individual who can create interactive designs
             for me in Figma. Need clean designs and responsive also.
           </p>
         </div>
 
-        <div className="mt-2 pl-5 border-b border-[#555555] pb-3">
-          <h3 className="text-[20px] font-[400]">Required Skills:</h3>
-          <div className="flex gap-2 mt-2">
+        <div className="mt-2 pl-0 sm:pl-5 border-b border-[#555555] pb-3">
+          <h3 className="text-lg font-[400]">Required Skillss:</h3>
+          <div className="flex flex-wrap gap-2 mt-2">
             {[
               "Figma",
               "Web Design",
@@ -102,76 +106,58 @@ const ApplyJob = () => {
           </div>
         </div>
 
-        <div className=" pt-2 pl-5  border-b border-[#555555] pb-3">
-          {/* Title */}
-          <h3 className="text-[20px] font-[400]">Terms</h3>
+        {/* Terms */}
+        <div className="pt-2 pl-0 sm:pl-5 border-b border-[#555555] pb-3">
+          <h3 className="text-lg font-[400]">Terms</h3>
 
-          {/* Payment Options */}
           <div className="mb-6">
-            <p className="text-[16px] mb-2">How do you want to be paid?</p>
+            <p className="text-base mb-2">How do you want to be paid?</p>
 
-            {/* By Milestone */}
-            <label
-              className="flex items-start gap-2 cursor-pointer"
-              onClick={() => setSelectedPayment("milestone")}
-            >
-              <div
-                className={`w-5 h-5 mt-1 border-2 rounded-full flex justify-center items-center ${
-                  selectedPayment === "milestone"
-                    ? "border-2 border-[#E66D3D]"
-                    : darkMode
-                    ? "border-[0.5px] border-[#E9E9E9]"
-                    : "border-[0.5px] border-[#555555]"
-                }`}
-              >
-                {selectedPayment === "milestone" && (
-                  <div className="w-3 h-3 bg-orange-500 rounded-full"></div>
-                )}
-              </div>
-              <div>
-                <p className="font-[400]">By Milestone</p>
-                <p
-                  className={`${
-                    darkMode ? "text-[#E9E9E9]" : "text-[#555555]"
-                  } text-sm`}
+            {/* Milestone & Project */}
+            <div className="flex flex-col gap-4">
+              {[
+                [
+                  "milestone",
+                  "By Milestone",
+                  "Divide the project into smaller segments, called milestones. You’ll be paid for milestones as they are completed and approved.",
+                ],
+                [
+                  "project",
+                  "By Project",
+                  "Get your entire payment at the end, when all work has been delivered.",
+                ],
+              ].map(([key, title, desc]) => (
+                <label
+                  key={key}
+                  className="flex items-start gap-2 cursor-pointer"
+                  onClick={() => setSelectedPayment(key)}
                 >
-                  Divide the project into smaller segments, called milestones.
-                  You’ll be paid for milestones as they are completed and
-                  approved.
-                </p>
-              </div>
-            </label>
-
-            {/* By Project */}
-            <label
-              className="flex items-start gap-2 cursor-pointer mt-4"
-              onClick={() => setSelectedPayment("project")}
-            >
-              <div
-                className={`w-5 h-5 mt-1 border-2 rounded-full flex justify-center items-center ${
-                  selectedPayment === "project"
-                    ? "border-2 border-[#E66D3D]"
-                    : darkMode
-                    ? "border-[0.5px] border-[#E9E9E9]"
-                    : "border-[0.5px] border-[#555555]"
-                }`}
-              >
-                {selectedPayment === "project" && (
-                  <div className="w-3 h-3 bg-orange-500 rounded-full"></div>
-                )}
-              </div>
-              <div>
-                <p className="font-[400]">By Project</p>
-                <p
-                  className={`${
-                    darkMode ? "text-[#E9E9E9]" : "text-[#555555]"
-                  } text-sm`}
-                >
-                  Get your entire payment at the end, when all work has been
-                  delivered.
-                </p>
-              </div>
-            </label>
+                  <div
+                    className={`w-5 h-5 mt-1 border-2 rounded-full flex justify-center items-center flex-shrink-0 ${
+                      selectedPayment === key
+                        ? "border-[#E66D3D]"
+                        : darkMode
+                        ? "border-[#E9E9E9]"
+                        : "border-[#555555]"
+                    }`}
+                  >
+                    {selectedPayment === key && (
+                      <div className="w-3 h-3 bg-orange-500 rounded-full" />
+                    )}
+                  </div>
+                  <div>
+                    <p className="font-[400]">{title}</p>
+                    <p
+                      className={`${
+                        darkMode ? "text-[#E9E9E9]" : "text-[#555555]"
+                      } text-sm`}
+                    >
+                      {desc}
+                    </p>
+                  </div>
+                </label>
+              ))}
+            </div>
 
             {/* Bid Section (Only if By Project is selected) */}
             {selectedPayment === "project" && (
@@ -180,55 +166,64 @@ const ApplyJob = () => {
                   What is the full amount you’d like to bid for this job?
                 </p>
 
-                <div className="flex justify-between mt-4">
+                <div className="flex flex-col md:flex-row justify-between gap-6 mt-4">
                   {/* Bid */}
-                  <div className="text-center">
+                  <div className=" flex-1 max-w-[400px] md:mx-auto">
                     <p className="text-sm mb-1">
                       <span className="font-[600]">Bid</span> (Total amount the
                       client will see on your proposal)
                     </p>
-                    <div className="border border-gray-400 rounded px-4 py-2 mt-2 font-[600] w-[148px]">
+                    <div className="border border-gray-400 rounded px-4 py-2 mt-2 font-[600] w-full md:max-w-[230px]  ">
                       $500
                     </div>
                   </div>
 
-                  {/* Service Fee */}
-                  <div className="text-center">
-                    <p className="font-[600] text-sm mb-1">5% Service Fee</p>
-                    <div
-                      className={`rounded px-4 py-2 mt-2 font-[600] w-[148px] ${
-                        darkMode
-                          ? "bg-white text-black"
-                          : "bg-[#555555] text-white"
-                      }`}
-                    >
-                      $25
+                  {/* Wrap Service Fee + Amount Received in flex-row even on mobile */}
+                  <div className="flex flex-row gap-6 flex-1 md:flex-row md:justify-center">
+                    {/* Service Fee */}
+                    <div className="md:text-center flex-1">
+                      <p className="font-[600] text-sm mb-1">5% Service Fee</p>
+                      <div
+                        className={`rounded px-4 py-2 mt-2 font-[600] w-full max-w-[230px] md:mx-auto ${
+                          darkMode
+                            ? "bg-white text-black"
+                            : "bg-[#555555] text-white"
+                        }`}
+                      >
+                        $25
+                      </div>
                     </div>
-                  </div>
 
-                  {/* Amount Received */}
-                  <div className="text-center">
-                    <p className="text-sm mb-1">
-                      <span className="font-[600]">You’ll Receive</span> (The
-                      estimated amount you’ll receive after service fees)
-                    </p>
-                    <div className="border border-gray-400 rounded px-4 py-2 mt-2 font-[600] w-[148px]">
-                      $475
+                    {/* Amount Received */}
+                    <div className="text-center flex-1">
+                      <p className="text-sm mb-1">
+                        <span className="font-[600]">You’ll Receive</span>
+                        <span className="hidden min-[1129px]:inline">
+                          {" "}
+                          (The estimated amount you’ll receive after service
+                          fees)
+                        </span>
+                      </p>
+                      <div className="border border-gray-400 rounded px-4 py-2 mt-2 font-[600] w-full max-w-[230px] mx-auto">
+                        $475
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             )}
 
-            {/* milestone (Only if By Project is selected) */}
+            {/* Milestone Inputs */}
             {selectedPayment === "milestone" && (
-              <div>
-                <p className="font-[400]">
+              <div className="">
+                <p className="font-[400] mt-4">
                   How many milestones would you like to include?
                 </p>
-
                 {milestones.map((milestone) => (
-                  <div key={milestone.id} className="flex justify-between mt-4">
+                  <div
+                    key={milestone.id}
+                    className="flex flex-col gap-4 mt-4 [@media(min-width:751px)]:flex-row [@media(min-width:751px)]:gap-4"
+                  >
                     {/* Description */}
                     <div>
                       <p className="text-sm mb-1">
@@ -236,32 +231,40 @@ const ApplyJob = () => {
                       </p>
                       <input
                         type="text"
-                        className="border border-gray-400 rounded px-4 py-2 mt-2 font-[600] w-[400px] bg-transparent"
+                        className="border border-gray-400 rounded px-4 py-2 mt-2 font-[600] w-full [@media(min-width:1103px)]:w-[400px] bg-transparent"
                         placeholder="Enter Text"
                       />
                     </div>
 
-                    {/* Due Date */}
-                    <div>
-                      <p className="font-[600] text-sm mb-1">Due Date</p>
-                      <input
-                        type="date"
-                        className="rounded border border-gray-400 w-[280px] px-4 py-2 mt-2 font-[600] bg-transparent"
-                      />
-                    </div>
+                    {/* Due Date + Amount in a row on small screens */}
+                    <div className="flex sm:flex-row flex-col gap-4">
+                      {/* Due Date */}
+                      <div>
+                        <p className="font-[600] text-sm mb-1">Due Date</p>
+                        <input
+                          type="date"
+                          className="rounded border h-[42px] border-gray-400 w-full [@media(min-width:1103px)]:w-[280px] px-4 py-2 mt-2 font-[600] bg-transparent appearance-none"
+                          style={{
+                            WebkitAppearance: "none",
+                            MozAppearance: "textfield",
+                            appearance: "none",
+                            lineHeight: "normal",
+                          }}
+                        />
+                      </div>
 
-                    {/* Amount */}
-                    <div>
-                      <p className="font-[600] text-sm mb-1">Amount</p>
-                      <input
-                        type="text"
-                        className="rounded border border-gray-400 w-[280px] px-4 py-2 mt-2 font-[600] bg-transparent"
-                      />
+                      {/* Amount */}
+                      <div>
+                        <p className="font-[600] text-sm mb-1">Amount</p>
+                        <input
+                          type="text"
+                          className="rounded border border-gray-400 w-full [@media(min-width:1103px)]:w-[280px] px-4  h-[43px] py-2 mt-2 font-[600] bg-transparent"
+                        />
+                      </div>
                     </div>
                   </div>
                 ))}
 
-                {/* Add Milestone Button */}
                 <button
                   onClick={addMilestone}
                   className="text-[#E66D3D] font-[600] flex gap-2 mt-4 mb-7"
@@ -274,38 +277,41 @@ const ApplyJob = () => {
                 </button>
 
                 {/* Summary Section */}
-                <div className="flex justify-between mt-4">
-                  {/* Total Price */}
-                  <div>
+                <div className="flex flex-col md:flex-row justify-between gap-6 mt-4">
+                  {/* Bid */}
+                  <div className=" flex-1 max-w-[400px] md:mx-auto">
                     <p className="text-sm mb-1">
                       <span className="font-[600]">Total Price</span>
                     </p>
-                    <div className="border border-gray-400 rounded px-4 py-2 mt-2 font-[600] w-[148px]">
+                    <div className="border border-gray-400 rounded px-4 py-2 mt-2 font-[600] w-full md:max-w-[230px]  ">
                       $500
                     </div>
                   </div>
 
-                  {/* Service Fee */}
-                  <div>
-                    <p className="font-[600] text-sm mb-1">5% Service Fee</p>
-                    <div
-                      className={`rounded px-4 py-2 mt-2 font-[600] w-[148px] ${
-                        darkMode
-                          ? "bg-white text-black"
-                          : "bg-[#555555] text-white"
-                      }`}
-                    >
-                      $25
+                  {/* Wrap Service Fee + Amount Received in flex-row even on mobile */}
+                  <div className="flex flex-row gap-6 flex-1 md:flex-row md:justify-center">
+                    {/* Service Fee */}
+                    <div className="md:text-center flex-1">
+                      <p className="font-[600] text-sm mb-1">5% Service Fee</p>
+                      <div
+                        className={`rounded px-4 py-2 mt-2 font-[600] w-full max-w-[230px] md:mx-auto ${
+                          darkMode
+                            ? "bg-white text-black"
+                            : "bg-[#555555] text-white"
+                        }`}
+                      >
+                        $25
+                      </div>
                     </div>
-                  </div>
 
-                  {/* Amount Received */}
-                  <div>
-                    <p className="text-sm mb-1">
-                      <span className="font-[600]">You’ll Receive</span>
-                    </p>
-                    <div className="border border-gray-400 rounded px-4 py-2 mt-2 font-[600] w-[148px]">
-                      $475
+                    {/* Amount Received */}
+                    <div className="text-center flex-1">
+                      <p className="text-sm mb-1">
+                        <span className="font-[600]">You’ll Receive</span>
+                      </p>
+                      <div className="border border-gray-400 rounded px-4 py-2 mt-2 font-[600] w-full max-w-[230px] mx-auto">
+                        $475
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -314,15 +320,16 @@ const ApplyJob = () => {
           </div>
         </div>
 
-        <div className="mt-2 pl-5 border-b border-[#555555] pb-3">
-          <h3 className="text-[20px] font-[400]">
+        {/* Duration */}
+        <div className="mt-2 pl-0 sm:pl-5 border-b border-[#555555] pb-3">
+          <h3 className="text-lg font-[400]">
             How long will the project take?
           </h3>
-          <div className="relative w-[340px] mt-2">
+          <div className="relative max-w-full sm:max-w-[340px] mt-2">
             <input
               type="text"
-              className="border p-2 w-full rounded-[5px] font-[300] text-[14px] focus:border-[#E66D3D] focus:outline-none pr-8"
               placeholder="Enter Text"
+              className="border p-2 w-full rounded-[5px] font-[300] text-sm focus:border-[#E66D3D] focus:outline-none pr-8"
             />
             <img
               src="src/assets/arrow-down-01.svg"
@@ -335,23 +342,24 @@ const ApplyJob = () => {
           </div>
         </div>
 
-        <div className="mt-2 pl-5  border-[#555555] pb-3">
-          <h3 className="text-[20px] font-[400]">Additional Details</h3>
-          <p className="font-[400] text-[14px] mt-3">Cover Letter</p>
-          <textarea className="border border-[#555555] bg-transparent h-[170px] p-2 w-full  rounded mt-1 "></textarea>
+        {/* Cover Letter */}
+        <div className="mt-2 pl-0 sm:pl-5 border-[#555555] pb-3">
+          <h3 className="text-lg font-[400]">Additional Details</h3>
+          <p className="font-[400] text-sm mt-3">Cover Letter</p>
+          <textarea className="border border-[#555555] bg-transparent h-[170px] p-2 w-full rounded mt-1"></textarea>
         </div>
 
-        <div className=" mt-2 pl-5 border-b border-[#555555] pb-3">
+        {/* Attachments */}
+        <div className="mt-2 pl-0 sm:pl-5 border-b border-[#555555] pb-3">
           <p className="text-lg font-[400]">Attachments</p>
-          <div className="p-4 border border-[#555555] rounded text-center  mt-2 border-dashed mask-image-[repeating-linear-gradient(90deg,#555555,#555555_10px,transparent_10px,transparent_20px)]">
+          <div className="p-4 border border-[#555555] rounded text-center mt-2 border-dashed">
             Drag or{" "}
             <span className="text-orange-500 underline cursor-pointer">
               upload
             </span>{" "}
             project files
           </div>
-
-          <p className="text-xs  mt-1">
+          <p className="text-xs mt-1">
             You may attach up to 10 files under the size of 25 MB each. Include
             work samples or other documents to support your application. Do not
             attach your resume — your Upwork profile is automatically forwarded
@@ -359,13 +367,14 @@ const ApplyJob = () => {
           </p>
         </div>
 
-        <div className="mt-6 flex gap-8">
+        {/* Action Buttons */}
+        <div className="mt-6 flex flex-col sm:flex-row gap-4 sm:gap-8">
           <Link to="/proposalSuccess">
-            <button className="bg-[#E66D3D] text-white font-[600] px-6 py-2 rounded">
+            <button className="bg-[#E66D3D] text-white font-[600] px-6 py-2 rounded w-full sm:w-auto">
               Submit for 11 Tokens
             </button>
           </Link>
-          <button className="border border-[#E66D3D] font-[600]   px-9 py-2  rounded">
+          <button className="border border-[#E66D3D] font-[600] px-6 py-2 rounded w-full sm:w-auto">
             Cancel
           </button>
         </div>

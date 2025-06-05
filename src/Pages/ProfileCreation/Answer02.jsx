@@ -7,11 +7,13 @@ import expert from "../../assets/expert.svg";
 import medal from "../../assets/Star Medal.svg";
 import Star from "../../components/star";
 import NavBarr from "../../components/NavBarr";
-
+import { IoIosArrowDropleft } from "react-icons/io";
+import { useDarkMode } from "../../context/DarkMode.jsx";
 const Answer02 = () => {
   const navigate = useNavigate();
   const [freelanceGoals, setFreelanceGoal] = useState(null);
-  const [darkMode, setDarkMode] = useState(false);
+  // const [darkMode, setDarkMode] = useState(false);
+  const { darkMode } = useDarkMode();
 
   useEffect(() => {
     getUserProfile("freelanceGoals").then(
@@ -67,31 +69,37 @@ const Answer02 = () => {
 
   return (
     <div
-      className={`min-h-screen z[20] ${
+      className={`min-h-screen  ${
         darkMode ? "bg-black text-white" : " text-black"
       }`}
     >
-      <NavBarr changeMode={setDarkMode} />
-      <div className="container relative mx-auto p-6">
-        <div className="absolute inset-0 flex justify-center items-center z-10 pointer-events-none">
+      <NavBarr />
+      <div className=" relative p-6">
+        {/* Background Star */}
+        <div className="absolute inset-0 flex justify-center items-center z-[20] pointer-events-none">
           <Star />
         </div>
+
+        {/* Heading */}
         <div className="mt-5 text-center">
           <div className="flex justify-center items-center gap-4">
             <img src="src/assets/line02.svg" />
           </div>
-          <p className="mt-6 text-lg">
-            Got it! Whats your main goal for freelancing?
+          <p className="mt-6 text-[17px] sm:text-lg">
+            Got it! What’s your main goal for freelancing?
           </p>
         </div>
-        <div className="mt-6 flex justify-center gap-6">
+
+        {/* Options */}
+
+        <div className="mt-6 flex flex-col md:flex-row justify-center items-center gap-6 flex-wrap z-[30] relative [@media(max-width:1080px)]:grid  [@media(max-width:1080px)]:grid-cols-1  [@media(max-width:1080px)]:sm:grid-cols-2 justify-items-center">
           {options.map((card, index) => (
             <div
               key={index}
               className={`relative p-6 border-2 rounded-lg cursor-pointer transition-all w-[240px] h-[210px] ${
                 freelanceGoals === card.value
                   ? "border-2 border-[#E66D3D]"
-                  : "border-[0.5px] border-[#555555]"
+                  : "border-[1px] border-[#555555]"
               }`}
               data-level={card.value}
               onClick={handleSelection}
@@ -99,7 +107,7 @@ const Answer02 = () => {
               <img
                 src={card.image}
                 alt={card.label}
-                className="w-[130px] h-[130px] ml-[-20px]"
+                className="w-[130px] h-[130px] ml-[-20px] relative z-[30]"
               />
               <p className="mt-1 text-[14px] font-inter font-[400]">
                 {card.label}
@@ -108,7 +116,7 @@ const Answer02 = () => {
                 className={`absolute top-2 right-2 w-6 h-6 border-2 rounded-full flex justify-center items-center ${
                   freelanceGoals === card.value
                     ? "border-2 border-[#E66D3D]"
-                    : "border-[0.5px] border-white"
+                    : "border-[1px] border-[#717070]"
                 }`}
               >
                 {freelanceGoals === card.value && (
@@ -118,12 +126,24 @@ const Answer02 = () => {
             </div>
           ))}
         </div>
-        <div className="mt-10 flex justify-between pl-[120px] pr-[120px]">
-          <button onClick={() => navigate("/answerOne")}>Back</button>
+
+        {/* Navigation buttons */}
+        <div className="mt-10 flex justify-between md:px-[120px]">
+          <button
+            onClick={() => navigate("/answerOne")}
+            className="flex items-center gap-1"
+          >
+            {/* Icon for mobile */}
+            <span className="sm:hidden text-[#E66D3D] text-3xl mt-1">
+              <IoIosArrowDropleft />
+            </span>
+            {/* Text for small and up */}
+            <span className="hidden sm:inline">Back</span>
+          </button>
           <div className="flex gap-4">
             <button>Skip for now</button>
             <button
-              className="bg-[#E66D3D] text-white px-6 py-2 rounded w-[137px] ml-[20px]"
+              className="bg-[#E66D3D] text-white px-6 py-2 rounded w-[137px]"
               onClick={handleSubmit}
             >
               Next

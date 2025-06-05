@@ -1,5 +1,6 @@
 import NavBarUser from "../../components/UserDashBoard/Navbar";
 import SideBar from "../../components/ClientScreen/ClientSideBar";
+import MobileSidebar from "../../components/ClientScreen/mobileSidebar";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -18,26 +19,32 @@ export default function JobLong03() {
       <NavBarUser changeMode={setDarkMode} role="client" />
 
       <div className="flex h-[calc(100vh-64px)] hide-scrollbar">
-        <div className="w-[240px] fixed left-0 top-[64px] px-[20px] py-[20px] bottom-0 z-10 ">
-          <div className="h-full overflow-y-auto hide-scrollbar rounded-[8px]">
+        <div className="md:w-[240px] hidden md:fixed md:left-0 md:top-[64px] md:px-[20px] md:py-[20px] md:bottom-0 md:z-10 md:block">
+          <div className="h-full overflow-y-auto overflow-x-hidden hide-scrollbar rounded-[8px]">
             <SideBar />
           </div>
         </div>
+        {/* Mobile Sidebar - shown only below 768px */}
+        <div className="fixed top-[48px] pt-[20px]  bottom-0 z-10">
+          <div className="block  h-full overflow-y-auto overflow-x-hidden hide-scrollbar py-[20px] md:hidden">
+            <MobileSidebar />
+          </div>
+        </div>
 
-        <div className="ml-[240px] flex-1 overflow-y-auto p-6 hide-scrollbar">
+        <div className="md:ml-[240px] ml-[100px] flex-1 overflow-y-auto md:p-6 px-3 py-6 hide-scrollbar">
           <div
-            className={`p-6 border rounded-lg ${
+            className={`md:p-6 px-3 py-6 border rounded-lg ${
               darkMode ? "border-[#E9E9E9]" : "border-[#555555]"
             }`}
           >
-            <div className="flex justify-between items-center mb-4">
-              <h3 className="text-2xl font-[400]">
+            <div className="flex justify-between  mb-4">
+              <h3 className="md:text-2xl text-xl font-[400]">
                 What are the main skills required for your work?
               </h3>
               <span className="text-xl">3/5</span>
             </div>
 
-            <p className="text-sm mb-6 w-[40vw]">
+            <p className="text-sm mb-6 md:w-[40vw]">
               These aren’t final answers, but this information helps us
               recommend the right talent for what you need.
             </p>
@@ -67,7 +74,7 @@ export default function JobLong03() {
                   onClick={() => setScope(value)}
                 >
                   <div
-                    className={`w-4 h-4 rounded-full flex items-center justify-center transition-colors duration-200 mt-2 ${
+                    className={`w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0 transition-colors duration-200 mt-2 ${
                       scope === value
                         ? "border-2 border-[#E66D3D]"
                         : darkMode
@@ -79,6 +86,7 @@ export default function JobLong03() {
                       <div className="w-2 h-2 bg-[#E66D3D] rounded-full" />
                     )}
                   </div>
+
                   <div>
                     <p className="font-[400] mb-2">{label}</p>
                     <p
@@ -157,15 +165,15 @@ export default function JobLong03() {
             </div>
 
             {/* Navigation Buttons */}
-            <div className="flex justify-between">
+            <div className="flex flex-col sm:flex-row justify-between gap-4 mt-10 w-full">
               <button
-                className="px-6 py-2 border border-[#E66D3D]  font-semibold rounded-md"
+                className="w-full sm:w-auto border border-[#E66D3D] font-[600] px-6 py-2 rounded-md"
                 onClick={() => navigate("/longTermJob02")}
               >
                 Back
               </button>
               <button
-                className="px-6 py-2 bg-[#E66D3D] text-white font-semibold rounded-md"
+                className="w-full sm:w-auto bg-[#E66D3D] font-[600] text-white px-6 py-2 rounded-md"
                 onClick={() => navigate("/longTermJob04")}
               >
                 Continue

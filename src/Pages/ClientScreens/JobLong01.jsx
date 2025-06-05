@@ -1,8 +1,19 @@
 import NavBarUser from "../../components/UserDashBoard/Navbar";
+import { useRef } from "react";
 import SideBar from "../../components/ClientScreen/ClientSideBar";
+import MobileSidebar from "../../components/ClientScreen/mobileSidebar";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { IoChevronDownOutline } from "react-icons/io5";
 
+const specialties = [
+  "UI/UX Designer",
+  "Frontend Developer",
+  "Backend Developer",
+  "Full Stack Developer",
+  "Product Designer",
+  "Mobile App Developer",
+];
 export default function JobLong01() {
   const [darkMode, setDarkMode] = useState(false);
   const [jobTitle, setJobTitle] = useState("");
@@ -10,11 +21,45 @@ export default function JobLong01() {
   const [showAllCategories, setShowAllCategories] = useState(false);
 
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const [modalCategory, setModalCategory] = useState("");
-  const [modalJobTitle, setModalJobTitle] = useState("");
+
   const [categories, setCategories] = useState([]);
 
   const navigate = useNavigate();
+  const [modalJobTitle, setModalJobTitle] = useState("");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+  const [modalCategory, setModalCategory] = useState("");
+  const [isCategoryDropdownOpen, setIsCategoryDropdownOpen] = useState(false);
+  const categoryDropdownRef = useRef(null);
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        categoryDropdownRef.current &&
+        !categoryDropdownRef.current.contains(event.target)
+      ) {
+        setIsCategoryDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  // Close dropdown if clicked outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   useEffect(() => {
     // Simulated backend fetch
@@ -76,33 +121,33 @@ export default function JobLong01() {
     >
       <NavBarUser changeMode={setDarkMode} role="client" />
 
-      {/* <div className="grid grid-cols-12 gap-4 px-[20px] py-[20px]"> */}
       <div className="flex h-[calc(100vh-64px)] hide-scrollbar">
-        {/* <div className="col-span-2"> */}
-        {/* <div className="w-[240px] fixed left-0 top-[64px] px-[20px] py-[20px] bottom-0 overflow-y-auto hide-scrollbar z-10 border-r">
-          <SideBar />
-        </div> */}
-        <div className="w-[240px] fixed left-0 top-[64px] px-[20px] py-[20px] bottom-0 z-10 ">
-          <div className="h-full overflow-y-auto hide-scrollbar rounded-[8px]">
+        <div className="md:w-[240px] hidden md:fixed md:left-0 md:top-[64px] md:px-[20px] md:py-[20px] md:bottom-0 md:z-10 md:block">
+          <div className="h-full overflow-y-auto overflow-x-hidden hide-scrollbar rounded-[8px]">
             <SideBar />
           </div>
         </div>
+        {/* Mobile Sidebar - shown only below 768px */}
+        <div className="fixed top-[48px] pt-[20px]  bottom-0 z-10">
+          <div className="block  h-full overflow-y-auto overflow-x-hidden hide-scrollbar py-[20px] md:hidden">
+            <MobileSidebar />
+          </div>
+        </div>
 
-        {/* <div className="col-span-10 pl-6"> */}
-        <div className="ml-[240px] flex-1 overflow-y-auto p-6 hide-scrollbar">
+        <div className=" md:ml-[240px] ml-[100px]    flex-1 overflow-y-auto md:p-6 px-3 py-6 hide-scrollbar">
           <div
-            className={`p-6 border rounded-lg ${
+            className={`md:p-6 px-3 py-6  border rounded-lg ${
               darkMode ? "border-[#E9E9E9]" : "border-[#555555]"
             }`}
           >
-            <div className="flex justify-between items-center mb-4">
+            <div className="flex justify-between  gap-2 mb-4">
               <h3 className="text-2xl font-[400]">
                 Let s start with a strong title.
               </h3>
-              <span className="text-xl">1/5</span>
+              <span className="text-xl pt-1">1/5</span>
             </div>
 
-            <p className="text-sm mb-6">
+            <p className="text-sm  mb-6">
               This helps your job post stand out to the right candidates. <br />
               It’s the first thing they’ll see, so make it count!
             </p>
@@ -115,7 +160,7 @@ export default function JobLong01() {
               value={jobTitle}
               onChange={handleTitleChange}
               placeholder="e.g., UI UX Designer"
-              className="w-[35vw] border border-[#555555] bg-transparent rounded-[5px] p-2 mb-6 focus:outline-none focus:ring-orange-500"
+              className="md:w-[35vw] w-full border border-[#555555] bg-transparent rounded-[5px] p-2 mb-6 focus:outline-none focus:ring-orange-500"
             />
 
             {/* Example Titles */}
@@ -179,20 +224,23 @@ export default function JobLong01() {
             )}
 
             {/* Buttons */}
-            <div className="flex justify-between">
+            <div className="flex flex-col sm:flex-row justify-between gap-4 mt-4 w-full">
               <button
-                className="px-8 py-2 border border-orange-500 font-[600] rounded-md  transition"
+                className="w-full sm:w-auto px-8 py-2 border border-orange-500 font-[600] rounded-md transition"
                 onClick={() => navigate("/postJob")}
               >
                 Back
               </button>
               <button
                 onClick={handleContinue}
-                className={`px-6 py-2 rounded-md transition font-[600] ${
+                className={`w-full sm:w-auto px-6 py-2 rounded-md transition font-[600] ${
                   jobTitle && (categories.length === 0 || selectedCategory)
-                    ? "bg-[#E66D3D] text-white "
-                    : "bg-[#E66D3D] text-white"
+                    ? "bg-[#E66D3D] text-white"
+                    : "bg-[#E66D3D] text-white cursor-not-allowed"
                 }`}
+                disabled={
+                  !jobTitle || (categories.length !== 0 && !selectedCategory)
+                }
               >
                 Continue
               </button>
@@ -204,7 +252,7 @@ export default function JobLong01() {
       {/* Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-xl shadow-xl py-3 px-4 w-[100%] max-w-[35rem]">
+          <div className="bg-white rounded-xl shadow-xl py-3 px-4 w-[100%] max-w-[35rem] text-[#333333]">
             <div className="flex justify-between mb-4">
               <h3 className="text-[22px] text-[#333333] font-[400]">
                 Change Category
@@ -216,38 +264,45 @@ export default function JobLong01() {
 
             <div className="mb-10">
               {/* Editable Title */}
-              <div className="relative w-full mb-4">
+              <div className="relative w-full mb-4" ref={dropdownRef}>
                 <label className="block text-[#333333] font-[500] text-[20px] mb-1">
                   Speciality
                 </label>
-                <select
-                  className="w-full border text-[15px] border-[#555555] rounded-[5px] p-2 pr-8 focus:border-[#E66D3D] focus:outline-none appearance-none"
-                  value={modalJobTitle}
-                  onChange={(e) => setModalJobTitle(e.target.value)}
-                >
-                  <option value="" disabled>
-                    Select a job title
-                  </option>
-                  <option value="UI/UX Designer">UI/UX Designer</option>
-                  <option value="Frontend Developer">Frontend Developer</option>
-                  <option value="Backend Developer">Backend Developer</option>
-                  <option value="Full Stack Developer">
-                    Full Stack Developer
-                  </option>
-                  <option value="Product Designer">Product Designer</option>
-                  <option value="Mobile App Developer">
-                    Mobile App Developer
-                  </option>
-                </select>
 
-                {/* Custom dropdown arrow */}
-                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2">
-                  <img
-                    src="src/assets/arrow-down-01.svg"
-                    alt="Dropdown arrow"
-                    className="h-5 w-5 mr-4 mt-9"
-                  />
+                {/* Custom select box */}
+                <div
+                  onClick={() => setIsDropdownOpen((prev) => !prev)}
+                  className="w-full border text-[15px] border-[#555555] rounded-[5px] p-2 pr-8 focus:border-[#E66D3D] focus:outline-none appearance-none cursor-pointer flex justify-between items-center"
+                >
+                  <span
+                    className={modalJobTitle ? "text-black" : "text-gray-400"}
+                  >
+                    {modalJobTitle || "Select a job title"}
+                  </span>
+                  <IoChevronDownOutline className="h-5 w-5 text-gray-500" />
                 </div>
+
+                {/* Dropdown options */}
+                {isDropdownOpen && (
+                  <ul className="absolute z-10 mt-1 w-full bg-white border border-[#555555] rounded-[5px] shadow-md max-h-60 overflow-y-auto text-[#333333]">
+                    {specialties.map((option, index) => (
+                      <li
+                        key={index}
+                        onClick={() => {
+                          setModalJobTitle(option);
+                          setIsDropdownOpen(false);
+                        }}
+                        className={`px-4 py-2 text-[15px] cursor-pointer hover:bg-orange-100 ${
+                          modalJobTitle === option
+                            ? "bg-[#E66D3D] font-medium text-white"
+                            : ""
+                        }`}
+                      >
+                        {option}
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </div>
 
               {/* Category Dropdown */}
@@ -255,28 +310,43 @@ export default function JobLong01() {
                 <label className="block text-[#333333] font-[500] text-[20px] mb-1">
                   Category
                 </label>
-                <div className="relative w-full">
-                  <select
-                    className="flex items-center border text-[15px] w-full  border-[#555555] rounded-[5px] p-2 focus:border-[#E66D3D] focus:outline-none appearance-none pr-8"
-                    value={modalCategory}
-                    onChange={(e) => setModalCategory(e.target.value)}
+                <div className="relative w-full" ref={categoryDropdownRef}>
+                  {/* Custom select box */}
+                  <div
+                    className="flex items-center border text-[15px] w-full border-[#555555] rounded-[5px] p-2 focus:border-[#E66D3D] focus:outline-none pr-8 cursor-pointer justify-between"
+                    onClick={() => setIsCategoryDropdownOpen((prev) => !prev)}
                   >
-                    <option value="" disabled>
-                      Select your category
-                    </option>
-                    {categories.map((cat) => (
-                      <option key={cat} value={cat}>
-                        {cat}
-                      </option>
-                    ))}
-                  </select>
-                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2">
-                    <img
-                      src="src/assets/arrow-down-01.svg"
-                      alt="Dropdown arrow"
-                      className="h-5 w-5 mr-4"
-                    />
+                    <span
+                      className={`${
+                        modalCategory ? "text-black" : "text-gray-400"
+                      } whitespace-nowrap overflow-hidden text-ellipsis`}
+                    >
+                      {modalCategory || "Select your category"}
+                    </span>
+                    <IoChevronDownOutline className="h-5 w-5 text-gray-500" />
                   </div>
+
+                  {/* Dropdown options */}
+                  {isCategoryDropdownOpen && (
+                    <ul className="absolute z-10 mt-1 w-full bg-white border border-[#555555] rounded-[5px] shadow-md max-h-60 overflow-y-auto">
+                      {categories.map((cat, index) => (
+                        <li
+                          key={index}
+                          onClick={() => {
+                            setModalCategory(cat);
+                            setIsCategoryDropdownOpen(false);
+                          }}
+                          className={`px-4 py-2 text-[15px] cursor-pointer hover:bg-orange-100 ${
+                            modalCategory === cat
+                              ? "bg-[#E66D3D] font-medium text-white"
+                              : ""
+                          }`}
+                        >
+                          {cat}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </div>
               </div>
             </div>

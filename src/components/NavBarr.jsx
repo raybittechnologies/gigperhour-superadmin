@@ -1,41 +1,34 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CiSettings } from "react-icons/ci";
 import { AiOutlineLogout } from "react-icons/ai";
 import { FaUser } from "react-icons/fa6";
+import { useDarkMode } from "../context/DarkMode";
 
-export default function NavBarr({ changeMode }) {
+export default function NavBarr() {
   const navigate = useNavigate();
-  const [darkMode, setDarkMode] = useState(false); // Default to light mode
+  const { darkMode, setDarkMode } = useDarkMode();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
 
-  // Effect to set darkMode from localStorage on mount
   useEffect(() => {
     const savedMode = localStorage.getItem("darkMode");
     if (savedMode !== null) {
-      const isDarkMode = savedMode === "true";
-      setDarkMode(isDarkMode);
-      changeMode(isDarkMode);
-    } else {
-      setDarkMode(false);
-      changeMode(false);
+      setDarkMode(savedMode === "true");
     }
-  }, [changeMode]);
+  }, [setDarkMode]);
 
   const handleDarkMode = () => {
     const newMode = !darkMode;
     setDarkMode(newMode);
-    changeMode(newMode);
-    localStorage.setItem("darkMode", newMode); // Save the new mode to localStorage
+    localStorage.setItem("darkMode", newMode);
   };
 
-  // Toggle dropdown
+  // Dropdown toggle
   const toggleDropdown = () => {
     setDropdownOpen((prev) => !prev);
   };
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     function handleClickOutside(event) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -43,26 +36,24 @@ export default function NavBarr({ changeMode }) {
       }
     }
     document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   return (
     <div className="relative z-50 ">
-      <nav className="flex justify-between items-center py-3 bg-white h-[60px] shadow-md ">
+      <nav className="flex justify-between items-center py-3 bg-white h-[60px] shadow-md">
         {/* Logo */}
         <div
-          className="text-3xl font-bold tracking-wider text-black dark:text-white"
+          className="text-3xl font-bold tracking-wider text-black dark:text-white cursor-pointer"
           onClick={() => navigate("/")}
         >
-          <h3 className="text-[#000000] font-inter font-[400] pl-[120px]">
+          <h3 className="text-[#000000] font-inter font-[400] md:pl-[60px] pl-[25px]">
             Elevance
           </h3>
         </div>
 
         {/* Right Section */}
-        <div className="flex items-center gap-4 pr-[120px] relative">
+        <div className="flex items-center gap-4 md:pr-[60px] pr-[25px] relative">
           {/* Dark Mode Toggle */}
           <button onClick={handleDarkMode}>
             <img
@@ -76,7 +67,7 @@ export default function NavBarr({ changeMode }) {
             />
           </button>
 
-          {/* User Icon with Dropdown */}
+          {/* Dropdown */}
           <div className="relative" ref={dropdownRef}>
             <img
               src="src/assets/user.svg"
@@ -85,25 +76,18 @@ export default function NavBarr({ changeMode }) {
               alt="User Icon"
             />
 
-            {/* Dropdown Menu */}
             {dropdownOpen && (
               <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg py-2 z-[1000]">
-                {/* User Icon at the Top */}
                 <div className="flex justify-center pb-2">
-                  <FaUser
-                    className="w-[30px] h-[30px] text-black"
-                    alt="User Icon"
-                  />
+                  <FaUser className="w-[30px] h-[30px] text-black" />
                 </div>
-                <h2 className="px-4  text-black   text-[15pxpx] text-center">
+                <h2 className="px-4 text-black text-[15px] text-center">
                   Bisma Mushtaq
                 </h2>
-
                 <p className="px-4 pt-2 text-gray-500 text-sm text-center">
                   Freelancer
                 </p>
-
-                <button className="w-full text-center px-4 flex items-center gap-2   pt-1 text-gray-700 hover:bg-gray-200">
+                <button className="w-full text-center px-4 flex items-center gap-2 pt-1 text-gray-700 hover:bg-gray-200">
                   <CiSettings />
                   Close Account
                 </button>

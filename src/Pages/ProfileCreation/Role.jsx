@@ -32,10 +32,8 @@ const Role = () => {
           {/* Client Card */}
 
           <div
-            className={`relative w-[270px] h-[220px] border-2 rounded-lg p-6 flex flex-col items-center md:items-start transition-all duration-300 cursor-pointer z-10 ${
-              selected === "client"
-                ? "border-[#E66D3D]"
-                : "border-[0.5px] border-[#555555]"
+            className={`relative w-[270px] h-[220px] border rounded-lg p-6 flex flex-col items-center md:items-start transition-all duration-300 cursor-pointer z-10 box-border ${
+              selected === "client" ? "border-[#E66D3D]" : "border-[#555555]/50"
             }`}
             onClick={() => setSelected("client")}
           >
@@ -51,7 +49,7 @@ const Role = () => {
               className={`absolute top-2 right-2 w-6 h-6 border-2 rounded-full flex justify-center items-center ${
                 selected === "client"
                   ? "border-[#E66D3D]"
-                  : "border-[0.5px] border-gray-500"
+                  : "border-[1px] border-gray-500"
               }`}
             >
               {selected === "client" && (
@@ -63,10 +61,10 @@ const Role = () => {
           {/* Freelancer Card */}
 
           <div
-            className={`relative w-[270px] h-[220px] border-2 rounded-lg p-6 flex flex-col items-center md:items-start transition-all duration-300 cursor-pointer z-10 ${
+            className={`relative w-[270px] h-[220px] border rounded-lg p-6 flex flex-col items-center md:items-start transition-all duration-300 cursor-pointer z-10 box-border ${
               selected === "freelancer"
                 ? "border-[#E66D3D]"
-                : "border-[0.5px] border-[#555555]"
+                : "border-[#555555]/50"
             }`}
             onClick={() => setSelected("freelancer")}
           >
@@ -82,7 +80,7 @@ const Role = () => {
               className={`absolute top-2 right-2 w-6 h-6 border-2 rounded-full flex justify-center items-center ${
                 selected === "freelancer"
                   ? "border-[#E66D3D]"
-                  : "border-[0.5px] border-white"
+                  : "border-[1px] border-gray-500"
               }`}
             >
               {selected === "freelancer" && (

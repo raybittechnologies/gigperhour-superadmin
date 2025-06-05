@@ -1,5 +1,6 @@
 import NavBarUser from "../../components/UserDashBoard/Navbar";
 import SideBar from "../../components/ClientScreen/ClientSideBar";
+import MobileSidebar from "../../components/ClientScreen/mobileSidebar";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 export default function JobLong04() {
@@ -19,21 +20,29 @@ export default function JobLong04() {
     >
       <NavBarUser changeMode={setDarkMode} role="client" />
       <div className="flex h-[calc(100vh-64px)] hide-scrollbar">
-        <div className="w-[240px] fixed left-0 top-[64px] px-[20px] py-[20px] bottom-0 z-10 ">
-          <div className="h-full overflow-y-auto hide-scrollbar rounded-[8px]">
+        <div className="md:w-[240px] hidden md:fixed md:left-0 md:top-[64px] md:px-[20px] md:py-[20px] md:bottom-0 md:z-10 md:block">
+          <div className="h-full overflow-y-auto overflow-x-hidden hide-scrollbar rounded-[8px]">
             <SideBar />
           </div>
         </div>
+        {/* Mobile Sidebar - shown only below 768px */}
+        <div className="fixed top-[48px] pt-[20px]  bottom-0 z-10">
+          <div className="block  h-full overflow-y-auto overflow-x-hidden hide-scrollbar py-[20px] md:hidden">
+            <MobileSidebar />
+          </div>
+        </div>
 
-        <div className="ml-[240px] flex-1 overflow-y-auto p-6 hide-scrollbar">
+        <div className="md:ml-[240px] ml-[100px] flex-1 overflow-y-auto md:p-6 px-3 py-6 hide-scrollbar">
           <div
-            className={`p-6 border rounded-lg ${
+            className={`md:p-6 px-3 py-6 border rounded-lg ${
               darkMode ? "border-[#E9E9E9]" : "border-[#555555]"
             }`}
           >
             {/* Header */}
-            <div className="flex justify-between items-center mb-2">
-              <h3 className="text-2xl ">Tell us about your budget.</h3>
+            <div className="flex justify-between gap-1 mb-2">
+              <h3 className="md:text-2xl text-xl ">
+                Tell us about your budget.
+              </h3>
               <span className="text-xl ">4/5</span>
             </div>
             <p
@@ -45,7 +54,7 @@ export default function JobLong04() {
             </p>
 
             {/* Budget Type Selection */}
-            <div className="flex items-center gap-14 mb-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 [@media(min-width:913px)]:w-[30vw] mb-6">
               {/* Hourly Price */}
               <label className="flex items-center gap-3 cursor-pointer">
                 <div
@@ -89,34 +98,33 @@ export default function JobLong04() {
 
             {/* Hourly Budget Inputs */}
             {budgetType === "hourly" && (
-              <div className="flex gap-16 mb-6">
-                <div>
-                  <label className="block text-sm  mb-1">From</label>
+              <div className="flex flex-col sm:flex-row gap-6 mb-6">
+                <div className="w-full sm:w-auto">
+                  <label className="block text-sm mb-1">From</label>
                   <div className="flex items-center">
                     <input
                       type="number"
                       value={from}
                       onChange={(e) => setFrom(e.target.value)}
-                      className={`border bg-transparent rounded px-3 py-2 w-28 focus:border-[#E66D3D] outline-none ${
+                      className={`border bg-transparent rounded px-3 py-2 w-full sm:w-28 focus:border-[#E66D3D] outline-none ${
                         darkMode ? "border-[#E9E9E9]" : "border-[#555555]"
                       }`}
                     />
-
-                    <span className="ml-2 ">/hr</span>
+                    <span className="ml-2">/hr</span>
                   </div>
                 </div>
-                <div>
-                  <label className="block text-sm  mb-1">To</label>
+                <div className="w-full sm:w-auto">
+                  <label className="block text-sm mb-1">To</label>
                   <div className="flex items-center">
                     <input
                       type="number"
                       value={to}
                       onChange={(e) => setTo(e.target.value)}
-                      className={`border bg-transparent rounded px-3 py-2 w-28 focus:border-[#E66D3D] outline-none ${
+                      className={`border bg-transparent rounded px-3 py-2 w-full sm:w-28 focus:border-[#E66D3D] outline-none ${
                         darkMode ? "border-[#E9E9E9]" : "border-[#555555]"
                       }`}
                     />
-                    <span className="ml-2 ">/hr</span>
+                    <span className="ml-2">/hr</span>
                   </div>
                 </div>
               </div>
@@ -124,7 +132,7 @@ export default function JobLong04() {
 
             {budgetType === "fixed" && (
               <div className="mb-10">
-                <label className="block font-semibold ">
+                <label className="block font-semibold">
                   What is the best cost estimate for your project?
                 </label>
                 <p
@@ -136,7 +144,7 @@ export default function JobLong04() {
                   chat with your freelancer.
                 </p>
 
-                <div className="relative w-40">
+                <div className="relative w-full sm:w-40">
                   <input
                     type="text"
                     value={fixedPrice}
@@ -154,8 +162,7 @@ export default function JobLong04() {
                         : "border border-[#555555]"
                     }`}
                   />
-
-                  <span className="absolute right-3 top-1/2 -translate-y-1/2  ">
+                  <span className="absolute right-3 top-1/2 -translate-y-1/2">
                     $
                   </span>
                 </div>
@@ -163,15 +170,15 @@ export default function JobLong04() {
             )}
 
             {/* Buttons */}
-            <div className="flex justify-between mt-36">
+            <div className="flex flex-col sm:flex-row justify-between gap-4 mt-10 w-full">
               <button
-                className="px-6 py-2 border border-[#E66D3D]  font-semibold rounded-md"
+                className="w-full sm:w-auto border border-[#E66D3D] font-[600] px-6 py-2 rounded-md"
                 onClick={() => navigate("/longTermJob03")}
               >
                 Back
               </button>
               <button
-                className="px-6 py-2 bg-[#E66D3D] text-white font-semibold rounded-md"
+                className="w-full sm:w-auto bg-[#E66D3D] font-[600] text-white px-6 py-2 rounded-md"
                 onClick={() => navigate("/longTermJob05")}
               >
                 Continue

@@ -2,15 +2,16 @@ import NavBarUser from "../../components/UserDashBoard/Navbar";
 import SideBar from "../../components/UserDashBoard/SideBar";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
+import MobileSidebar from "../../components/UserDashBoard/MobileSidebar";
 export default function ConnectDetails() {
   const navigate = useNavigate();
   const [darkMode, setDarkMode] = useState(false);
   const [tokenType, setTokenType] = useState("Number of Tokens");
   const [dateFilter, setDateFilter] = useState("Last 7 days");
   const [tokenCount] = useState(21);
+
   useEffect(() => {
-    window.scrollTo(0, 0); // Scroll to top on component mount
+    window.scrollTo(0, 0);
   }, []);
 
   const transactions = [
@@ -41,14 +42,21 @@ export default function ConnectDetails() {
       }`}
     >
       <NavBarUser changeMode={setDarkMode} />
-      <div
-        className="grid grid-cols-12 container mx-auto px-[20px]"
-        style={{ padding: "2%" }}
-      >
+      <div className="flex h-[calc(100vh-64px)] hide-scrollbar">
         {/* Sidebar (Left) */}
-        <SideBar />
+        <div className="md:w-[240px] hidden md:fixed md:left-0 md:top-[64px] md:px-[20px] md:py-[20px] md:bottom-0 md:z-10 md:block">
+          <div className="h-full overflow-y-auto overflow-x-hidden hide-scrollbar rounded-[8px]">
+            <SideBar />
+          </div>
+        </div>
+        {/* Mobile Sidebar - shown only below 768px */}
+        <div className="fixed top-[48px] pt-[20px]  bottom-0 z-10">
+          <div className="block  h-full overflow-y-auto overflow-x-hidden hide-scrollbar py-[20px] md:hidden">
+            <MobileSidebar />
+          </div>
+        </div>
 
-        <div className="container mx-auto pl-6 pb-6 pr-6 col-span-10">
+        <div className=" md:ml-[220px]  ml-[3px] flex-1 overflow-y-auto p-6 pr-8 hide-scrollbar">
           <div className="container mx-auto pl-4 ">
             {/* First Row - Two Columns */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -173,7 +181,7 @@ export default function ConnectDetails() {
                   }`}
                 >
                   <tr>
-                    <th className="text-left  text-[18px] font-[400] py-2 px-4">
+                    <th className="text-left  text-[18px] font-[400] py-2 sm:px-4 px-2">
                       Date
                     </th>
                     <th className="text-left  text-[18px] font-[400] py-2 px-4">
@@ -191,13 +199,13 @@ export default function ConnectDetails() {
                       className="border-b  bprder-[0.5px] border-[#555555] h-[50px]"
                     >
                       <td
-                        className={`py-2 px-4 text-[#555555] font-[400] ${
+                        className={`py-2 sm:px-4 px-2 text-[#555555] font-[400] ${
                           darkMode ? "text-[#E9E9E9]" : "text-[#555555]"
                         }`}
                       >
                         {tx.date}
                       </td>
-                      <td className="py-2 px-4">
+                      <td className="py-2 sm:px-4 pl-2">
                         <div
                           className={`text-[#555555] font-[300] text-sm ${
                             darkMode ? "text-[#E9E9E9]" : "text-[#555555]"

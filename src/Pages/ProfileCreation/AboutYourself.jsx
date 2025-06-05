@@ -1,12 +1,16 @@
 import { useState } from "react";
-import { FaLinkedin, FaUpload } from "react-icons/fa";
+import { FaUpload } from "react-icons/fa";
+import { SlSocialLinkedin } from "react-icons/sl";
 import NavBarr from "../../components/NavBarr";
 import Star from "../../components/star";
 import { useNavigate } from "react-router-dom";
+import { useDarkMode } from "../../context/DarkMode.jsx";
 export default function AboutYourself() {
   const [progress] = useState(10);
-  const [darkMode, setDarkMode] = useState(false);
+  // const [darkMode, setDarkMode] = useState(false);
   const navigate = useNavigate();
+  // const { darkMode, setDarkMode } = useDarkMode();
+  const { darkMode } = useDarkMode();
   return (
     <div
       className={`z-10 min-h-screen relative ${
@@ -14,7 +18,7 @@ export default function AboutYourself() {
       }`}
     >
       {/* Navbar */}
-      <NavBarr changeMode={setDarkMode} />
+      <NavBarr />
 
       {/* Background Star Component */}
       <div className="absolute inset-0 flex justify-center items-center z-[0]  pointer-events-none">
@@ -22,30 +26,28 @@ export default function AboutYourself() {
       </div>
 
       {/* Main Content */}
-      <div className="container max-w-screen-xl mx-auto px-[120px] pt-3 pb-3 relative z-[20]">
+      <div className=" md:px-[60px]  px-[30px] pt-3 pb-3 relative z-[20]">
         {/* Header Section */}
-        <div className="w-full mb-8 flex justify-between items-start">
-          <div className="max-w-2xl flex-grow">
-            <h3 className="text-[24px] font-[400] font-inter">
-              How would you like to tell us about yourself?
-            </h3>
-            <p className="text-sm font-inter font-[400] mt-[10px]">
-              We’d love to understand your education, experience, and skills.
-              The fastest way is to import your information—you can review and
-              edit it before your profile goes live.
-            </p>
-          </div>
-          <span className="text-[18px] font-inter font-[500] ml-auto">
-            1/10
-          </span>
+        <div className="flex flex-row justify-between items-start sm:items-center mb-2 gap-2">
+          <h3 className="text-[20px] sm:text-[24px] font-[400] font-inter">
+            How would you like to tell us about yourself?
+          </h3>
+          <span className="text-sm sm:mt-0 mt-3 font-[500]">1/10</span>
         </div>
 
+        <p className="text-sm font-inter font-[400] mt-[10px] mb-20 md:mb-7">
+          We’d love to understand your education, experience, and skills. The
+          fastest way is to import your information—you can review and edit it
+          before your profile goes live.
+        </p>
+
         {/* Two-column Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-[15rem]">
+        <div className="grid grid-cols-1 md:grid-cols-2 [@media(min-width:1040px)]:gap-[15rem] gap-9">
           {/* Left Column: Options */}
           <div className="flex flex-col justify-center mt-[-50px] ">
             <button className="  rounded-[5px] flex items-center justify-center gap-3 bg-white text-black py-[8px]  mb-5 shadow-md">
-              <FaLinkedin className="text-blue-600" /> Import from LinkedIn
+              <SlSocialLinkedin className=" text-black font-500" /> Import from
+              LinkedIn
             </button>
             <button className="flex items-center justify-center gap-3 bg-white text-black py-[8px] rounded-[5px] mb-5 shadow-md hover:bg-gray-200">
               <FaUpload className="text-gray-600" /> Upload your Resume
@@ -59,7 +61,7 @@ export default function AboutYourself() {
           </div>
 
           {/* Right Column: Testimonial */}
-          <div className="flex justify-start items-center ">
+          <div className="flex justify-start items-center [@media(min-width:771px)]:block hidden  ">
             <div
               className={`shadow-[0px_4px_30px_0px_rgba(0,0,0,0.2)] 
               backdrop-blur-[10px] 

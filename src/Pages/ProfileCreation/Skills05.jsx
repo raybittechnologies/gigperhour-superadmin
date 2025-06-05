@@ -4,9 +4,9 @@ import NavBarr from "../../components/NavBarr";
 import { getUserProfile, updateProfile } from "../../utils/api";
 import BottomNav from "../../components/BottomNav";
 import Star from "../../components/star";
-
+import { useDarkMode } from "../../context/DarkMode.jsx";
 export default function Skill() {
-  const [darkMode, setDarkMode] = useState(false);
+  const { darkMode } = useDarkMode();
   const navigate = useNavigate();
   const [skills, setSkills] = useState([]);
   const [progress] = useState(30);
@@ -23,6 +23,8 @@ export default function Skill() {
     setSkills((prev) => [...prev, { id: skill.id, title: skill.title }]);
     setSuggestedSkills(suggestedSkills.filter((skill) => skill.id !== this.id));
   };
+  console.log("suggestedSkills", suggestedSkills);
+  console.log("skills", skills);
   useEffect(() => {
     getUserProfile(["services", "skills"]).then(
       ({ data }) => {
@@ -65,31 +67,29 @@ export default function Skill() {
         darkMode ? "bg-black text-white" : "text-black"
       }`}
     >
-      <NavBarr changeMode={setDarkMode} />
+      <NavBarr />
       {/* Background Star Component */}
       <div className="absolute inset-0 flex justify-center items-center z-[0]  pointer-events-none">
         <Star />
       </div>
 
-      <div className="container max-w-screen-xl mx-auto px-[120px] pt-3 pb-3 relative z-[20]">
-        <div className="w-full mb-5 flex justify-between items-start">
-          <div className="max-w-2xl flex-grow">
-            <h3 className="text-[24px] font-[400] font-inter">
-              Almost there! What kind of work are you here to do?
-            </h3>
-            <p className="text-sm font-inter font-[400] mt-[10px]">
-              Your skills showcase what you can offer to clients and help us
-              recommend the best jobs for you.
-            </p>
-          </div>
-          <span className="text-[18px] font-inter font-[500] ml-auto">
-            3/10
-          </span>
+      <div className="md:px-[60px] px-[30px] pt-3 pb-3 relative z-[20] ">
+        <div className="flex flex-row justify-between items-start sm:items-center mb-2 gap-2">
+          <h3 className="text-[20px] sm:text-[24px] font-[400] font-inter">
+            Almost there! What kind of work are you here to do?
+          </h3>
+          <span className="text-sm sm:mt-0 mt-3 font-[500]">3/10</span>
         </div>
 
-        <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
+        <p className="md:text-sm text-xs font-inter font-[400] mt-[10px] md:w-[50vw] ">
+          Your skills showcase what you can offer to clients and help us
+          recommend the best jobs for you. Feel free to add or remove the
+          suggested ones, or start typing to select more.
+        </p>
+
+        <div className="flex flex-col md:flex-row items-start gap-6 mt-6">
           <div className="w-full md:w-1/2">
-            <h4 className="font-inter text-[18px] font-[500] mb-2">
+            <h4 className="font-inter text-[16px] sm:text-[18px] font-[500] mb-2">
               Your Skills
             </h4>
             <div className="flex flex-wrap gap-2">
@@ -117,7 +117,7 @@ export default function Skill() {
                       id: Date.now(),
                       title: e.target.value.trim(),
                     };
-                    addSkill.bind(skill)(); // ✅ Binding skill object to addSkill
+                    addSkill.bind(skill)();
                     e.target.value = "";
                   }
                 }}
@@ -141,16 +141,15 @@ export default function Skill() {
             </div>
           </div>
 
-          <div className="w-full md:w-1/2 flex justify-center">
+          <div className="w-full md:w-1/2 md:flex justify-center hidden ">
             <div
-              className={`shadow-[0px_4px_30px_0px_rgba(0,0,0,0.2)] 
-              backdrop-blur-[10px] 
-              ${
-                darkMode
-                  ? "bg-[linear-gradient(180deg,rgba(255,255,255,0.1)_0%,rgba(255,255,255,0.3)_100%)]"
-                  : "bg-[linear-gradient(180deg,rgba(0,0,0,0.1)_0%,rgba(0,0,0,0.3)_100%)]"
-              } 
-              rounded-[8px] p-4 text-center w-[335px]`}
+              className={`shadow-[0px_4px_30px_0px_rgba(0,0,0,0.2)] backdrop-blur-[10px] 
+          ${
+            darkMode
+              ? "bg-[linear-gradient(180deg,rgba(255,255,255,0.1)_0%,rgba(255,255,255,0.3)_100%)]"
+              : "bg-[linear-gradient(180deg,rgba(0,0,0,0.1)_0%,rgba(0,0,0,0.3)_100%)]"
+          } 
+          rounded-[8px] p-4 text-center w-full max-w-[335px]`}
             >
               <img
                 src="https://randomuser.me/api/portraits/men/1.jpg"
@@ -177,6 +176,7 @@ export default function Skill() {
             ></div>
           </div>
         </div>
+
         <BottomNav
           onNext={handleSubmit}
           onBack={() => navigate("/categories")}

@@ -1,13 +1,24 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import NavBarUser from "../../components/UserDashBoard/Navbar";
 import SideBar from "../../components/ClientScreen/ClientSideBar";
+import MobileSidebar from "../../components/ClientScreen/mobileSidebar";
 import { FaUser } from "react-icons/fa6";
 import TalentCard from "../../components/ClientScreen/TalentCard";
-
+const ShimmerTalent = (
+  <div className="flex-shrink-0 w-[28%] min-w-[260px] max-w-[300px] snap-start animate-pulse border border-gray-300 p-4 rounded-lg h-[300px]">
+    <div className="w-16 h-16 bg-gray-300 rounded-full mb-4" />
+    <div className="h-4 bg-gray-300 rounded w-3/4 mb-2" />
+    <div className="h-3 bg-gray-300 rounded w-2/4 mb-4" />
+    <div className="h-3 bg-gray-300 rounded w-full mb-1" />
+    <div className="h-3 bg-gray-300 rounded w-5/6 mb-1" />
+    <div className="h-3 bg-gray-300 rounded w-2/3" />
+  </div>
+);
 export default function SavedTalent() {
   const [darkMode, setDarkMode] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-
+  const [isLoading, setIsLoading] = useState(true);
+  // const exampleTalents = [];
   const exampleTalents = [
     {
       name: "Basit Bashir",
@@ -114,7 +125,7 @@ export default function SavedTalent() {
       location: "India",
       image: "https://i.pravatar.cc/100?img=6",
       message:
-        "I am flexible, hardworking, punctual, and efficient at meeting deadlines. I am also reliable, and I can help you grow your business by finding authentic leads and conducting web research. by finding authentic leads and conducting web research. ",
+        "I am flexible, hardworking, punctual, and efficient at meeting deadlines. I am also reliable, and I can help you grow your business by finding authentic leads and conducting web research.. ",
       successRate: "100%",
       jobs: 22,
       rate: "$22/hr",
@@ -142,6 +153,11 @@ export default function SavedTalent() {
     startIndex + cardsPerPage
   );
 
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div
       className={`min-h-screen flex flex-col ${
@@ -151,22 +167,28 @@ export default function SavedTalent() {
       <NavBarUser changeMode={setDarkMode} role="client" />
 
       <div className="flex h-[calc(100vh-64px)] hide-scrollbar">
-        <div className="w-[240px] fixed left-0 top-[64px] px-[20px] py-[20px] bottom-0 z-10">
-          <div className="h-full overflow-y-auto hide-scrollbar rounded-[8px]">
+        <div className="md:w-[240px] hidden md:fixed md:left-0 md:top-[64px] md:px-[20px] md:py-[20px] md:bottom-0 md:z-10 md:block">
+          <div className="h-full overflow-y-auto overflow-x-hidden hide-scrollbar rounded-[8px]">
             <SideBar />
           </div>
         </div>
+        {/* Mobile Sidebar - shown only below 768px */}
+        <div className="fixed top-[48px] pt-[20px]  bottom-0 z-10">
+          <div className="block  h-full overflow-y-auto overflow-x-hidden hide-scrollbar py-[20px] md:hidden">
+            <MobileSidebar />
+          </div>
+        </div>
 
-        <div className="ml-[240px] flex-1 overflow-y-auto p-6 hide-scrollbar">
+        <div className="md:ml-[240px] ml-[100px] flex-1 overflow-y-auto md:p-6 px-3 py-6 hide-scrollbar">
           <div
-            className={`p-6 border rounded-lg ${
+            className={`md:p-6 px-3 py-6  border rounded-lg ${
               darkMode ? "border-[#E9E9E9]" : "border-[#555555]"
             }`}
           >
             <h2 className="text-2xl mb-6">Your Saved Talents</h2>
 
             {/* Search and Share */}
-            <div className="flex items-center gap-10 mb-6">
+            <div className="flex items-center  md:gap-10 gap-3 mb-6">
               <div className="relative w-[40vw]">
                 <img
                   src={
@@ -191,22 +213,25 @@ export default function SavedTalent() {
             </div>
 
             {/* Tabs */}
-            <div className="flex justify-between gap-6 px-4 mb-8 text-sm ">
-              {[
-                "Your Hires",
-                "Company Hires",
-                "Recently Viewed",
-                "Saved Talents",
-                "Saved Projects",
-                "Job Success",
-              ].map((tab, i) => (
-                <button
-                  key={i}
-                  className="hover:underline hover:text-[#E66D3D]"
-                >
-                  {tab}
-                </button>
-              ))}
+
+            <div className="px-4 mb-8 text-sm overflow-x-auto hide-scrollbar">
+              <div className="flex md:justify-between justify-start whitespace-nowrap gap-6  ">
+                {[
+                  "Your Hires",
+                  "Company Hires",
+                  "Recently Viewed",
+                  "Saved Talents",
+                  "Saved Projects",
+                  "Job Success",
+                ].map((tab, i) => (
+                  <button
+                    key={i}
+                    className="hover:underline hover:text-[#E66D3D]"
+                  >
+                    {tab}
+                  </button>
+                ))}
+              </div>
             </div>
 
             {/* Conditional Content */}
@@ -220,7 +245,9 @@ export default function SavedTalent() {
                   ].map((text, idx) => (
                     <div
                       key={idx}
-                      className="bg-white text-center py-6 shadow rounded-[8px] h-[279px]"
+                      className={`${
+                        idx >= 2 ? "hidden md:block" : ""
+                      } bg-white text-center py-6 shadow rounded-[8px] h-[279px] flex flex-col items-center justify-center`}
                     >
                       <div className="flex justify-center mb-4">
                         <div className="bg-[#E66D3D] w-24 h-24 rounded-full flex items-center justify-center">
@@ -229,12 +256,13 @@ export default function SavedTalent() {
                           </span>
                         </div>
                       </div>
-                      <p className="text-gray-700 pt-4 pb-9 text-left pl-3">
+                      <p className="text-gray-700 pt-4  [@media(min-width:930px)]:pb-9 text-left pl-3">
                         {text}
                       </p>
                     </div>
                   ))}
                 </div>
+
                 <p className="text-center">
                   You have not saved any Talents yet!
                 </p>
@@ -242,9 +270,15 @@ export default function SavedTalent() {
             ) : (
               <>
                 <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 [@media(min-width:1437px)]:grid-cols-4">
-                  {currentTalents.map((talent, idx) => (
-                    <TalentCard key={idx} talent={talent} variant="saved" />
-                  ))}
+                  {isLoading
+                    ? Array(6)
+                        .fill(0)
+                        .map((_, i) => <div key={i}>{ShimmerTalent}</div>)
+                    : currentTalents.map((talent, index) => (
+                        <div key={index} className="">
+                          <TalentCard talent={talent} variant="saved" />
+                        </div>
+                      ))}
                 </div>
 
                 {/* Pagination */}

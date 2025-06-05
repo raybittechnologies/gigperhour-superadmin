@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import NavBarUser from "../../components/UserDashBoard/Navbar";
 import SideBar from "../../components/ClientScreen/ClientSideBar";
+import MobileSidebar from "../../components/ClientScreen/mobileSidebar";
 import { FaArrowRight } from "react-icons/fa6";
 export default function CustomExports() {
   const [darkMode, setDarkMode] = useState(false);
@@ -8,7 +9,18 @@ export default function CustomExports() {
   const [format, setFormat] = useState("xlsx");
   const [customStart, setCustomStart] = useState("");
   const [customEnd, setCustomEnd] = useState("");
+  const [isMobile, setIsMobile] = useState(false);
 
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
   const rangeOptions = [
     "Yesterday",
     "Previous Week",
@@ -29,15 +41,22 @@ export default function CustomExports() {
       <NavBarUser changeMode={setDarkMode} role="client" />
 
       <div className="flex h-[calc(100vh-64px)] hide-scrollbar">
-        <div className="w-[240px] fixed left-0 top-[64px] px-[20px] py-[20px] bottom-0 z-10">
+        <div className="md:w-[240px] hidden md:fixed md:left-0 md:top-[64px] md:px-[20px] md:py-[20px] md:bottom-0 md:z-10 md:block">
           <div className="h-full overflow-y-auto hide-scrollbar rounded-[8px]">
             <SideBar />
           </div>
         </div>
 
-        <div className="ml-[240px] flex-1 overflow-y-auto p-6 hide-scrollbar">
+        {/* Mobile Sidebar */}
+        <div className="fixed top-[48px] pt-[20px] bottom-0 z-10 block md:hidden">
+          <div className="h-full overflow-y-auto hide-scrollbar py-[20px]">
+            <MobileSidebar />
+          </div>
+        </div>
+
+        <div className="md:ml-[240px] ml-[100px] flex-1 overflow-y-auto md:p-6 px-3 py-6 hide-scrollbar">
           <div
-            className={`p-6 border rounded-lg ${
+            className={`md:p-6 px-3 py-6 border rounded-lg ${
               darkMode ? "border-[#E9E9E9]" : "border-[#555555]"
             }`}
           >
@@ -61,7 +80,7 @@ export default function CustomExports() {
                           onClick={() => setSelectedRange(value)}
                         >
                           <div
-                            className={`w-5 h-5 rounded-full flex items-center justify-center transition-colors duration-200 ${
+                            className={`w-5 h-5 rounded-full flex items-center justify-center transition-colors duration-200  flex-shrink-0 ${
                               selectedRange === value
                                 ? "border-2 border-[#E66D3D]"
                                 : "border border-[#E66D3D]"
@@ -80,38 +99,40 @@ export default function CustomExports() {
                 {/* Custom - always on new line */}
                 <div className="space-y-2 pt-2">
                   <div
-                    className="flex items-center gap-2 cursor-pointer"
+                    className="flex flex-col sm:flex-row sm:items-center gap-2 cursor-pointer"
                     onClick={() => setSelectedRange("custom")}
                   >
-                    <div
-                      className={`w-5 h-5 rounded-full flex items-center justify-center transition-colors duration-200 ${
-                        selectedRange === "custom"
-                          ? "border-2 border-[#E66D3D]"
-                          : "border border-[#E66D3D]"
-                      }`}
-                    >
-                      {selectedRange === "custom" && (
-                        <div className="w-2.5 h-2.5 bg-[#E66D3D] rounded-full" />
-                      )}
+                    {/* Radio + Label (always in same line) */}
+                    <div className="flex items-center gap-2">
+                      <div
+                        className={`w-5 h-5 rounded-full flex items-center justify-center transition-colors duration-200 flex-shrink-0 ${
+                          selectedRange === "custom"
+                            ? "border-2 border-[#E66D3D]"
+                            : "border border-[#E66D3D]"
+                        }`}
+                      >
+                        {selectedRange === "custom" && (
+                          <div className="w-2.5 h-2.5 bg-[#E66D3D] rounded-full" />
+                        )}
+                      </div>
+                      <span>Custom</span>
                     </div>
-                    <span>Custom</span>
-                    {/* Custom date fields - only if custom is selected */}
+
+                    {/* From → To range input (wraps below, but inline on same row) */}
                     {selectedRange === "custom" && (
-                      <div className="flex gap-3 items-center pl-6">
+                      <div className="flex items-center gap-2 sm:gap-3 mt-2 md:pl-7 flex-wrap  [@media(max-width:334px)]:w-[130px]">
                         <input
                           type="text"
-                          placeholder="DD/MM/YYYY"
-                          className="border-b border-[#E66D3D]  outline-none w-28 bg-transparent"
+                          placeholder={isMobile ? "DD/MM/YY" : "DD/MM/YYYY"}
+                          className="border-b border-[#E66D3D] outline-none bg-transparent w-20 sm:w-28 md:w-32 text-sm [@media(max-width:340px)]:w-[74px]"
                           value={customStart}
                           onChange={(e) => setCustomStart(e.target.value)}
                         />
-                        <span>
-                          <FaArrowRight className="text-[#E66D3D]" />
-                        </span>
+                        <FaArrowRight className="text-[#E66D3D] text-sm" />
                         <input
                           type="text"
-                          placeholder="DD/MM/YYYY"
-                          className="border-b border-[#E66D3D] outline-none w-28 bg-transparent"
+                          placeholder={isMobile ? "DD/MM/YY" : "DD/MM/YYYY"}
+                          className="border-b border-[#E66D3D] outline-none bg-transparent w-20 sm:w-28 md:w-32 text-sm [@media(max-width:340px)]:w-[74px]"
                           value={customEnd}
                           onChange={(e) => setCustomEnd(e.target.value)}
                         />
@@ -132,7 +153,7 @@ export default function CustomExports() {
                       onClick={() => setFormat(item.value)}
                     >
                       <div
-                        className={`w-5 h-5 rounded-full flex items-center justify-center transition-colors duration-200 ${
+                        className={`w-5 h-5 rounded-full flex items-center justify-center transition-colors duration-200 flex-shrink-0 ${
                           format === item.value
                             ? "border-2 border-[#E66D3D]"
                             : "border border-[#E66D3D]"
@@ -149,11 +170,11 @@ export default function CustomExports() {
               </div>
 
               {/* Buttons */}
-              <div className="flex gap-9 mt-4">
-                <button className="bg-[#E66D3D]  text-white px-7 py-2 rounded">
+              <div className="flex md:gap-9 gap-5 mt-4 flex-wrap">
+                <button className="bg-[#E66D3D] text-white px-7 py-2 rounded  [@media(max-width:479px)]:w-full sm:w-auto">
                   Export Data
                 </button>
-                <button className="border border-[#E66D3D]  px-9 py-2 rounded ">
+                <button className="border border-[#E66D3D] px-9 py-2 rounded [@media(max-width:479px)]:w-full sm:w-auto">
                   Discard
                 </button>
               </div>

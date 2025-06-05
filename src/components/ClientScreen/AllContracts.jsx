@@ -4,11 +4,25 @@ export const AllContracts = ({ contracts, darkMode }) => {
       {contracts.map((c, idx) => (
         <div
           key={idx}
-          className=" -mx-6 px-6   border-b-[#555555] space-y-2 border-b border-[#555555] py-4 flex justify-between items-start space-x-6"
+          className="md:-mx-6 -mx-3 md:px-6 px-3 border-b border-[#555555] py-4 space-y-2"
         >
           <div className="flex-1 space-y-2">
-            <h2 className="font-semibold underline text-lg">{c.title}</h2>
-            <div className="flex gap-40 items-center">
+            {/* Title and action buttons together */}
+            <div className="flex flex-wrap justify-between items-start gap-4">
+              <h2 className="font-semibold underline text-lg">{c.title}</h2>
+              <div className="flex items-center   gap-4 [@media(max-width:601px)]:justify-between [@media(max-width:601px)]:w-full">
+                <button className="border border-[#E66D3D] px-8 py-1 rounded">
+                  Rehire
+                </button>
+                <button className="w-8 h-8 border border-[#E66D3D] rounded-full text-[#E66D3D] flex items-center justify-center">
+                  •••
+                </button>
+              </div>
+            </div>
+
+            {/* Info and ratings */}
+            <div className="flex items-center sm:gap-6 lg:gap-40 flex-wrap [@media(max-width:777px)]:justify-between">
+              {/* Avatar and name/date/time */}
               <div className="flex items-center gap-3">
                 <img
                   src={c.avatar}
@@ -33,6 +47,8 @@ export const AllContracts = ({ contracts, darkMode }) => {
                   </p>
                 </div>
               </div>
+
+              {/* Rating and budget */}
               <div>
                 <div className="flex items-center gap-2 text-sm">
                   <div className="bg-[#555555] w-10 h-4 rounded-[2px] flex items-center justify-center text-[10px] text-white">
@@ -46,24 +62,25 @@ export const AllContracts = ({ contracts, darkMode }) => {
                   </div>
 
                   <p
-                    className={`${darkMode ? "text-white" : "text-black"} ml-1`}
+                    className={`ml-1 ${darkMode ? "text-white" : "text-black"}`}
                   >
                     {c.rating.toFixed(1)}
                   </p>
                 </div>
 
-                <p className="text-sm  underline">
+                <p className="text-sm underline">
                   {c.showBudget ? (
-                    <span className=" ">{c.budget}</span>
+                    <span>{c.budget}</span>
                   ) : (
                     <>
-                      Rate: <span className="">{c.rate}</span> ,{"    "}
-                      {c.weeklyLimit}
+                      Rate: <span>{c.rate}</span>, {c.weeklyLimit}
                     </>
                   )}
                 </p>
               </div>
             </div>
+
+            {/* Date range */}
             <p
               className={`text-sm ${
                 darkMode ? "text-white" : "text-[#555555]"
@@ -71,15 +88,6 @@ export const AllContracts = ({ contracts, darkMode }) => {
             >
               {c.dateRange}
             </p>
-          </div>
-
-          <div className="flex items-end gap-6">
-            <button className="border border-[#E66D3D] px-8 py-1 rounded">
-              Rehire
-            </button>
-            <button className="w-8 h-8 border border-[#E66D3D] rounded-full text-[#E66D3D] flex items-center justify-center">
-              •••
-            </button>
           </div>
         </div>
       ))}
